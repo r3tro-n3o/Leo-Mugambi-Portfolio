@@ -632,7 +632,7 @@
     width: 1px;
     background: linear-gradient(180deg, transparent, var(--border), var(--green), var(--border), transparent);
   }
-  @media (max-width: 600px) { .timeline-line { left: 20px; } }
+  
   .timeline-item {
     display: grid;
     grid-template-columns: 110px auto;
@@ -644,7 +644,7 @@
     transition: all 0.6s ease;
   }
   .timeline-item.visible { opacity: 1; transform: translateX(0); }
-  @media (max-width: 600px) { .timeline-item { grid-template-columns: 20px auto; gap: 1rem; } }
+  
   .timeline-year {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem;
@@ -1366,6 +1366,246 @@
   .cap-red .cap-thinking { border-left-color: var(--red); background: rgba(255,45,85,0.02); }
   .cap-purple .cap-thinking { border-left-color: #a855f7; background: rgba(168,85,247,0.02); }
 
+
+  /* ── MOBILE FIXES ──────────────────────────────────── */
+
+  /* Viewport meta enforcement */
+  #hero-grid {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 768px) {
+    /* Base */
+    body { overflow-x: hidden; }
+
+    /* Hero - full fix */
+    #hero {
+      padding: 5rem 1.2rem 3rem !important;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    #hero-grid {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 2rem !important;
+      text-align: left !important;
+      width: 100% !important;
+    }
+    #hero-grid > div {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box;
+    }
+    .hero-name {
+      font-size: clamp(2.5rem, 11vw, 4rem) !important;
+      line-height: 0.9 !important;
+      word-break: break-word;
+    }
+    .hero-alias { font-size: 0.82rem !important; }
+    .hero-sub {
+      font-size: 0.85rem !important;
+      max-width: 100% !important;
+    }
+    .role-rotator {
+      font-size: 0.68rem !important;
+      gap: 0.3rem;
+    }
+    .role-text-wrapper {
+      min-width: 140px !important;
+      max-width: 200px;
+    }
+    .terminal {
+      font-size: 0.68rem !important;
+      max-width: 100% !important;
+      overflow-x: auto;
+    }
+
+    /* Glow orbs - hide on mobile to prevent overflow */
+    .glow-orb { display: none !important; }
+
+    /* Nav */
+    .nav-desktop { display: none !important; }
+    .hamburger-btn { display: block !important; }
+
+    /* Live Ops */
+    #ops { padding: 4rem 1.2rem; }
+    .ops-panel { padding: 1rem; }
+    .ops-line {
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      font-size: 0.68rem;
+      line-height: 1.6;
+    }
+    .ops-key {
+      min-width: 80px !important;
+      font-size: 0.62rem;
+    }
+    .ops-val { font-size: 0.68rem; }
+
+    /* About */
+    #about { padding: 4rem 1.2rem; }
+    .about-grid {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 2rem !important;
+    }
+    .stat-cards { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    .stat-num { font-size: 1.8rem; }
+    .skill-tags { gap: 0.35rem; }
+
+    /* Sections */
+    #skills, #blog, #contact { padding: 4rem 1.2rem; }
+    .section-title { font-size: clamp(1.6rem, 7vw, 2.5rem); }
+
+    /* Cap modules */
+    .cap-grid { grid-template-columns: 1fr !important; }
+
+    /* Timeline - FIXED */
+    #timeline { padding: 4rem 1.2rem; }
+    .timeline-container { margin: 2rem 0 0; }
+    .timeline-line { left: 10px !important; }
+    .timeline-item {
+      display: flex !important;
+      flex-direction: row !important;
+      grid-template-columns: unset !important;
+      gap: 0.8rem !important;
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+    }
+    .timeline-year { display: none !important; }
+    .timeline-content {
+      flex: 1 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+      padding: 1rem !important;
+      word-break: break-word;
+      box-sizing: border-box;
+    }
+    .timeline-content::before {
+      left: -26px !important;
+      top: 12px !important;
+      width: 9px !important;
+      height: 9px !important;
+    }
+    .timeline-event {
+      font-size: 0.88rem !important;
+      line-height: 1.3;
+      word-break: break-word;
+    }
+    .timeline-detail {
+      font-size: 0.7rem !important;
+      line-height: 1.6;
+      word-break: break-word;
+    }
+    .cert-badges { flex-direction: column; gap: 0.5rem; }
+    .cert-badge { min-width: unset !important; }
+
+    /* Blog */
+    .blog-grid { grid-template-columns: 1fr !important; }
+
+    /* Contact */
+    .contact-inner { padding: 0; }
+    .form-row { grid-template-columns: 1fr !important; }
+    .social-links {
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .social-link {
+      font-size: 0.6rem !important;
+      padding: 0.45rem 0.7rem !important;
+    }
+
+    /* Projects */
+    .panel-cards { grid-template-columns: 1fr !important; }
+    .panel-inner { padding: 4rem 1.2rem 2rem !important; }
+    .panel-title { font-size: clamp(1.5rem, 6vw, 2rem) !important; }
+  }
+
+  @media (max-width: 400px) {
+    .hero-name { font-size: clamp(2.2rem, 10vw, 3rem) !important; }
+    .stat-cards { grid-template-columns: 1fr 1fr; }
+  }
+
+
+  /* Hero — stack on mobile */
+  @media (max-width: 768px) {
+    #hero { padding: 5rem 1.2rem 3rem; min-height: 100vh; }
+    #hero > div {
+      grid-template-columns: 1fr !important;
+      gap: 2rem !important;
+      text-align: left !important;
+    }
+    .hero-name { font-size: clamp(2.8rem, 12vw, 5rem); }
+    .hero-alias { font-size: 0.85rem; }
+    .hero-sub { font-size: 0.88rem; max-width: 100%; }
+    .role-rotator {
+      font-size: 0.72rem;
+      flex-wrap: wrap;
+    }
+    .role-text-wrapper { min-width: 160px; }
+    .terminal { font-size: 0.7rem; }
+
+    /* About — stack on mobile */
+    .about-grid {
+      grid-template-columns: 1fr !important;
+      gap: 2rem !important;
+    }
+    .stat-cards { grid-template-columns: 1fr 1fr; }
+    .stat-num { font-size: 1.8rem; }
+
+    /* Nav */
+    .nav-desktop { display: none !important; }
+    .hamburger-btn { display: block !important; }
+
+    /* Ops panel */
+    .ops-line {
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      font-size: 0.7rem;
+    }
+    .ops-key { min-width: 70px; font-size: 0.65rem; }
+
+    /* Sections padding */
+    #about, #ops, #skills, #timeline, #blog, #contact {
+      padding: 4rem 1.2rem;
+    }
+    .section-title { font-size: clamp(1.6rem, 7vw, 2.5rem); }
+
+    /* Skills/cap grid */
+    .cap-grid { grid-template-columns: 1fr; }
+
+    /* Timeline */
+    .timeline-container { padding: 0; }
+    .timeline-line { left: 8px; }
+    .timeline-item { grid-template-columns: 8px auto; gap: 0.8rem; }
+    .timeline-year { display: none; }
+    .timeline-content { padding: 1rem; }
+    .timeline-content::before { left: -18px; width: 9px; height: 9px; }
+
+    /* Blog grid */
+    .blog-grid { grid-template-columns: 1fr; }
+
+    /* Contact form */
+    .form-row { grid-template-columns: 1fr; }
+    .social-links { gap: 0.5rem; }
+    .social-link { font-size: 0.62rem; padding: 0.5rem 0.8rem; }
+
+    /* Dividers */
+    .divider { margin: 0 1.2rem; }
+
+    /* Cert badges */
+    .cert-badges { flex-direction: column; }
+    .cert-badge { min-width: unset; }
+  }
+
+  /* Extra small screens */
+  @media (max-width: 400px) {
+    .hero-name { font-size: clamp(2.4rem, 10vw, 3.5rem); }
+    .stat-cards { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    .ops-panel { padding: 1rem; }
+  }
+
 </style>
 </head>
 <body>
@@ -1417,7 +1657,7 @@
   <div class="glow-orb" style="width:400px;height:400px;background:rgba(0,255,136,0.04);top:10%;left:-10%;"></div>
   <div class="glow-orb" style="width:500px;height:500px;background:rgba(0,212,255,0.03);bottom:0;right:-15%;"></div>
 
-  <div style="max-width:1100px;width:100%;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
+  <div id="hero-grid" style="max-width:1100px;width:100%;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
     <div>
       <div class="hero-tag">// Offensive Security in Progress</div>
       <h1 class="hero-name">
