@@ -9,6 +9,7 @@
 <meta property="og:type" content="website">
 <title>Leo Mugambi | r3tro_n3o — Offensive Security</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -183,15 +184,24 @@
   .hero-tag {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--green);
-    border: 1px solid var(--border);
-    background: rgba(0,255,136,0.05);
-    padding: 0.4rem 1rem;
-    border-radius: 2px;
-    display: inline-block;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     margin-bottom: 1.5rem;
+  }
+  .hero-tag-dot {
+    width: 6px; height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse-dot 2s ease-in-out infinite;
+    box-shadow: 0 0 6px var(--green);
+    flex-shrink: 0;
   }
 
   .hero-name {
@@ -335,7 +345,7 @@
     padding: 2rem;
     backdrop-filter: blur(20px);
     box-shadow: var(--glow-green), inset 0 0 40px rgba(0,255,136,0.02);
-    max-width: 900px;
+    max-width: 100%;
     margin: 2rem auto 0;
   }
   .ops-header {
@@ -389,9 +399,9 @@
   .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    max-width: 1100px;
-    margin: 3rem auto 0;
+    gap: 2.5rem;
+    max-width: 1400px;
+    margin: 1.5rem auto 0;
     align-items: start;
   }
   @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 2rem; } }
@@ -403,6 +413,9 @@
   .skill-tag {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.65rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
     padding: 0.3rem 0.7rem;
     border: 1px solid var(--border);
     border-radius: 2px;
@@ -477,8 +490,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 1.5rem;
-    max-width: 1100px;
-    margin: 3rem auto 0;
+    max-width: 1400px;
+    margin: 1.5rem auto 0;
   }
   .project-card {
     background: rgba(10,10,18,0.8);
@@ -572,7 +585,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    max-width: 1100px;
+    max-width: 1400px;
     margin: 3rem auto 0;
   }
   .skill-category {
@@ -788,7 +801,7 @@
     border-color: rgba(255,180,0,0.4);
     box-shadow: 0 4px 15px rgba(255,180,0,0.1);
   }
-  .cert-icon { font-size: 1.1rem; flex-shrink: 0; }
+  .cert-icon { font-size: 1rem; flex-shrink: 0; display: flex; align-items: center; }
   .cert-info { display: flex; flex-direction: column; flex: 1; }
   .cert-name {
     font-family: 'JetBrains Mono', monospace;
@@ -818,8 +831,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
-    max-width: 1100px;
-    margin: 3rem auto 0;
+    max-width: 1400px;
+    margin: 1.5rem auto 0;
   }
   .blog-card {
     background: rgba(10,10,18,0.8);
@@ -964,7 +977,7 @@
   .divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--border), transparent);
-    max-width: 1100px;
+    max-width: 1400px;
     margin: 0 auto;
   }
 
@@ -1021,25 +1034,65 @@
                 filter 0.5s ease;
     transform-origin: top center;
   }
+  /* When a proof is open: release overflow so case study is fully readable */
+  .project-panel.proof-open {
+    overflow: visible;
+    height: auto;
+    min-height: 100vh;
+    justify-content: flex-start;
+    padding-top: 2rem;
+  }
   .project-panel.pp-inactive {
     transform: scale(0.95);
     opacity: 0.55;
     filter: blur(1px);
   }
+  /* Panel header — NOT sticky, just normal flow */
+  .panel-header {
+    margin-bottom: 1rem;
+  }
   .panel-inner {
-    max-width: 1100px;
+    max-width: 1400px;
     width: 100%;
     margin: 0 auto;
-    padding: 5rem 2rem 2rem;
+    padding: 2.5rem 2rem 2rem;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
-  .panel-header { margin-bottom: 1.8rem; }
+  /* proof-open panel-inner: top-aligned not centered */
+  .project-panel.proof-open .panel-inner {
+    justify-content: flex-start;
+    height: auto;
+  }
+  /* Panel phase label — cyan, clearly a category */
+  .panel-phase-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 0.3rem;
+  }
+  .panel-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  .panel-desc {
+    font-size: 0.85rem;
+    color: #6677aa;
+    margin-top: 0.3rem;
+    max-width: 700px;
+  }
+  /* FIXED 2-column grid — consistent across all screen sizes */
   .panel-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.2rem;
     flex: 1;
     align-content: center;
@@ -1225,8 +1278,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 1rem;
-    max-width: 1100px;
-    margin: 2.5rem auto 0;
+    max-width: 1400px;
+    margin: 1.5rem auto 0;
   }
   .cap-module {
     background: rgba(10,10,18,0.9);
@@ -1518,6 +1571,7 @@
 
     /* Projects */
     .panel-cards { grid-template-columns: 1fr !important; }
+    .panel-cards { grid-template-columns: 1fr !important; }
     .panel-inner { padding: 4rem 1.2rem 2rem !important; }
     .panel-title { font-size: clamp(1.5rem, 6vw, 2rem) !important; }
   }
@@ -1614,6 +1668,65 @@
     a, button, [onclick] { cursor: pointer !important; }
   }
 
+
+  /* ── CASE STUDY MODAL ──────────────────────────────── */
+  .cs-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    background: rgba(5,5,10,0.92);
+    backdrop-filter: blur(12px);
+    overflow-y: auto;
+    padding: 2rem 1rem;
+  }
+  .cs-modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+  .cs-modal-box {
+    background: #0a0a12;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    width: 100%;
+    max-width: 760px;
+    position: relative;
+    box-shadow: 0 0 60px rgba(0,255,136,0.08);
+    margin: auto;
+  }
+  /* Close button sits in its own bar above the card content */
+  .cs-modal-close {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.7rem 1rem 0;
+  }
+  .cs-modal-close button {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #8899aa;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .cs-modal-close button:hover { color: var(--green); border-color: var(--green); }
+  .cs-modal-card-top {
+    padding: 0.8rem 1.5rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .cs-modal-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0.5rem 0 0.4rem;
+  }
+  .cs-modal-desc {
+    font-size: 0.85rem;
+    color: #6677aa;
+    line-height: 1.7;
+    margin-bottom: 0.8rem;
+  }
+  .cs-modal-proof { padding: 0; }
 </style>
 </head>
 <body>
@@ -1639,7 +1752,7 @@
 
 <!-- NAV -->
 <nav id="navbar">
-  <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;">
+  <div style="max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;">
     <a href="#" class="nav-logo">r3tro_n3o<span class="cursor-blink">_</span></a>
     <div class="nav-links nav-desktop">
       <a href="#about">About</a>
@@ -1665,9 +1778,9 @@
   <div class="glow-orb" style="width:400px;height:400px;background:rgba(0,255,136,0.04);top:10%;left:-10%;"></div>
   <div class="glow-orb" style="width:500px;height:500px;background:rgba(0,212,255,0.03);bottom:0;right:-15%;"></div>
 
-  <div id="hero-grid" style="max-width:1100px;width:100%;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
+  <div id="hero-grid" style="max-width:1400px;width:100%;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
     <div>
-      <div class="hero-tag">// Offensive Security in Progress</div>
+      <div class="hero-tag"><span class="hero-tag-dot"></span>// Offensive Security in Progress</div>
       <h1 class="hero-name">
         Leo<br>Mugambi
         <span class="hero-alias">aka r3tro_n3o</span>
@@ -1718,7 +1831,7 @@
 
 <!-- LIVE OPS -->
 <section id="ops">
-  <div style="max-width:1100px;margin:0 auto;text-align:center;">
+  <div style="max-width:1400px;margin:0 auto;text-align:center;">
     <div class="section-label reveal">// Live Ops Status</div>
     <h2 class="section-title reveal">Current Loadout</h2>
     <div class="ops-panel reveal">
@@ -1744,7 +1857,7 @@
 
 <!-- ABOUT -->
 <section id="about">
-  <div style="max-width:1100px;margin:0 auto;">
+  <div style="max-width:1400px;margin:0 auto;">
     <div class="section-label reveal">// whoami</div>
     <h2 class="section-title reveal">The Story So Far</h2>
     <div class="about-grid">
@@ -1754,7 +1867,7 @@
           <p>I'm Leo, (r3tro_n3o). I got into this because people around me were getting scammed, SIM-swapped, defrauded, and I wanted to understand the mechanics behind the attacks, not just be another victim. Watching a friend get SIM-swapped and not being able to do anything about it hit different. Curiosity turned into obsession pretty fast after that.</p>
           <p>I started self-directed: Cybrary, OverTheWire, TryHackMe, HackTheBox; no roadmap, just stubbornness. Then I went through <strong>AfricaHackon's full curriculum</strong>: Linux fundamentals, recon and OSINT, networking, Windows and Active Directory, wireless pentesting, Python and Bash scripting, web and API security (OWASP Top 10), mobile security, cloud security (AWS, IAM, VPC), malware creation and analysis, polymorphic crypters, process hollowing, C2 via steganography, EDR evasion, anti-analysis techniques, kernel rootkits, GRC, incident response, threat hunting, and blue team essentials. The whole stack, hands-on.</p>
           <p>I'm especially drawn to <strong>offensive security</strong> because it forces a different kind of thinking. You have to get inside the attacker's logic, understand their assumptions, then exploit them. That mindset is what I'm building. I also have a genuine passion for <strong>cloud security and automations</strong>; connecting tools, building pipelines, making security work smarter.</p>
-          <p>Long term, I'm building towards <strong>Secure Core</strong>; a company built around reducing cybercrime from the ground up. But first, I want to be sharp enough that when I say I do security, it actually means something. Currently in sprint mode. One project a day. Eyes on CPTS.</p>
+          <p>Long term, I'm building towards <strong>NOX</strong>; a company built around reducing cybercrime from the ground up. But first, I want to be sharp enough that when I say I do security, it actually means something. Currently in sprint mode. One project a day. Eyes on CPTS.</p>
         </div>
 
         <div style="margin-top:2rem;">
@@ -1763,52 +1876,52 @@
           <div style="margin-bottom:0.6rem;">
             <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;letter-spacing:0.12em;color:#445566;text-transform:uppercase;margin-bottom:0.4rem;">Languages &amp; Scripting</div>
             <div class="skill-tags">
-              <span class="skill-tag tag-code">🐍 Python</span>
-              <span class="skill-tag tag-code">🐚 Bash</span>
-              <span class="skill-tag tag-code">⚡ PowerShell</span>
-              <span class="skill-tag tag-code">🌐 HTML / CSS</span>
-              <span class="skill-tag tag-code">🟨 JavaScript</span>
+              <span class="skill-tag tag-code"><i class="ti ti-brand-python" aria-hidden="true"></i> Python</span>
+              <span class="skill-tag tag-code"><i class="ti ti-terminal-2" aria-hidden="true"></i> Bash</span>
+              <span class="skill-tag tag-code"><i class="ti ti-terminal" aria-hidden="true"></i> PowerShell</span>
+              <span class="skill-tag tag-code"><i class="ti ti-code" aria-hidden="true"></i> HTML / CSS</span>
+              <span class="skill-tag tag-code"><i class="ti ti-brand-javascript" aria-hidden="true"></i> JavaScript</span>
             </div>
           </div>
 
           <div style="margin-bottom:0.6rem;">
             <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;letter-spacing:0.12em;color:#445566;text-transform:uppercase;margin-bottom:0.4rem;">Offensive Tools</div>
             <div class="skill-tags">
-              <span class="skill-tag tag-offense">⚡ Nmap</span>
-              <span class="skill-tag tag-offense">🎯 Metasploit</span>
-              <span class="skill-tag tag-offense">🔥 Burp Suite</span>
-              <span class="skill-tag tag-offense">🦈 Wireshark</span>
-              <span class="skill-tag tag-offense">💣 Msfvenom</span>
-              <span class="skill-tag tag-offense">🔍 Gobuster</span>
-              <span class="skill-tag tag-offense">🕷 Nikto</span>
-              <span class="skill-tag tag-offense">🗝 John the Ripper</span>
-              <span class="skill-tag tag-offense">📡 Scapy</span>
+              <span class="skill-tag tag-offense"><i class="ti ti-radar" aria-hidden="true"></i> Nmap</span>
+              <span class="skill-tag tag-offense"><i class="ti ti-crosshair" aria-hidden="true"></i> Metasploit</span>
+              <span class="skill-tag tag-offense"><i class="ti ti-bug" aria-hidden="true"></i> Burp Suite</span>
+              <span class="skill-tag tag-offense"><i class="ti ti-wave-sine" aria-hidden="true"></i> Wireshark</span>
+              <span class="skill-tag tag-offense"><i class="ti ti-bomb" aria-hidden="true"></i> Msfvenom</span>
+              <span class="skill-tag tag-offense"><i class="ti ti-search" aria-hidden="true"></i> Gobuster</span>
+              <span class="skill-tag tag-offense"><i class="ti ti-bug-off" aria-hidden="true"></i> Nikto</span>
+              <span class="skill-tag tag-offense"><i class="ti ti-lock-open" aria-hidden="true"></i> John the Ripper</span>
+              <span class="skill-tag tag-offense"><i class="ti ti-antenna" aria-hidden="true"></i> Scapy</span>
             </div>
           </div>
 
           <div style="margin-bottom:0.6rem;">
             <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;letter-spacing:0.12em;color:#445566;text-transform:uppercase;margin-bottom:0.4rem;">Defensive &amp; Analysis</div>
             <div class="skill-tags">
-              <span class="skill-tag tag-defense">🛡 Velociraptor</span>
-              <span class="skill-tag tag-defense">👁 Sysmon</span>
-              <span class="skill-tag tag-defense">🔬 Volatility</span>
-              <span class="skill-tag tag-defense">🧪 CyberChef</span>
-              <span class="skill-tag tag-defense">🔎 DFIR</span>
-              <span class="skill-tag tag-defense">🚨 EDR Evasion</span>
+              <span class="skill-tag tag-defense"><i class="ti ti-shield-check" aria-hidden="true"></i> Velociraptor</span>
+              <span class="skill-tag tag-defense"><i class="ti ti-eye" aria-hidden="true"></i> Sysmon</span>
+              <span class="skill-tag tag-defense"><i class="ti ti-microscope" aria-hidden="true"></i> Volatility</span>
+              <span class="skill-tag tag-defense"><i class="ti ti-flask" aria-hidden="true"></i> CyberChef</span>
+              <span class="skill-tag tag-defense"><i class="ti ti-zoom-scan" aria-hidden="true"></i> DFIR</span>
+              <span class="skill-tag tag-defense"><i class="ti ti-alert-triangle" aria-hidden="true"></i> EDR Evasion</span>
             </div>
           </div>
 
           <div>
             <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;letter-spacing:0.12em;color:#445566;text-transform:uppercase;margin-bottom:0.4rem;">Cloud &amp; Automation</div>
             <div class="skill-tags">
-              <span class="skill-tag tag-cloud">☁ AWS</span>
-              <span class="skill-tag tag-cloud">🔷 Azure</span>
-              <span class="skill-tag tag-cloud">🌐 GCP</span>
-              <span class="skill-tag tag-cloud">🔐 IAM</span>
-              <span class="skill-tag tag-cloud">🌐 VPC</span>
-              <span class="skill-tag tag-cloud">⚙ n8n</span>
-              <span class="skill-tag tag-cloud">🖥 Active Directory</span>
-              <span class="skill-tag tag-cloud">🐧 Linux</span>
+              <span class="skill-tag tag-cloud"><i class="ti ti-cloud" aria-hidden="true"></i> AWS</span>
+              <span class="skill-tag tag-cloud"><i class="ti ti-cloud-computing" aria-hidden="true"></i> Azure</span>
+              <span class="skill-tag tag-cloud"><i class="ti ti-world" aria-hidden="true"></i> GCP</span>
+              <span class="skill-tag tag-cloud"><i class="ti ti-key" aria-hidden="true"></i> IAM</span>
+              <span class="skill-tag tag-cloud"><i class="ti ti-network" aria-hidden="true"></i> VPC</span>
+              <span class="skill-tag tag-cloud"><i class="ti ti-settings-automation" aria-hidden="true"></i> n8n</span>
+              <span class="skill-tag tag-cloud"><i class="ti ti-server" aria-hidden="true"></i> Active Directory</span>
+              <span class="skill-tag tag-cloud"><i class="ti ti-brand-debian" aria-hidden="true"></i> Linux</span>
             </div>
           </div>
         </div>
@@ -1821,7 +1934,7 @@
             <div class="stat-label">Certifications</div>
           </div>
           <div class="stat-card">
-            <div class="stat-num" data-target="7" data-suffix="+">0</div>
+            <div class="stat-num" data-target="12" data-suffix="+">0</div>
             <div class="stat-label">Projects</div>
           </div>
           <div class="stat-card">
@@ -1836,7 +1949,7 @@
         <div class="terminal" style="margin-top:1.5rem;font-size:0.72rem;">
           <div class="terminal-line"><span class="prompt">$ </span><span class="cmd">cat /etc/r3tro/mission.txt</span></div>
           <div class="terminal-line" style="color:#445566;">——————————————————————</div>
-          <div class="terminal-line"><span style="color:var(--cyan);">objective:</span> <span style="color:#8899aa;">build Secure Core. reduce cybercrime.</span></div>
+          <div class="terminal-line"><span style="color:var(--cyan);">objective:</span> <span style="color:#8899aa;">build NOX. reduce cybercrime.</span></div>
           <div class="terminal-line"><span style="color:var(--cyan);">method:</span> <span style="color:#8899aa;">learn their moves first</span></div>
           <div class="terminal-line"><span style="color:var(--cyan);">origin:</span> <span style="color:#8899aa;">Africa</span></div>
           <div class="terminal-line"><span style="color:var(--cyan);">next_role:</span> <span style="color:#8899aa;">cloud security engineer</span></div>
@@ -1852,294 +1965,350 @@
 <!-- PROJECTS -->
 <div id="projects-wrapper">
 
-  <!-- PANEL 1: RECON & INTEL — z-index 10 -->
+  <!-- PANEL 1: OFFENSIVE TOOLS -->
   <div class="project-panel" style="z-index:10;background:var(--dark);">
     <div class="panel-inner">
       <div class="panel-header">
-        <div class="panel-phase-label reveal">Phase 01 &mdash; Recon &amp; Intelligence</div>
-        <h2 class="panel-title reveal">Mapping the Attack Surface</h2>
-        <p class="panel-desc reveal">Passive enumeration, active probing, traffic analysis. Understanding the target before anything else.</p>
+        <div class="panel-phase-label reveal">Offensive Tools</div>
+        <h2 class="panel-title reveal">Attack. Probe. Break.</h2>
+        <p class="panel-desc reveal">Recon automation, network analysis, wireless auditing, exploitation tooling. Built to think like an attacker.</p>
       </div>
       <div class="panel-cards">
 
         <div class="cs-card reveal">
           <div class="cs-card-header">
-            <div class="cs-meta">
-              <span class="ops-badge badge-active">Complete</span>
-              <span class="cs-lang">Python &middot; CLI</span>
-            </div>
+            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; CLI</span></div>
             <div class="cs-title">r3con &mdash; OSINT Recon Tool</div>
             <div class="cs-desc">Multi-phase recon pipeline: passive subdomain enumeration, HTTP probing, rule-based tech fingerprinting, banner grabbing, Shodan enrichment, dual JSON+TXT reports with risk flags.</div>
-            <div class="cs-tags">
-              <span class="tech-tag">Python</span><span class="tech-tag">Shodan API</span><span class="tech-tag">dnspython</span><span class="tech-tag">Rich</span><span class="tech-tag">WHOIS</span>
-            </div>
+            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Shodan API</span><span class="tech-tag">dnspython</span><span class="tech-tag">Rich</span><span class="tech-tag">WHOIS</span></div>
           </div>
           <div class="cs-links">
             <a href="https://github.com/r3tro-n3o/r3con" target="_blank" class="project-link link-github">GitHub</a>
             <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
           </div>
-          <div class="cs-proof">
-            <div class="cs-proof-inner">
-              <div class="proof-section">
-                <div class="proof-label">Problem</div>
-                <div class="proof-text">Manual recon across multiple tools is slow and inconsistent. Fragmented results across 5 terminal windows with no unified report or risk scoring.</div>
-              </div>
-              <div class="proof-section">
-                <div class="proof-label">Attack Scenario</div>
-                <div class="proof-text">An attacker finds forgotten subdomains via crt.sh, probes alive hosts, fingerprints Apache + WordPress versions, grabs an SSH banner revealing an outdated OpenSSH build, then checks Shodan for known CVEs &mdash; all in minutes.</div>
-              </div>
-              <div class="proof-section">
-                <div class="proof-label">Real Output</div>
-                <div class="proof-terminal">
+          <div class="cs-proof"><div class="cs-proof-inner">
+            <div class="proof-section"><div class="proof-label">Problem</div><div class="proof-text">Manual recon across multiple tools is slow and inconsistent. Fragmented results across 5 terminal windows with no unified report or risk scoring.</div></div>
+            <div class="proof-section"><div class="proof-label">Attack Scenario</div><div class="proof-text">An attacker finds forgotten subdomains via crt.sh, probes alive hosts, fingerprints Apache + WordPress versions, grabs an SSH banner revealing an outdated OpenSSH build, then checks Shodan for known CVEs &mdash; all in minutes.</div></div>
+            <div class="proof-section"><div class="proof-label">Real Output</div>
+              <div class="proof-terminal">
 <span class="t-dim">└─$ python r3con.py -d scanme.nmap.org</span><br>
 <span class="t-green">[+]</span> <span class="t-white">Found 1 subdomain | IP: 45.33.32.156</span><br>
 <span class="t-green">[+]</span> <span class="t-white">ALIVE scanme.nmap.org [200] (0.93s)</span><br>
 <span class="t-cyan">[+]</span> <span class="t-white">Tech: Apache/2.4.7 (Ubuntu)</span><br>
 <span class="t-green">[+]</span> <span class="t-white">Port 22 open [SSH] SSH-2.0-OpenSSH_6.6.1p1</span><br>
 <span class="t-red">[!]</span> <span class="t-white">No HTTPS detected &mdash; traffic in plaintext</span>
-                </div>
-              </div>
-              <div class="proof-section">
-                <div class="proof-label">Impact</div>
-                <div class="impact-wrap">
-                  <span class="impact-badge">&#9889; Reduces recon time 80%</span>
-                  <span class="impact-badge">&#9889; Surfaces hidden subdomains</span>
-                  <span class="impact-badge">&#9889; CVE correlation</span>
-                </div>
               </div>
             </div>
-          </div>
+            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Reduces recon time 80%</span><span class="impact-badge">&#9889; Surfaces hidden subdomains</span><span class="impact-badge">&#9889; CVE correlation</span></div></div>
+          </div></div>
         </div>
 
         <div class="cs-card reveal" style="transition-delay:0.1s;">
           <div class="cs-card-header">
-            <div class="cs-meta">
-              <span class="ops-badge badge-active">Active</span>
-              <span class="cs-lang">Python &middot; Scapy</span>
-            </div>
-            <div class="cs-title">Network Traffic Analyzer</div>
-            <div class="cs-desc">Packet capture and analysis built on Scapy. Detects ARP spoofing, flags anomalies, reconstructs TCP streams, generates traffic reports.</div>
-            <div class="cs-tags">
-              <span class="tech-tag">Python</span><span class="tech-tag">Scapy</span><span class="tech-tag">TCP/IP</span><span class="tech-tag">Wireshark</span>
-            </div>
+            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; Scapy</span></div>
+            <div class="cs-title">NetWatch &mdash; Network IDS</div>
+            <div class="cs-desc">Real-time network intrusion detection built on Scapy. Detects ARP spoofing, port scans, SYN floods, and DNS anomalies. Flags MITM attempts and reconstructs TCP streams.</div>
+            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Scapy</span><span class="tech-tag">TCP/IP</span><span class="tech-tag">IDS</span></div>
           </div>
           <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o" target="_blank" class="project-link link-github">GitHub</a>
+            <a href="https://github.com/r3tro-n3o/n3twatch" target="_blank" class="project-link link-github">GitHub</a>
             <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
           </div>
-          <div class="cs-proof">
-            <div class="cs-proof-inner">
-              <div class="proof-section">
-                <div class="proof-label">Problem</div>
-                <div class="proof-text">ARP poisoning and port scans often go undetected because most defenders don't have scripted detection running on their local networks.</div>
-              </div>
-              <div class="proof-section">
-                <div class="proof-label">Detection Output</div>
-                <div class="proof-terminal">
+          <div class="cs-proof"><div class="cs-proof-inner">
+            <div class="proof-section"><div class="proof-label">Problem</div><div class="proof-text">ARP poisoning and port scans often go undetected because most defenders don't have scripted detection running on their local networks.</div></div>
+            <div class="proof-section"><div class="proof-label">Detection Output</div>
+              <div class="proof-terminal">
 <span class="t-green">[*]</span> <span class="t-white">Capturing on eth0...</span><br>
 <span class="t-red">[!] ARP SPOOF DETECTED</span><br>
 <span class="t-white">&nbsp;&nbsp;MAC 08:00:27:aa:bb:cc claims 192.168.1.1</span><br>
 <span class="t-white">&nbsp;&nbsp;Previously: 08:00:27:11:22:33</span><br>
 <span class="t-red">[!] MITM RISK &mdash; two MACs for same IP</span>
-                </div>
-              </div>
-              <div class="proof-section">
-                <div class="proof-label">Impact</div>
-                <div class="impact-wrap">
-                  <span class="impact-badge">&#9889; Real-time ARP detection</span>
-                  <span class="impact-badge">&#9889; No GUI required</span>
-                </div>
               </div>
             </div>
-          </div>
+            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Real-time ARP detection</span><span class="impact-badge">&#9889; SYN flood detection</span><span class="impact-badge">&#9889; No GUI required</span></div></div>
+          </div></div>
         </div>
 
-      </div>
-    </div>
-  </div>
-
-  <!-- PANEL 2: EXPLOITATION & DETECTION — z-index 11 -->
-  <div class="project-panel" style="z-index:11;background:#060610;">
-    <div class="panel-inner">
-      <div class="panel-header">
-        <div class="panel-phase-label reveal">Phase 02 &mdash; Exploitation &amp; Detection</div>
-        <h2 class="panel-title reveal">Breaking Things Ethically</h2>
-        <p class="panel-desc reveal">Building vulnerable environments to understand attacks. Parsing logs to detect what attackers leave behind.</p>
-      </div>
-      <div class="panel-cards">
-
-        <div class="cs-card reveal">
+        <div class="cs-card reveal" style="transition-delay:0.2s;">
           <div class="cs-card-header">
-            <div class="cs-meta">
-              <span class="ops-badge badge-progress">In Progress</span>
-              <span class="cs-lang">Python &middot; Flask</span>
-            </div>
-            <div class="cs-title">Intentionally Vulnerable Web App</div>
+            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; Flask</span></div>
+            <div class="cs-title">VulnLab &mdash; Vulnerable Web App</div>
             <div class="cs-desc">Custom DVWA-style target with documented SQLi, XSS, IDOR, SSRF, and command injection &mdash; each with a full attack walkthrough and the actual fix applied.</div>
-            <div class="cs-tags">
-              <span class="tech-tag">Python</span><span class="tech-tag">Flask</span><span class="tech-tag">OWASP Top 10</span><span class="tech-tag">SQLite</span>
-            </div>
+            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Flask</span><span class="tech-tag">OWASP Top 10</span><span class="tech-tag">SQLite</span></div>
           </div>
           <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o" target="_blank" class="project-link link-github">GitHub</a>
+            <a href="https://github.com/r3tro-n3o/vulnlab" target="_blank" class="project-link link-github">GitHub</a>
             <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
           </div>
-          <div class="cs-proof">
-            <div class="cs-proof-inner">
-              <div class="proof-section">
-                <div class="proof-label">Attack + Fix</div>
-                <div class="proof-terminal">
+          <div class="cs-proof"><div class="cs-proof-inner">
+            <div class="proof-section"><div class="proof-label">Attack + Fix</div>
+              <div class="proof-terminal">
 <span class="t-red"># VULNERABLE</span><br>
 <span class="t-dim">query = f"SELECT * FROM users WHERE user='{username}'"</span><br>
 <span class="t-red"># Input: admin' -- &rarr; auth bypass</span><br><br>
 <span class="t-green"># FIXED</span><br>
 <span class="t-white">query = "SELECT * FROM users WHERE user=?"</span><br>
 <span class="t-white">cursor.execute(query, (username,))</span>
-                </div>
-              </div>
-              <div class="proof-section">
-                <div class="proof-label">Impact</div>
-                <div class="impact-wrap">
-                  <span class="impact-badge">&#9889; 10+ vulnerability classes</span>
-                  <span class="impact-badge">&#9889; Attack + fix per vuln</span>
-                </div>
               </div>
             </div>
-          </div>
+            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; 10+ vulnerability classes</span><span class="impact-badge">&#9889; Attack + fix per vuln</span></div></div>
+          </div></div>
         </div>
 
-        <div class="cs-card reveal" style="transition-delay:0.1s;">
+        <div class="cs-card reveal" style="transition-delay:0.3s;">
           <div class="cs-card-header">
-            <div class="cs-meta">
-              <span class="ops-badge badge-progress">In Progress</span>
-              <span class="cs-lang">Python &middot; PowerShell</span>
-            </div>
-            <div class="cs-title">Windows Event Log Analyzer</div>
-            <div class="cs-desc">Parses Windows Security, System, and PowerShell logs to flag lateral movement, privilege escalation, and persistence mechanisms.</div>
-            <div class="cs-tags">
-              <span class="tech-tag">Python</span><span class="tech-tag">PowerShell</span><span class="tech-tag">DFIR</span><span class="tech-tag">EVTX</span>
-            </div>
+            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; Scapy</span></div>
+            <div class="cs-title">Wireless Auditor</div>
+            <div class="cs-desc">WiFi security auditing tool. Scans for open networks, detects WEP/WPA misconfigurations, captures handshakes, and identifies rogue APs on the local radio environment.</div>
+            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Scapy</span><span class="tech-tag">802.11</span><span class="tech-tag">WPA</span><span class="tech-tag">RF</span></div>
           </div>
           <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o" target="_blank" class="project-link link-github">GitHub</a>
+            <a href="https://github.com/r3tro-n3o/wireless-auditor" target="_blank" class="project-link link-github">GitHub</a>
             <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
           </div>
-          <div class="cs-proof">
-            <div class="cs-proof-inner">
-              <div class="proof-section">
-                <div class="proof-label">Detection Output</div>
-                <div class="proof-terminal">
-<span class="t-green">[*]</span> <span class="t-white">Parsing Security.evtx... 48,291 events</span><br>
-<span class="t-red">[!] Event 4625 x47 in 2min &mdash; BRUTE FORCE</span><br>
-<span class="t-red">[!] Event 4688: cmd.exe &rarr; mimikatz.exe</span><br>
-<span class="t-red">[!] Event 4624 NTLM: WORKSTATION &rarr; DC01</span><br>
-<span class="t-green">[+]</span> <span class="t-white">3 high-severity alerts flagged</span>
-                </div>
-              </div>
-              <div class="proof-section">
-                <div class="proof-label">Impact</div>
-                <div class="impact-wrap">
-                  <span class="impact-badge">&#9889; Surfaces brute force</span>
-                  <span class="impact-badge">&#9889; Detects mimikatz</span>
-                  <span class="impact-badge">&#9889; Maps lateral movement</span>
-                </div>
+          <div class="cs-proof"><div class="cs-proof-inner">
+            <div class="proof-section"><div class="proof-label">Problem</div><div class="proof-text">Most wireless auditing requires expensive tools or complex setups. This runs on any Linux box with a wireless adapter in monitor mode.</div></div>
+            <div class="proof-section"><div class="proof-label">Scan Output</div>
+              <div class="proof-terminal">
+<span class="t-green">[*]</span> <span class="t-white">Scanning on wlan0mon...</span><br>
+<span class="t-red">[!] OPEN network: "CafeGuest" &mdash; no encryption</span><br>
+<span class="t-red">[!] WEP network: "OldRouter_5G" &mdash; crackable</span><br>
+<span class="t-cyan">[+]</span> <span class="t-white">Rogue AP detected: BSSID spoofing "HomeNetwork"</span><br>
+<span class="t-green">[+]</span> <span class="t-white">WPA2 handshake captured &mdash; 3 targets</span>
               </div>
             </div>
-          </div>
+            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Detects rogue APs</span><span class="impact-badge">&#9889; Flags weak encryption</span><span class="impact-badge">&#9889; Zero external deps</span></div></div>
+          </div></div>
         </div>
 
       </div>
     </div>
   </div>
 
-  <!-- PANEL 3: CLOUD & AUTOMATION — z-index 12 -->
-  <div class="project-panel" style="z-index:12;background:#07060f;">
+  <!-- PANEL 2: DEFENSIVE & FORENSICS -->
+  <div class="project-panel" style="z-index:11;background:#060610;">
     <div class="panel-inner">
       <div class="panel-header">
-        <div class="panel-phase-label reveal">Phase 03 &mdash; Cloud &amp; Automation</div>
-        <h2 class="panel-title reveal">Operating at Scale</h2>
-        <p class="panel-desc reveal">Finding what attackers find in the cloud. Deploying traps. Automating intelligence pipelines.</p>
+        <div class="panel-phase-label reveal">Defensive &amp; Forensics</div>
+        <h2 class="panel-title reveal">Detect. Hunt. Respond.</h2>
+        <p class="panel-desc reveal">Log analysis, endpoint detection, incident response tooling, and forensics. What attackers leave behind &mdash; and how to find it.</p>
       </div>
       <div class="panel-cards">
 
         <div class="cs-card reveal">
           <div class="cs-card-header">
-            <div class="cs-meta">
-              <span class="ops-badge badge-progress">In Progress</span>
-              <span class="cs-lang">Python &middot; AWS</span>
-            </div>
-            <div class="cs-title">AWS Misconfiguration Scanner</div>
-            <div class="cs-desc">Automated detection of IAM privilege escalation paths, public S3 buckets, open security groups, and VPC misconfigurations.</div>
-            <div class="cs-tags">
-              <span class="tech-tag">Python</span><span class="tech-tag">Boto3</span><span class="tech-tag">AWS</span><span class="tech-tag">IAM</span><span class="tech-tag">CLI</span>
-            </div>
+            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; PowerShell</span></div>
+            <div class="cs-title">Windows Event Log Analyzer</div>
+            <div class="cs-desc">Parses Windows Security, System, and PowerShell logs to flag lateral movement, privilege escalation, and persistence mechanisms.</div>
+            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">PowerShell</span><span class="tech-tag">DFIR</span><span class="tech-tag">EVTX</span></div>
           </div>
           <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o" target="_blank" class="project-link link-github">GitHub</a>
+            <a href="https://github.com/r3tro-n3o/wineventlog" target="_blank" class="project-link link-github">GitHub</a>
             <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
           </div>
-          <div class="cs-proof">
-            <div class="cs-proof-inner">
-              <div class="proof-section">
-                <div class="proof-label">Scanner Output</div>
-                <div class="proof-terminal">
+          <div class="cs-proof"><div class="cs-proof-inner">
+            <div class="proof-section"><div class="proof-label">Detection Output</div>
+              <div class="proof-terminal">
+<span class="t-green">[*]</span> <span class="t-white">Parsing Security.evtx... 48,291 events</span><br>
+<span class="t-red">[!] Event 4625 x47 in 2min &mdash; BRUTE FORCE</span><br>
+<span class="t-red">[!] Event 4688: cmd.exe &rarr; mimikatz.exe</span><br>
+<span class="t-red">[!] Event 4624 NTLM: WORKSTATION &rarr; DC01</span><br>
+<span class="t-green">[+]</span> <span class="t-white">3 high-severity alerts flagged</span>
+              </div>
+            </div>
+            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Surfaces brute force</span><span class="impact-badge">&#9889; Detects mimikatz</span><span class="impact-badge">&#9889; Maps lateral movement</span></div></div>
+          </div></div>
+        </div>
+
+        <div class="cs-card reveal" style="transition-delay:0.1s;">
+          <div class="cs-card-header">
+            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; LDAP</span></div>
+            <div class="cs-title">AD Auditor</div>
+            <div class="cs-desc">Active Directory security auditor. Enumerates users, groups, GPOs, and ACLs to surface privilege escalation paths, stale accounts, and misconfigured permissions.</div>
+            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">LDAP</span><span class="tech-tag">Active Directory</span><span class="tech-tag">RBAC</span></div>
+          </div>
+          <div class="cs-links">
+            <a href="https://github.com/r3tro-n3o/ad-auditor" target="_blank" class="project-link link-github">GitHub</a>
+            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
+          </div>
+          <div class="cs-proof"><div class="cs-proof-inner">
+            <div class="proof-section"><div class="proof-label">Problem</div><div class="proof-text">AD misconfigurations are the #1 vector in enterprise breaches. Most orgs don't audit them until after the incident.</div></div>
+            <div class="proof-section"><div class="proof-label">Audit Output</div>
+              <div class="proof-terminal">
+<span class="t-green">[*]</span> <span class="t-white">Enumerating CORP.LOCAL...</span><br>
+<span class="t-red">[!] 3 users with AdminSDHolder &mdash; shadow admins</span><br>
+<span class="t-red">[!] 12 stale accounts (90+ days, still enabled)</span><br>
+<span class="t-red">[!] GPO "DefaultDomainPolicy" &mdash; weak password policy</span><br>
+<span class="t-cyan">[+]</span> <span class="t-white">Kerberoastable accounts: 4 found</span>
+              </div>
+            </div>
+            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Finds shadow admins</span><span class="impact-badge">&#9889; Kerberoast detection</span><span class="impact-badge">&#9889; GPO auditing</span></div></div>
+          </div></div>
+        </div>
+
+        <div class="cs-card reveal" style="transition-delay:0.2s;">
+          <div class="cs-card-header">
+            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; DFIR</span></div>
+            <div class="cs-title">Forensics Toolkit</div>
+            <div class="cs-desc">DFIR artifact collection and triage toolkit. Extracts prefetch files, registry hives, browser history, recently accessed files, and USB artifacts from Windows endpoints.</div>
+            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Volatility</span><span class="tech-tag">Registry</span><span class="tech-tag">Prefetch</span></div>
+          </div>
+          <div class="cs-links">
+            <a href="https://github.com/r3tro-n3o/forensics-toolkit" target="_blank" class="project-link link-github">GitHub</a>
+            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
+          </div>
+          <div class="cs-proof"><div class="cs-proof-inner">
+            <div class="proof-section"><div class="proof-label">Triage Output</div>
+              <div class="proof-terminal">
+<span class="t-green">[*]</span> <span class="t-white">Collecting artifacts from C:\...</span><br>
+<span class="t-cyan">[+]</span> <span class="t-white">Prefetch: 47 entries &mdash; mimikatz.exe found</span><br>
+<span class="t-red">[!] Registry: AutoRun key modified 2026-05-01</span><br>
+<span class="t-red">[!] USB: Unknown device mounted 3x this week</span><br>
+<span class="t-green">[+]</span> <span class="t-white">Timeline exported &mdash; 112 IOCs flagged</span>
+              </div>
+            </div>
+            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Full artifact triage</span><span class="impact-badge">&#9889; Timeline reconstruction</span><span class="impact-badge">&#9889; USB forensics</span></div></div>
+          </div></div>
+        </div>
+
+        <div class="cs-card reveal" style="transition-delay:0.3s;">
+          <div class="cs-card-header">
+            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; IR</span></div>
+            <div class="cs-title">IR Framework</div>
+            <div class="cs-desc">Structured incident response automation. Guides through identification, containment, eradication, and recovery phases with automated evidence collection and report generation.</div>
+            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">NIST IR</span><span class="tech-tag">Automation</span><span class="tech-tag">Reporting</span></div>
+          </div>
+          <div class="cs-links">
+            <a href="https://github.com/r3tro-n3o/ir-framework" target="_blank" class="project-link link-github">GitHub</a>
+            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
+          </div>
+          <div class="cs-proof"><div class="cs-proof-inner">
+            <div class="proof-section"><div class="proof-label">IR Workflow</div>
+              <div class="proof-terminal">
+<span class="t-cyan">[IDENTIFY]</span> <span class="t-white">Incident type: ransomware</span><br>
+<span class="t-cyan">[CONTAIN]</span> <span class="t-white">Network isolation script &mdash; executed</span><br>
+<span class="t-cyan">[ERADICATE]</span> <span class="t-white">IOC sweep &mdash; 3 hosts flagged</span><br>
+<span class="t-cyan">[RECOVER]</span> <span class="t-white">Backup integrity verified</span><br>
+<span class="t-green">[+]</span> <span class="t-white">IR report generated &mdash; PDF + JSON</span>
+              </div>
+            </div>
+            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; NIST IR aligned</span><span class="impact-badge">&#9889; Automated evidence chain</span><span class="impact-badge">&#9889; PDF reporting</span></div></div>
+          </div></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL 3: CLOUD & INFRASTRUCTURE -->
+  <div class="project-panel" style="z-index:12;background:#07060f;">
+    <div class="panel-inner">
+      <div class="panel-header">
+        <div class="panel-phase-label reveal">Cloud &amp; Infrastructure</div>
+        <h2 class="panel-title reveal">Misconfigure. Detect. Harden.</h2>
+        <p class="panel-desc reveal">Cloud misconfiguration scanning, honeypots, threat intel automation. Finding what attackers find before they do.</p>
+      </div>
+      <div class="panel-cards">
+
+        <div class="cs-card reveal">
+          <div class="cs-card-header">
+            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; AWS</span></div>
+            <div class="cs-title">AWScan &mdash; AWS Misconfig Scanner</div>
+            <div class="cs-desc">Automated detection of IAM privilege escalation paths, public S3 buckets, open security groups, missing CloudTrail logging, and VPC misconfigurations.</div>
+            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Boto3</span><span class="tech-tag">AWS</span><span class="tech-tag">IAM</span><span class="tech-tag">CLI</span></div>
+          </div>
+          <div class="cs-links">
+            <a href="https://github.com/r3tro-n3o/awscan" target="_blank" class="project-link link-github">GitHub</a>
+            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
+          </div>
+          <div class="cs-proof"><div class="cs-proof-inner">
+            <div class="proof-section"><div class="proof-label">Scanner Output</div>
+              <div class="proof-terminal">
 <span class="t-green">[*]</span> <span class="t-white">Scanning AWS account: 123456789012</span><br>
 <span class="t-red">[CRITICAL] S3 'company-backups-prod' is PUBLIC</span><br>
 <span class="t-white">&nbsp;&nbsp;Objects: 847 | Size: 2.3GB</span><br>
 <span class="t-red">[HIGH] IAM Role 'dev-role' has iam:* permissions</span><br>
 <span class="t-red">[HIGH] SG sg-0abc123 port 22 open to 0.0.0.0/0</span><br>
 <span class="t-cyan">[INFO]</span> <span class="t-white">3 critical findings. Report saved.</span>
-                </div>
-              </div>
-              <div class="proof-section">
-                <div class="proof-label">Impact</div>
-                <div class="impact-wrap">
-                  <span class="impact-badge">&#9889; Finds public S3 buckets</span>
-                  <span class="impact-badge">&#9889; Maps IAM escalation</span>
-                  <span class="impact-badge">&#9889; Flags exposed ports</span>
-                </div>
               </div>
             </div>
-          </div>
+            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Finds public S3 buckets</span><span class="impact-badge">&#9889; Maps IAM escalation</span><span class="impact-badge">&#9889; Flags exposed ports</span></div></div>
+          </div></div>
         </div>
 
         <div class="cs-card reveal" style="transition-delay:0.1s;">
           <div class="cs-card-header">
-            <div class="cs-meta">
-              <span class="ops-badge badge-planned">Planned</span>
-              <span class="cs-lang">Python &middot; n8n</span>
-            </div>
+            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; n8n</span></div>
             <div class="cs-title">Honeypot + Threat Intel Reporter</div>
-            <div class="cs-desc">Deployable honeypot capturing attacker TTPs, correlating IPs against threat intel feeds, auto-generating structured reports via n8n.</div>
-            <div class="cs-tags">
-              <span class="tech-tag">Python</span><span class="tech-tag">Linux</span><span class="tech-tag">n8n</span><span class="tech-tag">Threat Intel</span>
-            </div>
+            <div class="cs-desc">Deployable honeypot capturing attacker TTPs. Fake SSH and HTTP listeners log every interaction, enrich IPs via AbuseIPDB, and auto-generate reports via n8n.</div>
+            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Linux</span><span class="tech-tag">n8n</span><span class="tech-tag">AbuseIPDB</span></div>
           </div>
           <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o" target="_blank" class="project-link link-github">GitHub</a>
+            <a href="https://github.com/r3tro-n3o/honeypot" target="_blank" class="project-link link-github">GitHub</a>
             <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
           </div>
-          <div class="cs-proof">
-            <div class="cs-proof-inner">
-              <div class="proof-section">
-                <div class="proof-label">Expected Output</div>
-                <div class="proof-terminal">
+          <div class="cs-proof"><div class="cs-proof-inner">
+            <div class="proof-section"><div class="proof-label">Live Output</div>
+              <div class="proof-terminal">
 <span class="t-green">[*]</span> <span class="t-white">Honeypot active on ports 22, 80, 443</span><br>
 <span class="t-cyan">[HIT]</span> <span class="t-white">185.220.101.45 SSH login attempt</span><br>
 <span class="t-red">[!]</span> <span class="t-white">AbuseIPDB: 97% &mdash; Tor exit node</span><br>
 <span class="t-green">[n8n]</span> <span class="t-white">Report &rarr; Slack notification sent</span><br>
 <span class="t-cyan">[+]</span> <span class="t-white">24h: 847 attempts, 23 unique IPs</span>
-                </div>
-              </div>
-              <div class="proof-section">
-                <div class="proof-label">Impact</div>
-                <div class="impact-wrap">
-                  <span class="impact-badge">&#9889; Passive attacker intel</span>
-                  <span class="impact-badge">&#9889; Automated reporting</span>
-                </div>
               </div>
             </div>
+            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Passive attacker intel</span><span class="impact-badge">&#9889; TTP capture</span><span class="impact-badge">&#9889; Automated reporting</span></div></div>
+          </div></div>
+        </div>
+
+        <div class="cs-card reveal" style="transition-delay:0.2s;">
+          <div class="cs-card-header">
+            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; n8n</span></div>
+            <div class="cs-title">Threat Intel Platform</div>
+            <div class="cs-desc">Automated threat intelligence lifecycle. Ingests IOCs from multiple feeds, correlates against local logs, deduplicates, scores by severity, and pushes alerts via n8n workflows.</div>
+            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">n8n</span><span class="tech-tag">STIX</span><span class="tech-tag">AbuseIPDB</span><span class="tech-tag">IOC</span></div>
           </div>
+          <div class="cs-links">
+            <a href="https://github.com/r3tro-n3o/threat-intel" target="_blank" class="project-link link-github">GitHub</a>
+            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
+          </div>
+          <div class="cs-proof"><div class="cs-proof-inner">
+            <div class="proof-section"><div class="proof-label">Pipeline Output</div>
+              <div class="proof-terminal">
+<span class="t-green">[*]</span> <span class="t-white">Ingesting 3 feeds &mdash; 1,247 IOCs</span><br>
+<span class="t-cyan">[+]</span> <span class="t-white">Deduped to 834 unique indicators</span><br>
+<span class="t-red">[!] 12 IOCs matched local firewall logs</span><br>
+<span class="t-red">[!] 185.220.101.45 &mdash; Tor exit, score: 97%</span><br>
+<span class="t-green">[n8n]</span> <span class="t-white">Slack alert + report dispatched</span>
+              </div>
+            </div>
+            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Multi-feed ingestion</span><span class="impact-badge">&#9889; Local log correlation</span><span class="impact-badge">&#9889; Automated alerting</span></div></div>
+          </div></div>
+        </div>
+
+        <div class="cs-card reveal" style="transition-delay:0.3s;">
+          <div class="cs-card-header">
+            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; Docker</span></div>
+            <div class="cs-title">Container Scanner</div>
+            <div class="cs-desc">Docker and Kubernetes security scanner. Audits container configs for privileged mode, exposed sockets, missing resource limits, and K8s RBAC misconfigurations.</div>
+            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Docker</span><span class="tech-tag">Kubernetes</span><span class="tech-tag">RBAC</span><span class="tech-tag">YAML</span></div>
+          </div>
+          <div class="cs-links">
+            <a href="https://github.com/r3tro-n3o/container-scanner" target="_blank" class="project-link link-github">GitHub</a>
+            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
+          </div>
+          <div class="cs-proof"><div class="cs-proof-inner">
+            <div class="proof-section"><div class="proof-label">Scan Output</div>
+              <div class="proof-terminal">
+<span class="t-green">[*]</span> <span class="t-white">Scanning 8 containers + 12 K8s manifests</span><br>
+<span class="t-red">[CRITICAL] nginx:latest &mdash; running as root</span><br>
+<span class="t-red">[HIGH] Docker socket mounted in app container</span><br>
+<span class="t-red">[HIGH] K8s ClusterRoleBinding to cluster-admin</span><br>
+<span class="t-cyan">[INFO]</span> <span class="t-white">5 critical findings. Report saved.</span>
+              </div>
+            </div>
+            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Docker + K8s coverage</span><span class="impact-badge">&#9889; RBAC misconfiguration</span><span class="impact-badge">&#9889; Container escape risks</span></div></div>
+          </div></div>
         </div>
 
       </div>
@@ -2152,7 +2321,7 @@
 
 <!-- SKILLS -->
 <section id="skills">
-  <div style="max-width:1100px;margin:0 auto;">
+  <div style="max-width:1400px;margin:0 auto;">
     <div class="section-label reveal">// Capabilities</div>
     <h2 class="section-title reveal">How I Operate</h2>
     <p class="reveal" style="color:#6677aa;margin-top:0.8rem;font-size:0.9rem;max-width:500px;">Click any module to expand. Not what I know &mdash; how I apply it.</p>
@@ -2372,7 +2541,7 @@
 
 <!-- TIMELINE -->
 <section id="timeline">
-  <div style="max-width:1100px;margin:0 auto;">
+  <div style="max-width:1400px;margin:0 auto;">
     <div class="section-label reveal">// Journey</div>
     <h2 class="section-title reveal">The Progression</h2>
     <div class="timeline-container">
@@ -2393,7 +2562,7 @@
           <div class="timeline-detail">Completed Google Cybersecurity Professional Certificate · ALX Africa Professional Foundations · ALX Africa Cybersecurity. Foundation locked in.</div>
           <div class="cert-badges">
             <a href="https://savanna.alxafrica.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBemVRTkE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--12649d5f07c50403155dd148ea32129fe9db5183/89-professional-foundations-certificate-leo-mugambi.png" target="_blank" class="cert-badge">
-              <span class="cert-icon">🏆</span>
+              <span class="cert-icon"><i class="ti ti-trophy" aria-hidden="true"></i></span>
               <span class="cert-info">
                 <span class="cert-name">Professional Foundations</span>
                 <span class="cert-issuer">ALX Africa</span>
@@ -2401,7 +2570,7 @@
               <span class="cert-arrow">↗</span>
             </a>
             <a href="https://savanna.alxafrica.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNUZ0Tmc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--ef93cb7fd78ea4dc0c38c007557c34b0ffeaa85d/159-cybersecurity-certificate-leo-mugambi.png" target="_blank" class="cert-badge">
-              <span class="cert-icon">🛡</span>
+              <span class="cert-icon"><i class="ti ti-shield" aria-hidden="true"></i></span>
               <span class="cert-info">
                 <span class="cert-name">Cybersecurity</span>
                 <span class="cert-issuer">ALX Africa</span>
@@ -2409,7 +2578,7 @@
               <span class="cert-arrow">↗</span>
             </a>
             <a href="#" class="cert-badge">
-              <span class="cert-icon">🔐</span>
+              <span class="cert-icon"><i class="ti ti-lock" aria-hidden="true"></i></span>
               <span class="cert-info">
                 <span class="cert-name">Cybersecurity Certificate</span>
                 <span class="cert-issuer">Google</span>
@@ -2427,7 +2596,7 @@
           <div class="timeline-detail">Cybersec Primer · Linux · Recon/OSINT · Networking · Windows/AD · Wireless Pentesting · Python/Bash · Web & API Security (OWASP Top 10) · Mobile Security · Cloud Security (AWS, IAM, VPC, flaws.cloud) · Malware Creation & Analysis · Kernel Rootkits · GRC · IR & Threat Hunting · Blue Team Essentials.</div>
           <div class="cert-badges">
             <a href="#" class="cert-badge cert-badge-gold">
-              <span class="cert-icon">⚔</span>
+              <span class="cert-icon"><i class="ti ti-sword" aria-hidden="true"></i></span>
               <span class="cert-info">
                 <span class="cert-name">AfricaHackon Certified</span>
                 <span class="cert-issuer">AfricaHackon · 2025</span>
@@ -2470,7 +2639,7 @@
 
 <!-- BLOG -->
 <section id="blog">
-  <div style="max-width:1100px;margin:0 auto;">
+  <div style="max-width:1400px;margin:0 auto;">
     <div class="section-label reveal">// Blog</div>
     <h2 class="section-title reveal">Writing & Writeups</h2>
     <p class="reveal" style="color:#6677aa;margin-top:0.8rem;font-size:0.9rem;max-width:500px;">Breaking down concepts, documenting labs, and sharing what I learn. No fluff — just the process.</p>
@@ -2552,7 +2721,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-text">
-    <span>r3tro_n3o</span> · Leo Mugambi · © 2025 · Built with intent. Deployed with purpose.
+    <span>r3tro_n3o</span> · Leo Mugambi · © 2026 · Built with intent. Deployed with purpose.
   </div>
   <div class="footer-text" style="margin-top:0.5rem;font-size:0.6rem;color:#223344;">
     Try the Konami code. You know what to do.
@@ -2898,27 +3067,6 @@ document.addEventListener('keydown', e => {
 
 
 // ── STACKED PANEL SCROLL ─────────────────────────────────
-function initPanels() {
-  if (window.innerWidth < 768) return; // mobile fallback
-  const panels = document.querySelectorAll('.project-panel');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      const idx = Array.from(panels).indexOf(entry.target);
-      if (entry.isIntersecting) {
-        panels.forEach((p, i) => {
-          if (i < idx) p.classList.add('inactive');
-          else p.classList.remove('inactive');
-        });
-      }
-    });
-  }, { threshold: 0.3 });
-  panels.forEach(p => obs.observe(p));
-}
-initPanels();
-
-
-
-// ── STACKED PANEL SCROLL ─────────────────────────────────
 (function() {
   const wrapper = document.getElementById('projects-wrapper');
   if (!wrapper) return;
@@ -2926,78 +3074,100 @@ initPanels();
   const panels = Array.from(wrapper.querySelectorAll('.project-panel'));
   const isMobile = () => window.innerWidth <= 768;
 
-  // Set wrapper height so browser has room to scroll through all panels
   function setWrapperHeight() {
-    if (isMobile()) {
-      wrapper.style.height = 'auto';
-      return;
+    if (isMobile()) { wrapper.style.height = 'auto'; return; }
+    const openPanel = document.querySelector('.project-panel.proof-open');
+    if (openPanel) {
+      // Extra room = open panel's scroll content beyond 100vh
+      const extra = Math.max(0, openPanel.scrollHeight - window.innerHeight);
+      wrapper.style.height = 'calc(' + (panels.length * 100) + 'vh + ' + (extra + 300) + 'px)';
+    } else {
+      wrapper.style.height = (panels.length * 100) + 'vh';
     }
-    // Each panel needs 100vh of scroll space, last panel stays visible
-    wrapper.style.height = (panels.length * 100) + 'vh';
   }
   setWrapperHeight();
   window.addEventListener('resize', setWrapperHeight);
 
   function updatePanels() {
-    if (isMobile()) {
-      panels.forEach(p => p.classList.remove('pp-inactive'));
-      return;
-    }
+    if (isMobile()) { panels.forEach(p => p.classList.remove('pp-inactive')); return; }
+    // Don't change panel stack while any proof is open
+    if (document.querySelector('.cs-proof.open')) return;
 
     const wrapperTop = wrapper.getBoundingClientRect().top;
     const viewH = window.innerHeight;
-    // How far we've scrolled into the wrapper (0 to wrapper.offsetHeight - viewH)
     const scrolled = -wrapperTop;
-    // Each panel occupies 100vh of scroll space
     const panelScrollH = viewH;
 
     panels.forEach((panel, i) => {
-      // This panel becomes active when scrolled >= i * panelScrollH
       const panelActivatesAt = i * panelScrollH;
       if (scrolled >= panelActivatesAt) {
-        // This panel is active or past — mark previous ones as inactive
-        panels.forEach((p, j) => {
-          if (j < i) {
-            p.classList.add('pp-inactive');
-          }
-        });
+        panels.forEach((p, j) => { if (j < i) p.classList.add('pp-inactive'); });
         panel.classList.remove('pp-inactive');
-      } else if (scrolled < panelActivatesAt) {
-        // Not yet reached — keep normal
-        if (i > 0) {
-          // Only remove inactive if we scrolled back up past this panel
-          panel.classList.remove('pp-inactive');
-        }
+      } else {
+        if (i > 0) panel.classList.remove('pp-inactive');
       }
     });
 
-    // If scrolled back to very top, reset all
-    if (scrolled <= 0) {
-      panels.forEach(p => p.classList.remove('pp-inactive'));
-    }
+    if (scrolled <= 0) panels.forEach(p => p.classList.remove('pp-inactive'));
   }
 
   window.addEventListener('scroll', updatePanels, { passive: true });
   updatePanels();
+
+  // Expose so toggleProof can trigger height recalc
+  window._recalcPanels = function() { setWrapperHeight(); };
 })();
 
-// ── CASE STUDY TOGGLE ────────────────────────────────────
+// ── CASE STUDY MODAL ─────────────────────────────────────
 function toggleProof(btn) {
-  const card = btn.closest('.cs-card');
+  const card  = btn.closest('.cs-card');
   const proof = card.querySelector('.cs-proof');
-  const isOpen = proof.classList.contains('open');
-  // Close all open proofs
-  document.querySelectorAll('.cs-proof.open').forEach(p => {
-    p.classList.remove('open');
-    const b = p.closest('.cs-card').querySelector('.cs-expand-btn');
-    if (b) b.classList.remove('open');
-  });
-  if (!isOpen) {
-    proof.classList.add('open');
-    btn.classList.add('open');
-    setTimeout(() => proof.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
-  }
+  const isOpen = btn.classList.contains('open');
+
+  // Reset all expand buttons
+  document.querySelectorAll('.cs-expand-btn.open').forEach(b => b.classList.remove('open'));
+
+  if (isOpen) { closeModal(); return; }
+
+  btn.classList.add('open');
+
+  // Grab content from the card
+  const meta   = card.querySelector('.cs-meta').innerHTML;
+  const title  = card.querySelector('.cs-title').innerHTML;
+  const desc   = card.querySelector('.cs-desc').innerHTML;
+  const tags   = card.querySelector('.cs-tags') ? card.querySelector('.cs-tags').innerHTML : '';
+  const proof_inner = proof.querySelector('.cs-proof-inner').innerHTML;
+
+  // Populate modal
+  document.getElementById('modal-meta').innerHTML  = meta;
+  document.getElementById('modal-title').innerHTML = title;
+  document.getElementById('modal-desc').innerHTML  = desc;
+  document.getElementById('modal-tags').innerHTML  = tags;
+  document.getElementById('modal-proof').innerHTML =
+    '<div class="cs-proof-inner">' + proof_inner + '</div>';
+
+  // Open modal
+  const modal = document.getElementById('cs-modal');
+  modal.classList.add('open');
+  modal.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
 }
+
+function closeModal() {
+  document.getElementById('cs-modal').classList.remove('open');
+  document.body.style.overflow = '';
+  document.querySelectorAll('.cs-expand-btn.open').forEach(b => b.classList.remove('open'));
+}
+
+function handleModalClick(e) {
+  // Close if clicking the dark overlay (not the box)
+  if (e.target === document.getElementById('cs-modal')) closeModal();
+}
+
+// Close on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
 
 // ── CAPABILITY MODULE TOGGLE ─────────────────────────────
 function toggleCap(module) {
@@ -3029,5 +3199,19 @@ function checkMobile() {
 checkMobile();
 window.addEventListener('resize', checkMobile);
 </script>
+
+<!-- CASE STUDY MODAL -->
+<div id="cs-modal" class="cs-modal-overlay" onclick="handleModalClick(event)">
+  <div class="cs-modal-box">
+    <div class="cs-modal-close"><button onclick="closeModal()">✕ Close</button></div>
+    <div class="cs-modal-card-top">
+      <div id="modal-meta" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;"></div>
+      <div id="modal-title" class="cs-modal-title"></div>
+      <div id="modal-desc" class="cs-modal-desc"></div>
+      <div id="modal-tags" class="cs-tags"></div>
+    </div>
+    <div id="modal-proof" class="cs-modal-proof"></div>
+  </div>
+</div>
 </body>
 </html>
