@@ -453,12 +453,7 @@
     background: rgba(0,255,136,0.03);
   }
   .tag-cloud:hover { border-color: var(--green); color: var(--green); background: rgba(0,255,136,0.06); }
-.reveal {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
+
   .stat-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .stat-card {
     background: rgba(10,10,18,0.8);
@@ -1732,6 +1727,15 @@
     margin-bottom: 0.8rem;
   }
   .cs-modal-proof { padding: 0; }
+  @media (max-width: 768px) {
+  .about-grid .reveal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+}
+
 </style>
 </head>
 <body>
