@@ -10,1845 +10,162 @@
 <meta property="og:type" content="website">
 <title>Leo Mugambi | r3tro_n3o — Offensive Security</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --green: #00ff88;
-    --cyan: #00d4ff;
-    --red: #ff2d55;
-    --dark: #05050a;
-    --dark2: #0a0a12;
-    --dark3: #0f0f1a;
-    --border: rgba(0,255,136,0.15);
-    --border2: rgba(0,212,255,0.15);
-    --glow-green: 0 0 20px rgba(0,255,136,0.3);
-    --glow-cyan: 0 0 20px rgba(0,212,255,0.3);
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--dark);
-    color: #c8d0e0;
-    font-family: 'Syne', sans-serif;
-    overflow-x: hidden;
-    cursor: none;
-  }
-
-  /* CUSTOM CURSOR */
-  #cursor {
-    position: fixed;
-    width: 12px; height: 12px;
-    background: var(--green);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%,-50%);
-    transition: transform 0.1s, width 0.2s, height 0.2s, opacity 0.2s;
-    box-shadow: 0 0 15px var(--green), 0 0 30px rgba(0,255,136,0.4);
-  }
-  #cursor-ring {
-    position: fixed;
-    width: 36px; height: 36px;
-    border: 1px solid rgba(0,255,136,0.4);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%,-50%);
-    transition: transform 0.15s ease-out, width 0.2s, height 0.2s;
-  }
-  body:hover #cursor { opacity: 1; }
-
-  /* SCROLLBAR */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--dark); }
-  ::-webkit-scrollbar-thumb { background: var(--green); border-radius: 2px; }
-
-  /* ANIMATED BACKGROUND */
-  #bg-canvas {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  /* NOISE OVERLAY */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.4;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 1000;
-    padding: 1.2rem 2rem;
-    transition: all 0.4s ease;
-  }
-  nav.scrolled {
-    background: rgba(5,5,10,0.85);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    padding: 0.8rem 2rem;
-  }
-  .nav-logo {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--green);
-    text-decoration: none;
-    letter-spacing: 0.05em;
-  }
-  .nav-logo .cursor-blink {
-    animation: blink 1s step-end infinite;
-  }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-  .nav-links a {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: #8899aa;
-    text-decoration: none;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-    padding: 0.3rem 0.2rem;
-  }
-  .nav-links a:hover { color: var(--green); }
-
-  .btn-primary {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--dark);
-    background: var(--green);
-    border: none;
-    padding: 0.7rem 1.5rem;
-    border-radius: 3px;
-    cursor: none;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s;
-    box-shadow: var(--glow-green);
-  }
-  .btn-primary:hover {
-    background: #00cc6e;
-    box-shadow: 0 0 30px rgba(0,255,136,0.6), 0 0 60px rgba(0,255,136,0.2);
-    transform: translateY(-2px);
-  }
-  .btn-outline {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--cyan);
-    background: transparent;
-    border: 1px solid var(--cyan);
-    padding: 0.7rem 1.5rem;
-    border-radius: 3px;
-    cursor: none;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s;
-  }
-  .btn-outline:hover {
-    background: rgba(0,212,255,0.1);
-    box-shadow: var(--glow-cyan);
-    transform: translateY(-2px);
-  }
-
-  /* HERO */
-  #hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-    padding: 6rem 2rem 4rem;
-  }
-
-  .hero-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--green);
-    background: transparent;
-    padding: 0;
-    border-radius: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-  }
-  .hero-tag-dot {
-    width: 6px; height: 6px;
-    background: var(--green);
-    border-radius: 50%;
-    animation: pulse-dot 2s ease-in-out infinite;
-    box-shadow: 0 0 6px var(--green);
-    flex-shrink: 0;
-  }
-
-  .hero-name {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(3rem, 8vw, 6.5rem);
-    font-weight: 800;
-    line-height: 0.9;
-    letter-spacing: -0.03em;
-    color: #ffffff;
-  }
-  .hero-alias {
-    color: var(--green);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(1rem, 2.5vw, 1.4rem);
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    display: block;
-    margin-top: 0.5rem;
-  }
-
-  .hero-sub {
-    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-    color: #6677aa;
-    max-width: 540px;
-    line-height: 1.7;
-    margin-top: 1.5rem;
-  }
-
-  /* ROLE ROTATOR */
-  .role-rotator {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    margin-top: 1.2rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(0.8rem, 1.3vw, 0.95rem);
-    color: #445566;
-  }
-  .role-prefix { color: #334455; white-space: nowrap; }
-  .role-text-wrapper {
-    position: relative;
-    height: 1.4em;
-    overflow: hidden;
-    min-width: 260px;
-  }
-  .role-item {
-    position: absolute;
-    top: 0; left: 0;
-    color: var(--cyan);
-    white-space: nowrap;
-    opacity: 0;
-    transform: translateY(100%);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  .role-item.active {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .role-item.exit {
-    opacity: 0;
-    transform: translateY(-100%);
-  }
-  .role-cursor {
-    display: inline-block;
-    width: 2px;
-    height: 1em;
-    background: var(--cyan);
-    margin-left: 3px;
-    vertical-align: middle;
-    animation: blink 0.8s step-end infinite;
-    box-shadow: 0 0 6px var(--cyan);
-  }
-
-  /* TERMINAL */
-  .terminal {
-    background: rgba(5,5,10,0.8);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 1.2rem 1.5rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
-    color: #8899aa;
-    max-width: 540px;
-    backdrop-filter: blur(10px);
-    box-shadow: inset 0 0 30px rgba(0,255,136,0.02), var(--glow-green);
-  }
-  .terminal-bar {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 1rem;
-    padding-bottom: 0.8rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .terminal-dot {
-    width: 10px; height: 10px;
-    border-radius: 50%;
-  }
-  .terminal-line { line-height: 1.8; }
-  .terminal-line .prompt { color: var(--green); }
-  .terminal-line .cmd { color: #c8d0e0; }
-  .terminal-line .output { color: #6677aa; }
-  .terminal-line .success { color: var(--cyan); }
-  #typed-text { color: var(--green); }
-  .terminal-cursor-blink {
-    display: inline-block;
-    width: 8px; height: 14px;
-    background: var(--green);
-    vertical-align: middle;
-    animation: blink 0.8s step-end infinite;
-  }
-
-  /* SECTIONS */
-  section { position: relative; z-index: 2; }
-
-  .section-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--green);
-    margin-bottom: 0.5rem;
-  }
-  .section-title {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 800;
-    color: #ffffff;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-  }
-
-  /* LIVE OPS */
-  #ops {
-    padding: 5rem 2rem;
-    background: linear-gradient(180deg, transparent 0%, rgba(0,255,136,0.02) 50%, transparent 100%);
-  }
-  .ops-panel {
-    background: rgba(5,5,10,0.9);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 2rem;
-    backdrop-filter: blur(20px);
-    box-shadow: var(--glow-green), inset 0 0 40px rgba(0,255,136,0.02);
-    max-width: 100%;
-    margin: 2rem auto 0;
-  }
-  .ops-header {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--green);
-    letter-spacing: 0.1em;
-  }
-  .ops-dot {
-    width: 8px; height: 8px;
-    background: var(--green);
-    border-radius: 50%;
-    animation: pulse-dot 2s ease-in-out infinite;
-    box-shadow: 0 0 6px var(--green);
-  }
-  @keyframes pulse-dot {
-    0%,100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.8); }
-  }
-  .ops-line {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.78rem;
-    line-height: 2;
-    display: flex;
-    gap: 1rem;
-    align-items: baseline;
-    flex-wrap: wrap;
-  }
-  .ops-key { color: #445566; min-width: 90px; }
-  .ops-val { color: #c8d0e0; }
-  .ops-badge {
-    font-size: 0.6rem;
-    padding: 0.15rem 0.5rem;
-    border-radius: 2px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-weight: 700;
-  }
-  .badge-active { background: rgba(0,255,136,0.15); color: var(--green); border: 1px solid rgba(0,255,136,0.3); }
-  .badge-progress { background: rgba(0,212,255,0.1); color: var(--cyan); border: 1px solid rgba(0,212,255,0.3); }
-  .badge-planned { background: rgba(255,45,85,0.1); color: var(--red); border: 1px solid rgba(255,45,85,0.3); }
-
-  /* ABOUT */
-  #about { padding: 6rem 2rem; }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
-    max-width: 1400px;
-    margin: 1.5rem auto 0;
-    align-items: start;
-  }
-  @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 2rem; } }
-  .about-text { font-size: 1rem; line-height: 1.8; color: #6677aa; }
-  .about-text p { margin-bottom: 1.2rem; }
-  .about-text strong { color: #c8d0e0; font-weight: 600; }
-
-  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
-  .skill-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    padding: 0.3rem 0.7rem;
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    color: #8899aa;
-    letter-spacing: 0.05em;
-    transition: all 0.2s;
-    cursor: none;
-  }
-  .skill-tag:hover {
-    border-color: var(--green);
-    color: var(--green);
-    background: rgba(0,255,136,0.05);
-  }
-  .tag-code {
-    border-color: rgba(0,212,255,0.2);
-    color: #7ab8cc;
-    background: rgba(0,212,255,0.04);
-  }
-  .tag-code:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,212,255,0.08); }
-  .tag-offense {
-    border-color: rgba(255,45,85,0.2);
-    color: #cc7788;
-    background: rgba(255,45,85,0.04);
-  }
-  .tag-offense:hover { border-color: var(--red); color: var(--red); background: rgba(255,45,85,0.08); }
-  .tag-defense {
-    border-color: rgba(168,85,247,0.2);
-    color: #aa88cc;
-    background: rgba(168,85,247,0.04);
-  }
-  .tag-defense:hover { border-color: #a855f7; color: #a855f7; background: rgba(168,85,247,0.08); }
-  .tag-cloud {
-    border-color: rgba(0,255,136,0.15);
-    color: #7aaabb;
-    background: rgba(0,255,136,0.03);
-  }
-  .tag-cloud:hover { border-color: var(--green); color: var(--green); background: rgba(0,255,136,0.06); }
-
-  .stat-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .stat-card {
-    background: rgba(10,10,18,0.8);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 1.5rem;
-    text-align: center;
-    transition: all 0.3s;
-  }
-  .stat-card:hover {
-    border-color: rgba(0,255,136,0.3);
-    box-shadow: var(--glow-green);
-    transform: translateY(-3px);
-  }
-  .stat-num {
-    font-family: 'Syne', sans-serif;
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: var(--green);
-    line-height: 1;
-  }
-  .stat-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    color: #445566;
-    text-transform: uppercase;
-    margin-top: 0.4rem;
-  }
-
-  /* PROJECTS */
-  #projects { padding: 6rem 2rem; background: linear-gradient(180deg, transparent, rgba(0,212,255,0.01), transparent); }
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.5rem;
-    max-width: 1400px;
-    margin: 1.5rem auto 0;
-  }
-  .project-card {
-    background: rgba(10,10,18,0.8);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 8px;
-    padding: 1.8rem;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s;
-    cursor: none;
-  }
-  .project-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--green), transparent);
-    opacity: 0;
-    transition: opacity 0.4s;
-  }
-  .project-card:hover {
-    border-color: var(--border);
-    transform: translateY(-5px);
-    box-shadow: var(--glow-green);
-  }
-  .project-card:hover::before { opacity: 1; }
-
-  .project-status {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-  .project-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 0.7rem;
-  }
-  .project-desc {
-    font-size: 0.85rem;
-    color: #5566880;
-    line-height: 1.7;
-    color: #6677aa;
-    margin-bottom: 1.2rem;
-  }
-  .tech-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
-  .tech-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem;
-    padding: 0.2rem 0.5rem;
-    background: rgba(0,212,255,0.08);
-    border: 1px solid rgba(0,212,255,0.15);
-    border-radius: 2px;
-    color: var(--cyan);
-    letter-spacing: 0.05em;
-  }
-  .project-links { display: flex; gap: 0.7rem; }
-  .project-link {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.45rem 1rem;
-    border-radius: 3px;
-    text-decoration: none;
-    transition: all 0.2s;
-    cursor: none;
-  }
-  .link-github {
-    color: #8899aa;
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-  .link-github:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
-  .link-demo {
-    color: var(--green);
-    border: 1px solid rgba(0,255,136,0.2);
-  }
-  .link-demo:hover { background: rgba(0,255,136,0.08); border-color: var(--green); }
-
-  /* SKILLS */
-  #skills { padding: 6rem 2rem; }
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    max-width: 1400px;
-    margin: 3rem auto 0;
-  }
-  .skill-category {
-    background: rgba(10,10,18,0.8);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 8px;
-    padding: 1.8rem;
-  }
-  .skill-cat-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--cyan);
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.8rem;
-    border-bottom: 1px solid var(--border2);
-  }
-  .skill-item { margin-bottom: 1.2rem; }
-  .skill-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.4rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-  }
-  .skill-name { color: #c8d0e0; }
-  .skill-pct { color: #445566; }
-  .skill-bar-track {
-    height: 3px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-  .skill-bar-fill {
-    height: 100%;
-    border-radius: 2px;
-    width: 0;
-    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .fill-green { background: linear-gradient(90deg, var(--green), rgba(0,255,136,0.4)); }
-  .fill-cyan { background: linear-gradient(90deg, var(--cyan), rgba(0,212,255,0.4)); }
-  .fill-red { background: linear-gradient(90deg, var(--red), rgba(255,45,85,0.4)); }
-  .fill-purple { background: linear-gradient(90deg, #a855f7, rgba(168,85,247,0.4)); }
-
-  /* TIMELINE */
-  #timeline { padding: 6rem 2rem; background: linear-gradient(180deg, transparent, rgba(0,255,136,0.01), transparent); }
-  .timeline-container {
-    max-width: 750px;
-    margin: 3rem auto 0;
-    position: relative;
-  }
-  .timeline-line {
-    position: absolute;
-    left: 110px;
-    top: 0; bottom: 0;
-    width: 1px;
-    background: linear-gradient(180deg, transparent, var(--border), var(--green), var(--border), transparent);
-  }
-  
-  .timeline-item {
-    display: grid;
-    grid-template-columns: 110px auto;
-    gap: 2rem;
-    margin-bottom: 2.5rem;
-    position: relative;
-    opacity: 0;
-    transform: translateX(-20px);
-    transition: all 0.6s ease;
-  }
-  .timeline-item.visible { opacity: 1; transform: translateX(0); }
-  
-  .timeline-year {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: #445566;
-    text-align: right;
-    padding-top: 0.2rem;
-    letter-spacing: 0.05em;
-  }
-  @media (max-width: 600px) { .timeline-year { display: none; } }
-  .timeline-content {
-    background: rgba(10,10,18,0.8);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 6px;
-    padding: 1.2rem 1.5rem;
-    position: relative;
-    transition: all 0.3s;
-  }
-  .timeline-content::before {
-    content: '';
-    position: absolute;
-    left: -6px; top: 14px;
-    width: 11px; height: 11px;
-    border-radius: 50%;
-    background: var(--dark);
-    border: 2px solid var(--green);
-    box-shadow: 0 0 8px var(--green);
-  }
-  .timeline-content:hover { border-color: var(--border); box-shadow: var(--glow-green); }
-  .timeline-event {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 0.3rem;
-  }
-  .timeline-detail {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: #445566;
-    line-height: 1.6;
-  }
-  .timeline-current .timeline-content {
-    border-color: rgba(0,255,136,0.2);
-  }
-
-  /* CONTACT */
-  #contact { padding: 6rem 2rem; }
-  .contact-inner {
-    max-width: 700px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .contact-sub {
-    font-size: 1rem;
-    color: #6677aa;
-    margin: 1rem 0 3rem;
-    line-height: 1.7;
-  }
-  .contact-form {
-    text-align: left;
-    margin-bottom: 3rem;
-  }
-  .form-group { margin-bottom: 1.2rem; }
-  .form-group input,
-  .form-group textarea {
-    width: 100%;
-    background: rgba(10,10,18,0.8);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 4px;
-    padding: 0.9rem 1.2rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
-    color: #c8d0e0;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    resize: none;
-    cursor: none;
-  }
-  .form-group input:focus,
-  .form-group textarea:focus {
-    border-color: rgba(0,255,136,0.3);
-    box-shadow: 0 0 0 3px rgba(0,255,136,0.05);
-  }
-  .form-group input::placeholder,
-  .form-group textarea::placeholder { color: #334455; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
-
-  .social-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-  .social-link {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.6rem 1.2rem;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 3px;
-    color: #8899aa;
-    text-decoration: none;
-    transition: all 0.2s;
-    cursor: none;
-  }
-  .social-link:hover { color: var(--green); border-color: var(--border); box-shadow: var(--glow-green); }
-
-  /* CERT BADGES IN TIMELINE */
-  .cert-badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(255,255,255,0.04);
-  }
-  .cert-badge {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    background: rgba(0,212,255,0.05);
-    border: 1px solid rgba(0,212,255,0.15);
-    border-radius: 4px;
-    padding: 0.5rem 0.8rem;
-    text-decoration: none;
-    transition: all 0.2s;
-    cursor: none;
-    flex: 1;
-    min-width: 180px;
-  }
-  .cert-badge:hover {
-    background: rgba(0,212,255,0.1);
-    border-color: rgba(0,212,255,0.35);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0,212,255,0.1);
-  }
-  .cert-badge-gold {
-    background: rgba(255,180,0,0.05);
-    border-color: rgba(255,180,0,0.2);
-  }
-  .cert-badge-gold:hover {
-    background: rgba(255,180,0,0.1);
-    border-color: rgba(255,180,0,0.4);
-    box-shadow: 0 4px 15px rgba(255,180,0,0.1);
-  }
-  .cert-icon { font-size: 1rem; flex-shrink: 0; display: flex; align-items: center; }
-  .cert-info { display: flex; flex-direction: column; flex: 1; }
-  .cert-name {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
-    font-weight: 700;
-    color: #c8d0e0;
-    letter-spacing: 0.02em;
-  }
-  .cert-issuer {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.58rem;
-    color: #445566;
-    margin-top: 0.1rem;
-    letter-spacing: 0.05em;
-  }
-  .cert-arrow {
-    font-size: 0.7rem;
-    color: #445566;
-    transition: color 0.2s;
-  }
-  .cert-badge:hover .cert-arrow { color: var(--cyan); }
-  .cert-badge-gold:hover .cert-arrow { color: #ffb400; }
-
-  /* BLOG SECTION */
-  #blog { padding: 6rem 2rem; background: linear-gradient(180deg, transparent, rgba(0,212,255,0.01), transparent); }
-  .blog-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    max-width: 1400px;
-    margin: 1.5rem auto 0;
-  }
-  .blog-card {
-    background: rgba(10,10,18,0.8);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 8px;
-    padding: 1.8rem;
-    text-decoration: none;
-    display: block;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-    cursor: none;
-  }
-  .blog-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .blog-card:hover {
-    border-color: var(--border2);
-    transform: translateY(-4px);
-    box-shadow: var(--glow-cyan);
-  }
-  .blog-card:hover::before { opacity: 1; }
-  .blog-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--cyan);
-    background: rgba(0,212,255,0.08);
-    border: 1px solid rgba(0,212,255,0.15);
-    padding: 0.2rem 0.6rem;
-    border-radius: 2px;
-    display: inline-block;
-    margin-bottom: 1rem;
-  }
-  .blog-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: #ffffff;
-    line-height: 1.4;
-    margin-bottom: 0.7rem;
-    transition: color 0.2s;
-  }
-  .blog-card:hover .blog-title { color: var(--cyan); }
-  .blog-excerpt {
-    font-size: 0.82rem;
-    color: #6677aa;
-    line-height: 1.7;
-    margin-bottom: 1.2rem;
-  }
-  .blog-meta {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem;
-    color: #334455;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .blog-read-more {
-    color: var(--cyan);
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .blog-cta-wrap {
-    text-align: center;
-    margin-top: 2.5rem;
-  }
-  footer {
-    position: relative;
-    z-index: 2;
-    padding: 2rem;
-    text-align: center;
-    border-top: 1px solid var(--border);
-    background: rgba(5,5,10,0.5);
-  }
-  .footer-text {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: #334455;
-    letter-spacing: 0.05em;
-  }
-  .footer-text span { color: var(--green); }
-
-  /* MOBILE NAV */
-  #mobile-menu {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(5,5,10,0.97);
-    z-index: 999;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    backdrop-filter: blur(20px);
-  }
-  #mobile-menu.open { display: flex; }
-  #mobile-menu a {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1.2rem;
-    color: #8899aa;
-    text-decoration: none;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  #mobile-menu a:hover { color: var(--green); }
-  #hamburger { cursor: none; background: none; border: none; color: #8899aa; padding: 0.3rem; }
-  #hamburger:hover { color: var(--green); }
-  #close-menu { cursor: none; background: none; border: none; color: #8899aa; font-size: 1.5rem; margin-bottom: 2rem; }
-
-  /* REVEAL ANIMATION */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* HERO GLOW ORBS */
-  .glow-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    pointer-events: none;
-  }
-
-  /* SECTION DIVIDER */
-  .divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border), transparent);
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  /* Nav desktop/mobile pure CSS (replaces Tailwind) */
-  .nav-desktop {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-  }
-  .hamburger-btn {
-    display: none;
-  }
-  @media (max-width: 768px) {
-    .nav-desktop { display: none; }
-    .hamburger-btn { display: block; }
-  }
-
-
-@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
-  /* Nav desktop/mobile pure CSS (replaces Tailwind) */
-  .nav-desktop {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-  }
-  .hamburger-btn {
-    display: none;
-  }
-  @media (max-width: 768px) {
-    .nav-desktop { display: none; }
-    .hamburger-btn { display: block; }
-  }
-
-
-
-
-  /* ── STACKED PANEL SCROLL SYSTEM ───────────────────── */
-  #projects-wrapper {
-    position: relative;
-    z-index: 2;
-    /* height set by JS based on panel count */
-  }
-  .project-panel {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow: hidden;
-    will-change: transform, opacity;
-    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1),
-                opacity 0.5s ease,
-                filter 0.5s ease;
-    transform-origin: top center;
-  }
-  /* When a proof is open: release overflow so case study is fully readable */
-  .project-panel.proof-open {
-    overflow: visible;
-    height: auto;
-    min-height: 100vh;
-    justify-content: flex-start;
-    padding-top: 2rem;
-  }
-  .project-panel.pp-inactive {
-    transform: scale(0.95);
-    opacity: 0.55;
-    filter: blur(1px);
-  }
-  /* Panel header — NOT sticky, just normal flow */
-  .panel-header {
-    margin-bottom: 1rem;
-  }
-  .panel-inner {
-    max-width: 1400px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 2.5rem 2rem 2rem;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  /* proof-open panel-inner: top-aligned not centered */
-  .project-panel.proof-open .panel-inner {
-    justify-content: flex-start;
-    height: auto;
-  }
-  /* Panel phase label — cyan, clearly a category */
-  .panel-phase-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--cyan);
-    margin-bottom: 0.3rem;
-  }
-  .panel-title {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-    font-weight: 800;
-    color: #ffffff;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
-  }
-  .panel-desc {
-    font-size: 0.85rem;
-    color: #6677aa;
-    margin-top: 0.3rem;
-    max-width: 700px;
-  }
-  /* FIXED 2-column grid — consistent across all screen sizes */
-  .panel-cards {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.2rem;
-    flex: 1;
-    align-content: center;
-  }
-
-  /* Mobile fallback */
-  @media (max-width: 768px) {
-    .project-panel {
-      position: relative !important;
-      height: auto !important;
-      min-height: auto !important;
-      transform: none !important;
-      opacity: 1 !important;
-      filter: none !important;
-      padding: 4rem 0 2rem;
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<meta name="color-scheme" content="dark light">
+<script>
+  // apply saved theme before first paint — no flash of wrong palette
+  (function () {
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'dark');
     }
-    .project-panel.pp-inactive {
-      transform: none !important;
-      opacity: 1 !important;
-      filter: none !important;
-    }
-    #projects-wrapper {
-      height: auto !important;
-    }
-    .panel-inner {
-      padding: 2rem 1rem;
-      height: auto;
-    }
-  }
-
-  /* ── CASE STUDY CARDS ───────────────────────────────── */
-  .cs-card {
-    background: rgba(10,10,18,0.9);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: all 0.3s;
-    position: relative;
-  }
-  .cs-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--green), transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .cs-card:hover {
-    border-color: var(--border);
-    transform: translateY(-4px);
-    box-shadow: var(--glow-green);
-  }
-  .cs-card:hover::before { opacity: 1; }
-  .cs-card-header { padding: 1.5rem 1.5rem 1rem; }
-  .cs-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.8rem;
-  }
-  .cs-lang {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem;
-    color: #334455;
-    letter-spacing: 0.05em;
-  }
-  .cs-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 0.5rem;
-  }
-  .cs-desc {
-    font-size: 0.82rem;
-    color: #6677aa;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-  }
-  .cs-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0; }
-  .cs-links {
-    display: flex;
-    gap: 0.6rem;
-    padding: 1rem 1.5rem 1.5rem;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .cs-expand-btn {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--green);
-    background: rgba(0,255,136,0.06);
-    border: 1px solid rgba(0,255,136,0.2);
-    border-radius: 3px;
-    padding: 0.45rem 0.9rem;
-    cursor: none;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-  .cs-expand-btn:hover {
-    background: rgba(0,255,136,0.12);
-    border-color: var(--green);
-  }
-  .expand-arrow { transition: transform 0.3s; display: inline-block; }
-  .cs-expand-btn.open .expand-arrow { transform: rotate(180deg); }
-
-  /* PROOF PANEL */
-  .cs-proof {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1);
-    border-top: 1px solid transparent;
-  }
-  .cs-proof.open {
-    max-height: 1200px;
-    border-top-color: rgba(255,255,255,0.04);
-  }
-  .cs-proof-inner { padding: 1.5rem; }
-  .proof-section { margin-bottom: 1.3rem; }
-  .proof-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.58rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--cyan);
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .proof-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: rgba(0,212,255,0.1);
-  }
-  .proof-text {
-    font-size: 0.8rem;
-    color: #8899aa;
-    line-height: 1.7;
-  }
-  .proof-text strong { color: #c8d0e0; }
-  .proof-terminal {
-    background: rgba(0,0,0,0.5);
-    border: 1px solid rgba(0,255,136,0.12);
-    border-radius: 4px;
-    padding: 0.9rem 1rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
-    line-height: 1.9;
-    color: #6677aa;
-    overflow-x: auto;
-    margin-top: 0.3rem;
-  }
-  .t-green { color: #00ff88; }
-  .t-cyan { color: #00d4ff; }
-  .t-red { color: #ff2d55; }
-  .t-white { color: #c8d0e0; }
-  .t-dim { color: #334455; }
-  .impact-wrap { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem; }
-  .impact-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    background: rgba(0,255,136,0.08);
-    border: 1px solid rgba(0,255,136,0.2);
-    border-radius: 3px;
-    padding: 0.25rem 0.6rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem;
-    color: var(--green);
-  }
-
-  /* ── CAPABILITY MODULES ──────────────────────────────── */
-  .cap-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1rem;
-    max-width: 1400px;
-    margin: 1.5rem auto 0;
-  }
-  .cap-module {
-    background: rgba(10,10,18,0.9);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: border-color 0.3s;
-    cursor: none;
-  }
-  .cap-module:hover { border-color: rgba(255,255,255,0.12); }
-  .cap-module.cap-active { border-color: var(--green); }
-  .cap-module.cap-cyan.cap-active { border-color: var(--cyan); }
-  .cap-module.cap-red.cap-active { border-color: var(--red); }
-  .cap-module.cap-purple.cap-active { border-color: #a855f7; }
-  .cap-header {
-    padding: 1.2rem 1.4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    user-select: none;
-  }
-  .cap-left { display: flex; align-items: center; gap: 0.8rem; }
-  .cap-icon {
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    background: rgba(0,255,136,0.06);
-    border: 1px solid rgba(0,255,136,0.12);
-    border-radius: 5px;
-    flex-shrink: 0;
-  }
-  .cap-cyan .cap-icon { background: rgba(0,212,255,0.06); border-color: rgba(0,212,255,0.12); }
-  .cap-red .cap-icon { background: rgba(255,45,85,0.06); border-color: rgba(255,45,85,0.12); }
-  .cap-purple .cap-icon { background: rgba(168,85,247,0.06); border-color: rgba(168,85,247,0.12); }
-  .cap-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: #fff;
-  }
-  .cap-level {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-top: 0.1rem;
-    color: var(--green);
-  }
-  .cap-cyan .cap-level { color: var(--cyan); }
-  .cap-red .cap-level { color: var(--red); }
-  .cap-purple .cap-level { color: #a855f7; }
-  .cap-chevron {
-    font-size: 0.75rem;
-    color: #334455;
-    transition: transform 0.3s, color 0.2s;
-  }
-  .cap-active .cap-chevron { transform: rotate(180deg); color: var(--green); }
-  .cap-cyan.cap-active .cap-chevron { color: var(--cyan); }
-  .cap-red.cap-active .cap-chevron { color: var(--red); }
-  .cap-purple.cap-active .cap-chevron { color: #a855f7; }
-
-  .cap-body {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1);
-    border-top: 1px solid transparent;
-  }
-  .cap-body.cap-open {
-    max-height: 1000px;
-    border-top-color: rgba(255,255,255,0.04);
-  }
-  .cap-inner { padding: 1.2rem 1.4rem 1.4rem; }
-  .cap-section { margin-bottom: 1.2rem; }
-  .cap-section-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.56rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #334455;
-    margin-bottom: 0.5rem;
-  }
-  .cap-list { list-style: none; }
-  .cap-list li {
-    font-size: 0.77rem;
-    color: #8899aa;
-    padding: 0.18rem 0;
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
-    line-height: 1.5;
-  }
-  .cap-list li::before { content: "›"; color: var(--green); flex-shrink: 0; }
-  .cap-cyan .cap-list li::before { color: var(--cyan); }
-  .cap-red .cap-list li::before { color: var(--red); }
-  .cap-purple .cap-list li::before { color: #a855f7; }
-  .cap-tools-wrap { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-  .cap-tool {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.58rem;
-    padding: 0.15rem 0.5rem;
-    border-radius: 2px;
-    background: rgba(0,255,136,0.06);
-    border: 1px solid rgba(0,255,136,0.15);
-    color: var(--green);
-  }
-  .cap-cyan .cap-tool { background: rgba(0,212,255,0.06); border-color: rgba(0,212,255,0.15); color: var(--cyan); }
-  .cap-red .cap-tool { background: rgba(255,45,85,0.06); border-color: rgba(255,45,85,0.15); color: var(--red); }
-  .cap-purple .cap-tool { background: rgba(168,85,247,0.06); border-color: rgba(168,85,247,0.15); color: #a855f7; }
-  .cap-terminal {
-    background: rgba(0,0,0,0.4);
-    border: 1px solid rgba(0,255,136,0.08);
-    border-radius: 4px;
-    padding: 0.7rem 0.9rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    line-height: 1.8;
-    color: #6677aa;
-  }
-  .cap-cyan .cap-terminal { border-color: rgba(0,212,255,0.08); }
-  .cap-red .cap-terminal { border-color: rgba(255,45,85,0.08); }
-  .cap-thinking {
-    font-size: 0.77rem;
-    color: #8899aa;
-    line-height: 1.7;
-    border-left: 2px solid var(--green);
-    padding-left: 0.8rem;
-    background: rgba(0,255,136,0.02);
-    border-radius: 0 3px 3px 0;
-    padding-top: 0.4rem;
-    padding-bottom: 0.4rem;
-  }
-  .cap-cyan .cap-thinking { border-left-color: var(--cyan); background: rgba(0,212,255,0.02); }
-  .cap-red .cap-thinking { border-left-color: var(--red); background: rgba(255,45,85,0.02); }
-  .cap-purple .cap-thinking { border-left-color: #a855f7; background: rgba(168,85,247,0.02); }
-
-
-  /* ── MOBILE FIXES ──────────────────────────────────── */
-
-  /* Viewport meta enforcement */
-  #hero-grid {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  @media (max-width: 768px) {
-    /* Base */
-    body { overflow-x: hidden; }
-
-    /* Hero - full fix */
-    #hero {
-      padding: 5rem 1.2rem 3rem !important;
-      min-height: 100vh;
-      box-sizing: border-box;
-    }
-    #hero-grid {
-      display: flex !important;
-      flex-direction: column !important;
-      gap: 2rem !important;
-      text-align: left !important;
-      width: 100% !important;
-    }
-    #hero-grid > div {
-      width: 100% !important;
-      max-width: 100% !important;
-      box-sizing: border-box;
-    }
-    .hero-name {
-      font-size: clamp(2.5rem, 11vw, 4rem) !important;
-      line-height: 0.9 !important;
-      word-break: break-word;
-    }
-    .hero-alias { font-size: 0.82rem !important; }
-    .hero-sub {
-      font-size: 0.85rem !important;
-      max-width: 100% !important;
-    }
-    .role-rotator {
-      font-size: 0.68rem !important;
-      gap: 0.3rem;
-    }
-    .role-text-wrapper {
-      min-width: 140px !important;
-      max-width: 200px;
-    }
-    .terminal {
-      font-size: 0.68rem !important;
-      max-width: 100% !important;
-      overflow-x: auto;
-    }
-
-    /* Glow orbs - hide on mobile to prevent overflow */
-    .glow-orb { display: none !important; }
-
-    /* Nav */
-    .nav-desktop { display: none !important; }
-    .hamburger-btn { display: block !important; }
-
-    /* Live Ops */
-    #ops { padding: 4rem 1.2rem; }
-    .ops-panel { padding: 1rem; }
-    .ops-line {
-      flex-wrap: wrap;
-      gap: 0.3rem;
-      font-size: 0.68rem;
-      line-height: 1.6;
-    }
-    .ops-key {
-      min-width: 80px !important;
-      font-size: 0.62rem;
-    }
-    .ops-val { font-size: 0.68rem; }
-
-    /* About */
-    #about { padding: 4rem 1.2rem; }
-    .about-grid {
-      display: flex !important;
-      flex-direction: column !important;
-      gap: 2rem !important;
-    }
-    .stat-cards { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
-    .stat-num { font-size: 1.8rem; }
-    .skill-tags { gap: 0.35rem; }
-
-    /* Sections */
-    #skills, #blog, #contact { padding: 4rem 1.2rem; }
-    .section-title { font-size: clamp(1.6rem, 7vw, 2.5rem); }
-
-    /* Cap modules */
-    .cap-grid { grid-template-columns: 1fr !important; }
-
-    /* Timeline - FIXED */
-    #timeline { padding: 4rem 1.2rem; }
-    .timeline-container { margin: 2rem 0 0; }
-    .timeline-line { left: 10px !important; }
-    .timeline-item {
-      display: flex !important;
-      flex-direction: row !important;
-      grid-template-columns: unset !important;
-      gap: 0.8rem !important;
-      margin-bottom: 1.5rem;
-      padding-left: 1.5rem;
-    }
-    .timeline-year { display: none !important; }
-    .timeline-content {
-      flex: 1 !important;
-      min-width: 0 !important;
-      max-width: 100% !important;
-      padding: 1rem !important;
-      word-break: break-word;
-      box-sizing: border-box;
-    }
-    .timeline-content::before {
-      left: -26px !important;
-      top: 12px !important;
-      width: 9px !important;
-      height: 9px !important;
-    }
-    .timeline-event {
-      font-size: 0.88rem !important;
-      line-height: 1.3;
-      word-break: break-word;
-    }
-    .timeline-detail {
-      font-size: 0.7rem !important;
-      line-height: 1.6;
-      word-break: break-word;
-    }
-    .cert-badges { flex-direction: column; gap: 0.5rem; }
-    .cert-badge { min-width: unset !important; }
-
-    /* Blog */
-    .blog-grid { grid-template-columns: 1fr !important; }
-
-    /* Contact */
-    .contact-inner { padding: 0; }
-    .form-row { grid-template-columns: 1fr !important; }
-    .social-links {
-      gap: 0.4rem;
-      flex-wrap: wrap;
-    }
-    .social-link {
-      font-size: 0.6rem !important;
-      padding: 0.45rem 0.7rem !important;
-    }
-
-    /* Projects */
-    .panel-cards { grid-template-columns: 1fr !important; }
-    .panel-cards { grid-template-columns: 1fr !important; }
-    .panel-inner { padding: 4rem 1.2rem 2rem !important; }
-    .panel-title { font-size: clamp(1.5rem, 6vw, 2rem) !important; }
-  }
-
-  @media (max-width: 400px) {
-    .hero-name { font-size: clamp(2.2rem, 10vw, 3rem) !important; }
-    .stat-cards { grid-template-columns: 1fr 1fr; }
-  }
-
-
-  /* Hero — stack on mobile */
-  @media (max-width: 768px) {
-    #hero { padding: 5rem 1.2rem 3rem; min-height: 100vh; }
-    #hero > div {
-      grid-template-columns: 1fr !important;
-      gap: 2rem !important;
-      text-align: left !important;
-    }
-    .hero-name { font-size: clamp(2.8rem, 12vw, 5rem); }
-    .hero-alias { font-size: 0.85rem; }
-    .hero-sub { font-size: 0.88rem; max-width: 100%; }
-    .role-rotator {
-      font-size: 0.72rem;
-      flex-wrap: wrap;
-    }
-    .role-text-wrapper { min-width: 160px; }
-    .terminal { font-size: 0.7rem; }
-
-    /* About — stack on mobile */
-    .about-grid {
-      grid-template-columns: 1fr !important;
-      gap: 2rem !important;
-    }
-    .stat-cards { grid-template-columns: 1fr 1fr; }
-    .stat-num { font-size: 1.8rem; }
-
-    /* Nav */
-    .nav-desktop { display: none !important; }
-    .hamburger-btn { display: block !important; }
-
-    /* Ops panel */
-    .ops-line {
-      flex-wrap: wrap;
-      gap: 0.3rem;
-      font-size: 0.7rem;
-    }
-    .ops-key { min-width: 70px; font-size: 0.65rem; }
-
-    /* Sections padding */
-    #about, #ops, #skills, #timeline, #blog, #contact {
-      padding: 4rem 1.2rem;
-    }
-    .section-title { font-size: clamp(1.6rem, 7vw, 2.5rem); }
-
-    /* Skills/cap grid */
-    .cap-grid { grid-template-columns: 1fr; }
-
-    /* Timeline */
-    .timeline-container { padding: 0; }
-    .timeline-line { left: 8px; }
-    .timeline-item { grid-template-columns: 8px auto; gap: 0.8rem; }
-    .timeline-year { display: none; }
-    .timeline-content { padding: 1rem; }
-    .timeline-content::before { left: -18px; width: 9px; height: 9px; }
-
-    /* Blog grid */
-    .blog-grid { grid-template-columns: 1fr; }
-
-    /* Contact form */
-    .form-row { grid-template-columns: 1fr; }
-    .social-links { gap: 0.5rem; }
-    .social-link { font-size: 0.62rem; padding: 0.5rem 0.8rem; }
-
-    /* Dividers */
-    .divider { margin: 0 1.2rem; }
-
-    /* Cert badges */
-    .cert-badges { flex-direction: column; }
-    .cert-badge { min-width: unset; }
-  }
-
-  /* Extra small screens */
-  @media (max-width: 400px) {
-    .hero-name { font-size: clamp(2.4rem, 10vw, 3.5rem); }
-    .stat-cards { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
-    .ops-panel { padding: 1rem; }
-  }
-
-
-  /* Hide custom cursor on touch/mobile devices */
-  @media (hover: none) and (pointer: coarse) {
-    #cursor, #cursor-ring { display: none !important; }
-    body { cursor: auto !important; }
-    a, button, [onclick] { cursor: pointer !important; }
-  }
-
-
-  /* ── CASE STUDY MODAL ──────────────────────────────── */
-  .cs-modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 9000;
-    background: rgba(5,5,10,0.92);
-    backdrop-filter: blur(12px);
-    overflow-y: auto;
-    padding: 2rem 1rem;
-  }
-  .cs-modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
-  .cs-modal-box {
-    background: #0a0a12;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    width: 100%;
-    max-width: 760px;
-    position: relative;
-    box-shadow: 0 0 60px rgba(0,255,136,0.08);
-    margin: auto;
-  }
-  /* Close button sits in its own bar above the card content */
-  .cs-modal-close {
-    display: flex;
-    justify-content: flex-end;
-    padding: 0.7rem 1rem 0;
-  }
-  .cs-modal-close button {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    color: #8899aa;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    padding: 0.3rem 0.8rem;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .cs-modal-close button:hover { color: var(--green); border-color: var(--green); }
-  .cs-modal-card-top {
-    padding: 0.8rem 1.5rem 1rem;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-  .cs-modal-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #fff;
-    margin: 0.5rem 0 0.4rem;
-  }
-  .cs-modal-desc {
-    font-size: 0.85rem;
-    color: #6677aa;
-    line-height: 1.7;
-    margin-bottom: 0.8rem;
-  }
-  .cs-modal-proof { padding: 0; }
-  @media (max-width: 768px) {
-  .about-grid .reveal {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-}
-
-</style>
+  })();
+</script>
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
+<div class="aurora" aria-hidden="true">
+  <span class="blob b1"></span>
+  <span class="blob b2"></span>
+  <span class="blob b3"></span>
+</div>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
 
-<!-- Custom Cursor -->
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
 
-<!-- Animated Canvas Background -->
-<canvas id="bg-canvas"></canvas>
-
-<!-- Mobile Menu -->
-<div id="mobile-menu">
-  <button id="close-menu" onclick="toggleMenu()">✕</button>
-  <a href="#about" onclick="toggleMenu()">About</a>
-  <a href="#projects-wrapper" onclick="toggleMenu()">Projects</a>
-  <a href="#skills" onclick="toggleMenu()">Skills</a>
-  <a href="#timeline" onclick="toggleMenu()">Journey</a>
-  <a href="#blog" onclick="toggleMenu()">Blog</a>
-  <a href="#contact" onclick="toggleMenu()">Contact</a>
-</div>
-
 <!-- NAV -->
-<nav id="navbar">
-  <div style="max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;">
-    <a href="#" class="nav-logo">r3tro_n3o<span class="cursor-blink">_</span></a>
-    <div class="nav-links nav-desktop">
-      <a href="#about">About</a>
-      <a href="#projects-wrapper">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#timeline">Journey</a>
-      <a href="#blog">Blog</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <button id="hamburger" class="hamburger-btn" onclick="toggleMenu()">
+<header class="nav-shell" id="navbar">
+  <nav class="nav-bar glass" aria-label="Main navigation">
+    <a href="index.html" class="brand">r3tro_n3o<span class="caret">_</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="journey.html">Journey</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" type="button" aria-label="Toggle color theme"><i class="ti ti-sun theme-icon-sun" aria-hidden="true"></i><i class="ti ti-moon theme-icon-moon" aria-hidden="true"></i></button>
+    <a href="contact.html" class="btn btn-primary btn-sm nav-cta">Hire me</a>
+    <button id="hamburger" class="hamburger" onclick="toggleMenu()" aria-label="Open menu">
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-        <line x1="3" y1="6" x2="19" y2="6"/>
-        <line x1="3" y1="11" x2="19" y2="11"/>
-        <line x1="3" y1="16" x2="19" y2="16"/>
+        <line x1="3" y1="6" x2="19" y2="6"/><line x1="3" y1="11" x2="19" y2="11"/><line x1="3" y1="16" x2="19" y2="16"/>
       </svg>
     </button>
-  </div>
-</nav>
+  </nav>
+</header>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu">
+  <button id="close-menu" onclick="toggleMenu()" aria-label="Close menu">✕</button>
+  <a href="index.html" class="mm-link active" onclick="toggleMenu()">Home</a>
+  <a href="about.html" class="mm-link" onclick="toggleMenu()">About</a>
+  <a href="projects.html" class="mm-link" onclick="toggleMenu()">Projects</a>
+  <a href="skills.html" class="mm-link" onclick="toggleMenu()">Skills</a>
+  <a href="journey.html" class="mm-link" onclick="toggleMenu()">Journey</a>
+  <a href="blog.html" class="mm-link" onclick="toggleMenu()">Blog</a>
+  <a href="contact.html" class="mm-link" onclick="toggleMenu()">Contact</a>
+  <button class="theme-toggle" type="button" aria-label="Toggle color theme"><i class="ti ti-sun theme-icon-sun" aria-hidden="true"></i><i class="ti ti-moon theme-icon-moon" aria-hidden="true"></i></button>
+  <div class="mm-meta">Building from Africa · Eyes on the global stage</div>
+</div>
+
+<main>
 
 <!-- HERO -->
-<section id="hero">
-  <!-- Glow Orbs -->
-  <div class="glow-orb" style="width:400px;height:400px;background:rgba(0,255,136,0.04);top:10%;left:-10%;"></div>
-  <div class="glow-orb" style="width:500px;height:500px;background:rgba(0,212,255,0.03);bottom:0;right:-15%;"></div>
-
-  <div id="hero-grid" style="max-width:1400px;width:100%;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
-    <div>
-      <div class="hero-tag"><span class="hero-tag-dot"></span>// Offensive Security in Progress</div>
-      <h1 class="hero-name">
-        Leo<br>Mugambi
-        <span class="hero-alias">aka r3tro_n3o</span>
-      </h1>
-      <p class="hero-sub">
+<section class="hero" id="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-tag"><span class="hero-tag-dot"></span>// Offensive security in progress</div>
+        <h1 class="hero-name">
+          Leo<br>Mugambi
+          <span class="hero-alias">aka r3tro_n3o</span>
+        </h1>
+        <p class="hero-sub">
           I don't trust a system until I've tried to break it myself. So I build the tools to do that, then see what's left standing.
-      </p>
-      <div class="role-rotator">
-        <span class="role-prefix">$ identify --role</span>
-        <div class="role-text-wrapper" id="role-wrapper">
-          <span class="role-item active">Cybersecurity Practitioner</span>
-          <span class="role-item">Penetration Tester</span>
-          <span class="role-item">Threat Hunter</span>
-          <span class="role-item">Security Researcher</span>
-          <span class="role-item">DFIR Practitioner</span>
-          <span class="role-item">Cloud Security</span>
-          <span class="role-item">CTF Player</span>
-          <span class="role-item">Ethical Hacker</span>
+        </p>
+
+        <div class="role-rotator">
+          <span class="role-prefix">$ identify --role</span>
+          <span class="role-text-wrapper" id="role-wrapper">
+            <span class="role-item active">Cybersecurity Practitioner</span>
+            <span class="role-item">Penetration Tester</span>
+            <span class="role-item">Threat Hunter</span>
+            <span class="role-item">Security Researcher</span>
+            <span class="role-item">DFIR Practitioner</span>
+            <span class="role-item">Cloud Security</span>
+            <span class="role-item">CTF Player</span>
+            <span class="role-item">Ethical Hacker</span>
+          </span>
+          <span class="role-cursor"></span>
         </div>
-        <span class="role-cursor"></span>
-      </div>
-      <div style="display:flex;gap:1rem;margin-top:2.5rem;flex-wrap:wrap;">
-        <a href="#projects-wrapper" class="btn-primary">View Projects</a>
-        <a href="#contact" class="btn-outline">Get In Touch</a>
-      </div>
-    </div>
-    <div>
-      <div class="terminal">
-        <div class="terminal-bar">
-          <div class="terminal-dot" style="background:#ff5f56;"></div>
-          <div class="terminal-dot" style="background:#ffbd2e;"></div>
-          <div class="terminal-dot" style="background:#27c93f;"></div>
-          <span style="margin-left:0.5rem;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#334455;">r3tro_n3o — zsh</span>
+
+        <div class="hero-actions">
+          <a href="projects.html" class="btn btn-primary">View Projects</a>
+          <a href="contact.html" class="btn btn-ghost">Get In Touch</a>
         </div>
-        <div class="terminal-line"><span class="prompt">┌──(</span><span style="color:var(--cyan);">r3tro_n3o</span><span class="prompt">㉿kali)</span><span style="color:#8899aa;">-[~]</span></div>
-        <div class="terminal-line"><span class="prompt">└─$ </span><span id="typed-text"></span><span class="terminal-cursor-blink"></span></div>
-        <div id="terminal-output" style="margin-top:0.5rem;"></div>
+
+        <div class="hero-meta">
+          <span><b>//</b> 12 projects shipped</span>
+          <span><b>//</b> 5 certifications</span>
+          <span><b>//</b> CPTS in progress</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="terminal-dot" style="background:#ff5f56;"></span>
+            <span class="terminal-dot" style="background:#ffbd2e;"></span>
+            <span class="terminal-dot" style="background:#27c93f;"></span>
+            <span class="terminal-title">r3tro_n3o — zsh</span>
+          </div>
+          <div class="terminal-line"><span class="prompt">┌──(</span><span style="color:var(--teal-ink);">r3tro_n3o</span><span class="prompt">㉿kali)</span><span class="output">-[~]</span></div>
+          <div class="terminal-line"><span class="prompt">└─$ </span><span id="typed-text"></span><span class="terminal-cursor-blink"></span></div>
+          <div id="terminal-output" style="margin-top:0.5rem;"></div>
+        </div>
       </div>
     </div>
   </div>
-  <div style="position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);animation:bounce 2s ease-in-out infinite;">
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="rgba(0,255,136,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M10 3v14M4 13l6 6 6-6"/></svg>
+  <div class="scroll-hint" aria-hidden="true">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M10 3v14M4 13l6 6 6-6"/></svg>
   </div>
 </section>
 
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span><i>+</i>Nmap</span><span><i>+</i>Metasploit</span><span><i>+</i>Burp Suite</span><span><i>+</i>Wireshark</span><span><i>+</i>Velociraptor</span><span><i>+</i>Sysmon</span><span><i>+</i>Scapy</span><span><i>+</i>Volatility</span><span><i>+</i>Boto3</span><span><i>+</i>Active Directory</span><span><i>+</i>AWS</span><span><i>+</i>Linux</span><span><i>+</i>Python</span><span><i>+</i>n8n</span>
+    <span><i>+</i>Nmap</span><span><i>+</i>Metasploit</span><span><i>+</i>Burp Suite</span><span><i>+</i>Wireshark</span><span><i>+</i>Velociraptor</span><span><i>+</i>Sysmon</span><span><i>+</i>Scapy</span><span><i>+</i>Volatility</span><span><i>+</i>Boto3</span><span><i>+</i>Active Directory</span><span><i>+</i>AWS</span><span><i>+</i>Linux</span><span><i>+</i>Python</span><span><i>+</i>n8n</span>
+  </div>
+</div>
 
 <!-- LIVE OPS -->
-<section id="ops">
-  <div style="max-width:1400px;margin:0 auto;text-align:center;">
-    <div class="section-label reveal">// Live Ops Status</div>
-    <h2 class="section-title reveal">Current Loadout</h2>
-    <div class="ops-panel reveal">
-      <div class="ops-header">
-        <div class="ops-dot"></div>
-        SYSTEM STATUS — ONLINE
-        <span style="margin-left:auto;color:#334455;" id="ops-time"></span>
+<section id="ops" class="tinted">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow"><span class="eyebrow-num">01</span> Live Ops Status</span>
+        <h2 class="section-title">Current <em>loadout</em></h2>
       </div>
-      <div style="display:grid;gap:0.3rem;">
+      <p class="sh-note">What's running on my machine and in my head right now. Updated as things change.</p>
+    </div>
+
+    <div class="ops-panel glass reveal">
+      <div class="ops-header">
+        <span class="ops-dot"></span>
+        System status — online
+        <span class="ops-clock" id="ops-time"></span>
+      </div>
+      <div class="ops-grid">
         <div class="ops-line"><span class="ops-key">[STUDYING]</span><span class="ops-val">CPTS — HackTheBox Certified Penetration Testing Specialist</span><span class="ops-badge badge-active">Active</span></div>
         <div class="ops-line"><span class="ops-key">[TOOLS]</span><span class="ops-val">Nmap · Metasploit · Burp Suite · Wireshark · Msfvenom · Velociraptor · Sysmon</span></div>
         <div class="ops-line"><span class="ops-key">[LAB]</span><span class="ops-val">Velociraptor + Sysmon DFIR Lab — Kali server / Windows 10 client</span><span class="ops-badge badge-active">Running</span></div>
@@ -1863,1355 +180,203 @@
 
 <div class="divider"></div>
 
-<!-- ABOUT -->
-<section id="about">
-  <div style="max-width:1400px;margin:0 auto;">
-    <div class="section-label reveal">// whoami</div>
-    <h2 class="section-title reveal">The Story So Far</h2>
-    <div class="about-grid">
-      <div class="reveal">
-        <div class="about-text">
-          <p style="color:#8899aa;font-family:'JetBrains Mono',monospace;font-size:0.78rem;line-height:1.9;border-left:2px solid var(--green);padding-left:1rem;margin-bottom:1.5rem;">Systems fail in interesting ways. Every system is built on assumptions, and security begins where those assumptions stop being true. I study how systems behave when pushed beyond what they were designed for. Most of my best learning moments start with one question: what happens if this is used in a way it was never meant to be?</p>
-          <p>I'm Leo, some corners of the internet know me as <strong>r3tro_n3o</strong>. I didn't start with a mission, I started curious. I wanted to know how digital systems actually break, what happens when you push something past what it was built to handle. That curiosity turned into obsession fast, and the more I learned, the more I noticed how exposed things are around me. Scams, SIM-swaps, fraud; most people here have no idea how it works and even less recourse when it happens. Understanding the mechanics stopped being a hobby and started feeling necessary.</p>
-          <p>I started self-taught, working through Cybrary, OverTheWire, and TryHackMe with no real roadmap. Then came <strong>AfricaHackon's full curriculum</strong>: Linux, recon, Active Directory, wireless, web and API security, cloud, malware, DFIR, blue team. The whole stack, hands-on.</p>
-          <p>Right now I'm deep in <strong>CPTS prep</strong>, and <strong>cloud security</strong> is where I'm actually headed. AWS is where my real hands-on time lives (IAM, VPC, S3, EC2), and I'm building up Azure knowledge on top of that since it's more common in the environments I'll actually be working in. <strong>Offensive security</strong> is the muscle underneath all of it, you can't audit or defend what you don't know how to break.</p>
-          <p>The long game is <strong>NOX</strong>, a company built to make cybercrime harder, not easier. The short game is getting good enough that saying "I do security" stops being an aspiration and starts being just true.</p>
-        </div>
-
-        <div style="margin-top:2rem;">
-          <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;color:#334455;text-transform:uppercase;margin-bottom:0.8rem;">// Tools &amp; Technologies</div>
-
-          <div style="margin-bottom:0.6rem;">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;letter-spacing:0.12em;color:#445566;text-transform:uppercase;margin-bottom:0.4rem;">Languages &amp; Scripting</div>
-            <div class="skill-tags">
-              <span class="skill-tag tag-code"><i class="ti ti-brand-python" aria-hidden="true"></i> Python</span>
-              <span class="skill-tag tag-code"><i class="ti ti-terminal-2" aria-hidden="true"></i> Bash</span>
-              <span class="skill-tag tag-code"><i class="ti ti-terminal" aria-hidden="true"></i> PowerShell</span>
-              <span class="skill-tag tag-code"><i class="ti ti-code" aria-hidden="true"></i> HTML / CSS</span>
-              <span class="skill-tag tag-code"><i class="ti ti-brand-javascript" aria-hidden="true"></i> JavaScript</span>
-            </div>
-          </div>
-
-          <div style="margin-bottom:0.6rem;">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;letter-spacing:0.12em;color:#445566;text-transform:uppercase;margin-bottom:0.4rem;">Offensive Tools</div>
-            <div class="skill-tags">
-              <span class="skill-tag tag-offense"><i class="ti ti-radar" aria-hidden="true"></i> Nmap</span>
-              <span class="skill-tag tag-offense"><i class="ti ti-crosshair" aria-hidden="true"></i> Metasploit</span>
-              <span class="skill-tag tag-offense"><i class="ti ti-bug" aria-hidden="true"></i> Burp Suite</span>
-              <span class="skill-tag tag-offense"><i class="ti ti-wave-sine" aria-hidden="true"></i> Wireshark</span>
-              <span class="skill-tag tag-offense"><i class="ti ti-bomb" aria-hidden="true"></i> Msfvenom</span>
-              <span class="skill-tag tag-offense"><i class="ti ti-search" aria-hidden="true"></i> Gobuster</span>
-              <span class="skill-tag tag-offense"><i class="ti ti-bug-off" aria-hidden="true"></i> Nikto</span>
-              <span class="skill-tag tag-offense"><i class="ti ti-lock-open" aria-hidden="true"></i> John the Ripper</span>
-              <span class="skill-tag tag-offense"><i class="ti ti-antenna" aria-hidden="true"></i> Scapy</span>
-            </div>
-          </div>
-
-          <div style="margin-bottom:0.6rem;">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;letter-spacing:0.12em;color:#445566;text-transform:uppercase;margin-bottom:0.4rem;">Defensive &amp; Analysis</div>
-            <div class="skill-tags">
-              <span class="skill-tag tag-defense"><i class="ti ti-shield-check" aria-hidden="true"></i> Velociraptor</span>
-              <span class="skill-tag tag-defense"><i class="ti ti-eye" aria-hidden="true"></i> Sysmon</span>
-              <span class="skill-tag tag-defense"><i class="ti ti-microscope" aria-hidden="true"></i> Volatility</span>
-              <span class="skill-tag tag-defense"><i class="ti ti-flask" aria-hidden="true"></i> CyberChef</span>
-              <span class="skill-tag tag-defense"><i class="ti ti-zoom-scan" aria-hidden="true"></i> DFIR</span>
-              <span class="skill-tag tag-defense"><i class="ti ti-alert-triangle" aria-hidden="true"></i> EDR Evasion</span>
-            </div>
-          </div>
-
-          <div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;letter-spacing:0.12em;color:#445566;text-transform:uppercase;margin-bottom:0.4rem;">Cloud &amp; Automation</div>
-            <div class="skill-tags">
-              <span class="skill-tag tag-cloud"><i class="ti ti-cloud" aria-hidden="true"></i> AWS</span>
-              <span class="skill-tag tag-cloud"><i class="ti ti-cloud-computing" aria-hidden="true"></i> Azure</span>
-              <span class="skill-tag tag-cloud"><i class="ti ti-world" aria-hidden="true"></i> GCP</span>
-              <span class="skill-tag tag-cloud"><i class="ti ti-key" aria-hidden="true"></i> IAM</span>
-              <span class="skill-tag tag-cloud"><i class="ti ti-network" aria-hidden="true"></i> VPC</span>
-              <span class="skill-tag tag-cloud"><i class="ti ti-settings-automation" aria-hidden="true"></i> n8n</span>
-              <span class="skill-tag tag-cloud"><i class="ti ti-server" aria-hidden="true"></i> Active Directory</span>
-              <span class="skill-tag tag-cloud"><i class="ti ti-brand-debian" aria-hidden="true"></i> Linux</span>
-            </div>
-          </div>
-        </div>
+<!-- SELECTED WORK -->
+<section id="work">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow"><span class="eyebrow-num">02</span> Selected Work</span>
+        <h2 class="section-title">Tools built to <em>break things</em></h2>
       </div>
+      <p class="sh-note">Three of twelve. Recon automation, network detection, and cloud misconfiguration scanning — <strong>each one solved a problem I actually hit</strong>.</p>
+    </div>
 
-      <div class="reveal" style="transition-delay:0.2s;">
-        <div class="stat-cards">
-          <div class="stat-card">
-            <div class="stat-num" data-target="5" data-suffix="+">0</div>
-            <div class="stat-label">Certifications</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num" data-target="12" data-suffix="+">0</div>
-            <div class="stat-label">Projects</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num" data-target="2" data-suffix="yr">0</div>
-            <div class="stat-label">Deep Study</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num" data-target="inf">∞</div>
-            <div class="stat-label">Curiosity</div>
-          </div>
+    <div class="work-grid">
+
+      <article class="cs-card reveal">
+        <div class="cs-card-header">
+          <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python · CLI</span></div>
+          <h3 class="cs-title">r3con — OSINT Recon Tool</h3>
+          <p class="cs-desc">Multi-phase recon pipeline: passive subdomain enumeration, HTTP probing, rule-based tech fingerprinting, banner grabbing, Shodan enrichment, dual JSON+TXT reports with risk flags.</p>
+          <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Shodan API</span><span class="tech-tag">dnspython</span><span class="tech-tag">Rich</span></div>
         </div>
-        <div class="terminal" style="margin-top:1.5rem;font-size:0.72rem;">
-          <div class="terminal-line"><span class="prompt">$ </span><span class="cmd">cat /etc/r3tro/mission.txt</span></div>
-          <div class="terminal-line" style="color:#445566;">——————————————————————</div>
-          <div class="terminal-line"><span style="color:var(--cyan);">objective:</span> <span style="color:#8899aa;">build NOX. reduce cybercrime.</span></div>
-          <div class="terminal-line"><span style="color:var(--cyan);">method:</span> <span style="color:#8899aa;">learn their moves first</span></div>
-          <div class="terminal-line"><span style="color:var(--cyan);">origin:</span> <span style="color:#8899aa;">Africa</span></div>
-          <div class="terminal-line"><span style="color:var(--cyan);">next_role:</span> <span style="color:#8899aa;">cloud security engineer</span></div>
-          <div class="terminal-line"><span style="color:var(--cyan);">status:</span> <span style="color:var(--green);">operational</span> <span class="terminal-cursor-blink" style="width:6px;height:12px;"></span></div>
+        <div class="cs-links">
+          <a href="https://github.com/r3tro-n3o/r3con" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
+          <a href="projects.html#offensive" class="project-link link-demo">Case study →</a>
         </div>
-      </div>
+      </article>
+
+      <article class="cs-card reveal" style="transition-delay:0.1s;">
+        <div class="cs-card-header">
+          <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python · Scapy</span></div>
+          <h3 class="cs-title">NetWatch — Network IDS</h3>
+          <p class="cs-desc">Real-time network intrusion detection built on Scapy. Detects ARP spoofing, port scans, SYN floods, and DNS anomalies. Flags MITM attempts and reconstructs TCP streams.</p>
+          <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Scapy</span><span class="tech-tag">TCP/IP</span><span class="tech-tag">IDS</span></div>
+        </div>
+        <div class="cs-links">
+          <a href="https://github.com/r3tro-n3o/n3twatch" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
+          <a href="projects.html#offensive" class="project-link link-demo">Case study →</a>
+        </div>
+      </article>
+
+      <article class="cs-card reveal" style="transition-delay:0.2s;">
+        <div class="cs-card-header">
+          <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python · AWS</span></div>
+          <h3 class="cs-title">AWScan — AWS Misconfig Scanner</h3>
+          <p class="cs-desc">Automated detection of IAM privilege escalation paths, public S3 buckets, open security groups, missing CloudTrail logging, and VPC misconfigurations.</p>
+          <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Boto3</span><span class="tech-tag">AWS</span><span class="tech-tag">IAM</span></div>
+        </div>
+        <div class="cs-links">
+          <a href="https://github.com/r3tro-n3o/awscan" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
+          <a href="projects.html#cloud" class="project-link link-demo">Case study →</a>
+        </div>
+      </article>
+
+    </div>
+
+    <div style="margin-top:2.5rem;text-align:center;" class="reveal">
+      <a href="projects.html" class="btn btn-ghost">All 12 projects →</a>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- PROJECTS -->
-<div id="projects-wrapper">
-
-  <!-- PANEL 1: OFFENSIVE TOOLS -->
-  <div class="project-panel" style="z-index:10;background:var(--dark);">
-    <div class="panel-inner">
-      <div class="panel-header">
-        <div class="panel-phase-label reveal">Offensive Tools</div>
-        <h2 class="panel-title reveal">Attack. Probe. Break.</h2>
-        <p class="panel-desc reveal">Recon automation, network analysis, wireless auditing, exploitation tooling. Built to think like an attacker.</p>
+<!-- CAPABILITIES SNAPSHOT -->
+<section id="capabilities" class="tinted">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow"><span class="eyebrow-num">03</span> Capabilities</span>
+        <h2 class="section-title">How I <em>operate</em></h2>
       </div>
-      <div class="panel-cards">
+      <p class="sh-note">Not what I know — how I apply it. Four modes, one habit: enumerate first, document everything.</p>
+    </div>
 
-        <div class="cs-card reveal">
-          <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; CLI</span></div>
-            <div class="cs-title">r3con &mdash; OSINT Recon Tool</div>
-            <div class="cs-desc">Multi-phase recon pipeline: passive subdomain enumeration, HTTP probing, rule-based tech fingerprinting, banner grabbing, Shodan enrichment, dual JSON+TXT reports with risk flags.</div>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Shodan API</span><span class="tech-tag">dnspython</span><span class="tech-tag">Rich</span><span class="tech-tag">WHOIS</span></div>
-          </div>
-          <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/r3con" target="_blank" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
-          </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Problem</div><div class="proof-text">Manual recon across multiple tools is slow and inconsistent. Fragmented results across 5 terminal windows with no unified report or risk scoring.</div></div>
-            <div class="proof-section"><div class="proof-label">Attack Scenario</div><div class="proof-text">An attacker finds forgotten subdomains via crt.sh, probes alive hosts, fingerprints Apache + WordPress versions, grabs an SSH banner revealing an outdated OpenSSH build, then checks Shodan for known CVEs &mdash; all in minutes.</div></div>
-            <div class="proof-section"><div class="proof-label">Real Output</div>
-              <div class="proof-terminal">
-<span class="t-dim">└─$ python r3con.py -d scanme.nmap.org</span><br>
-<span class="t-green">[+]</span> <span class="t-white">Found 1 subdomain | IP: 45.33.32.156</span><br>
-<span class="t-green">[+]</span> <span class="t-white">ALIVE scanme.nmap.org [200] (0.93s)</span><br>
-<span class="t-cyan">[+]</span> <span class="t-white">Tech: Apache/2.4.7 (Ubuntu)</span><br>
-<span class="t-green">[+]</span> <span class="t-white">Port 22 open [SSH] SSH-2.0-OpenSSH_6.6.1p1</span><br>
-<span class="t-red">[!]</span> <span class="t-white">No HTTPS detected &mdash; traffic in plaintext</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Reduces recon time 80%</span><span class="impact-badge">&#9889; Surfaces hidden subdomains</span><span class="impact-badge">&#9889; CVE correlation</span></div></div>
-          </div></div>
-        </div>
-
-        <div class="cs-card reveal" style="transition-delay:0.1s;">
-          <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; Scapy</span></div>
-            <div class="cs-title">NetWatch &mdash; Network IDS</div>
-            <div class="cs-desc">Real-time network intrusion detection built on Scapy. Detects ARP spoofing, port scans, SYN floods, and DNS anomalies. Flags MITM attempts and reconstructs TCP streams.</div>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Scapy</span><span class="tech-tag">TCP/IP</span><span class="tech-tag">IDS</span></div>
-          </div>
-          <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/n3twatch" target="_blank" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
-          </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Problem</div><div class="proof-text">ARP poisoning and port scans often go undetected because most defenders don't have scripted detection running on their local networks.</div></div>
-            <div class="proof-section"><div class="proof-label">Detection Output</div>
-              <div class="proof-terminal">
-<span class="t-green">[*]</span> <span class="t-white">Capturing on eth0...</span><br>
-<span class="t-red">[!] ARP SPOOF DETECTED</span><br>
-<span class="t-white">&nbsp;&nbsp;MAC 08:00:27:aa:bb:cc claims 192.168.1.1</span><br>
-<span class="t-white">&nbsp;&nbsp;Previously: 08:00:27:11:22:33</span><br>
-<span class="t-red">[!] MITM RISK &mdash; two MACs for same IP</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Real-time ARP detection</span><span class="impact-badge">&#9889; SYN flood detection</span><span class="impact-badge">&#9889; No GUI required</span></div></div>
-          </div></div>
-        </div>
-
-        <div class="cs-card reveal" style="transition-delay:0.2s;">
-          <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; Flask</span></div>
-            <div class="cs-title">VulnLab &mdash; Vulnerable Web App</div>
-            <div class="cs-desc">Custom DVWA-style target with documented SQLi, XSS, IDOR, SSRF, and command injection &mdash; each with a full attack walkthrough and the actual fix applied.</div>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Flask</span><span class="tech-tag">OWASP Top 10</span><span class="tech-tag">SQLite</span></div>
-          </div>
-          <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/vulnlab" target="_blank" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
-          </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Attack + Fix</div>
-              <div class="proof-terminal">
-<span class="t-red"># VULNERABLE</span><br>
-<span class="t-dim">query = f"SELECT * FROM users WHERE user='{username}'"</span><br>
-<span class="t-red"># Input: admin' -- &rarr; auth bypass</span><br><br>
-<span class="t-green"># FIXED</span><br>
-<span class="t-white">query = "SELECT * FROM users WHERE user=?"</span><br>
-<span class="t-white">cursor.execute(query, (username,))</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; 10+ vulnerability classes</span><span class="impact-badge">&#9889; Attack + fix per vuln</span></div></div>
-          </div></div>
-        </div>
-
-        <div class="cs-card reveal" style="transition-delay:0.3s;">
-          <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; Scapy</span></div>
-            <div class="cs-title">Wireless Auditor</div>
-            <div class="cs-desc">WiFi security auditing tool. Scans for open networks, detects WEP/WPA misconfigurations, captures handshakes, and identifies rogue APs on the local radio environment.</div>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Scapy</span><span class="tech-tag">802.11</span><span class="tech-tag">WPA</span><span class="tech-tag">RF</span></div>
-          </div>
-          <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/wireless-auditor" target="_blank" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
-          </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Problem</div><div class="proof-text">Most wireless auditing requires expensive tools or complex setups. This runs on any Linux box with a wireless adapter in monitor mode.</div></div>
-            <div class="proof-section"><div class="proof-label">Scan Output</div>
-              <div class="proof-terminal">
-<span class="t-green">[*]</span> <span class="t-white">Scanning on wlan0mon...</span><br>
-<span class="t-red">[!] OPEN network: "CafeGuest" &mdash; no encryption</span><br>
-<span class="t-red">[!] WEP network: "OldRouter_5G" &mdash; crackable</span><br>
-<span class="t-cyan">[+]</span> <span class="t-white">Rogue AP detected: BSSID spoofing "HomeNetwork"</span><br>
-<span class="t-green">[+]</span> <span class="t-white">WPA2 handshake captured &mdash; 3 targets</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Detects rogue APs</span><span class="impact-badge">&#9889; Flags weak encryption</span><span class="impact-badge">&#9889; Zero external deps</span></div></div>
-          </div></div>
-        </div>
-
+    <div class="principles">
+      <div class="principle reveal">
+        <span class="p-num">01 — STRONG</span>
+        <h3>Offensive Security</h3>
+        <p>Subdomain enumeration, web app testing, network pentesting, malware analysis and EDR evasion. I ask one question: what would an attacker do with this?</p>
+      </div>
+      <div class="principle reveal" style="transition-delay:0.08s;">
+        <span class="p-num">02 — ACTIVE</span>
+        <h3>Defensive Security</h3>
+        <p>Windows event log hunting, endpoint detection with Velociraptor + Sysmon, malware analysis, incident response. I follow the artifacts to rebuild the timeline.</p>
+      </div>
+      <div class="principle reveal" style="transition-delay:0.16s;">
+        <span class="p-num">03 — ACTIVE</span>
+        <h3>Programming &amp; Automation</h3>
+        <p>Python security tools from scratch, Bash and PowerShell automation, n8n pipelines, API integrations. If I do it manually twice, I script it.</p>
+      </div>
+      <div class="principle reveal" style="transition-delay:0.24s;">
+        <span class="p-num">04 — DEVELOPING</span>
+        <h3>Systems &amp; Cloud</h3>
+        <p>Linux and Active Directory internals, AWS/Azure/GCP security, lab deployment. Every system has a trust model — I find where it's assumed but not enforced.</p>
       </div>
     </div>
-  </div>
 
-  <!-- PANEL 2: DEFENSIVE & FORENSICS -->
-  <div class="project-panel" style="z-index:11;background:#060610;">
-    <div class="panel-inner">
-      <div class="panel-header">
-        <div class="panel-phase-label reveal">Defensive &amp; Forensics</div>
-        <h2 class="panel-title reveal">Detect. Hunt. Respond.</h2>
-        <p class="panel-desc reveal">Log analysis, endpoint detection, incident response tooling, and forensics. What attackers leave behind &mdash; and how to find it.</p>
-      </div>
-      <div class="panel-cards">
-
-        <div class="cs-card reveal">
-          <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; PowerShell</span></div>
-            <div class="cs-title">Windows Event Log Analyzer</div>
-            <div class="cs-desc">Parses Windows Security, System, and PowerShell logs to flag lateral movement, privilege escalation, and persistence mechanisms.</div>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">PowerShell</span><span class="tech-tag">DFIR</span><span class="tech-tag">EVTX</span></div>
-          </div>
-          <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/wineventlog" target="_blank" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
-          </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Detection Output</div>
-              <div class="proof-terminal">
-<span class="t-green">[*]</span> <span class="t-white">Parsing Security.evtx... 48,291 events</span><br>
-<span class="t-red">[!] Event 4625 x47 in 2min &mdash; BRUTE FORCE</span><br>
-<span class="t-red">[!] Event 4688: cmd.exe &rarr; mimikatz.exe</span><br>
-<span class="t-red">[!] Event 4624 NTLM: WORKSTATION &rarr; DC01</span><br>
-<span class="t-green">[+]</span> <span class="t-white">3 high-severity alerts flagged</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Surfaces brute force</span><span class="impact-badge">&#9889; Detects mimikatz</span><span class="impact-badge">&#9889; Maps lateral movement</span></div></div>
-          </div></div>
-        </div>
-
-        <div class="cs-card reveal" style="transition-delay:0.1s;">
-          <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; LDAP</span></div>
-            <div class="cs-title">AD Auditor</div>
-            <div class="cs-desc">Active Directory security auditor. Enumerates users, groups, GPOs, and ACLs to surface privilege escalation paths, stale accounts, and misconfigured permissions.</div>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">LDAP</span><span class="tech-tag">Active Directory</span><span class="tech-tag">RBAC</span></div>
-          </div>
-          <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/ad-auditor" target="_blank" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
-          </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Problem</div><div class="proof-text">AD misconfigurations are the #1 vector in enterprise breaches. Most orgs don't audit them until after the incident.</div></div>
-            <div class="proof-section"><div class="proof-label">Audit Output</div>
-              <div class="proof-terminal">
-<span class="t-green">[*]</span> <span class="t-white">Enumerating CORP.LOCAL...</span><br>
-<span class="t-red">[!] 3 users with AdminSDHolder &mdash; shadow admins</span><br>
-<span class="t-red">[!] 12 stale accounts (90+ days, still enabled)</span><br>
-<span class="t-red">[!] GPO "DefaultDomainPolicy" &mdash; weak password policy</span><br>
-<span class="t-cyan">[+]</span> <span class="t-white">Kerberoastable accounts: 4 found</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Finds shadow admins</span><span class="impact-badge">&#9889; Kerberoast detection</span><span class="impact-badge">&#9889; GPO auditing</span></div></div>
-          </div></div>
-        </div>
-
-        <div class="cs-card reveal" style="transition-delay:0.2s;">
-          <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; DFIR</span></div>
-            <div class="cs-title">Forensics Toolkit</div>
-            <div class="cs-desc">DFIR artifact collection and triage toolkit. Extracts prefetch files, registry hives, browser history, recently accessed files, and USB artifacts from Windows endpoints.</div>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Volatility</span><span class="tech-tag">Registry</span><span class="tech-tag">Prefetch</span></div>
-          </div>
-          <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/forensics-toolkit" target="_blank" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
-          </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Triage Output</div>
-              <div class="proof-terminal">
-<span class="t-green">[*]</span> <span class="t-white">Collecting artifacts from C:\...</span><br>
-<span class="t-cyan">[+]</span> <span class="t-white">Prefetch: 47 entries &mdash; mimikatz.exe found</span><br>
-<span class="t-red">[!] Registry: AutoRun key modified 2026-05-01</span><br>
-<span class="t-red">[!] USB: Unknown device mounted 3x this week</span><br>
-<span class="t-green">[+]</span> <span class="t-white">Timeline exported &mdash; 112 IOCs flagged</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Full artifact triage</span><span class="impact-badge">&#9889; Timeline reconstruction</span><span class="impact-badge">&#9889; USB forensics</span></div></div>
-          </div></div>
-        </div>
-
-        <div class="cs-card reveal" style="transition-delay:0.3s;">
-          <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; IR</span></div>
-            <div class="cs-title">IR Framework</div>
-            <div class="cs-desc">Structured incident response automation. Guides through identification, containment, eradication, and recovery phases with automated evidence collection and report generation.</div>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">NIST IR</span><span class="tech-tag">Automation</span><span class="tech-tag">Reporting</span></div>
-          </div>
-          <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/ir-framework" target="_blank" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
-          </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">IR Workflow</div>
-              <div class="proof-terminal">
-<span class="t-cyan">[IDENTIFY]</span> <span class="t-white">Incident type: ransomware</span><br>
-<span class="t-cyan">[CONTAIN]</span> <span class="t-white">Network isolation script &mdash; executed</span><br>
-<span class="t-cyan">[ERADICATE]</span> <span class="t-white">IOC sweep &mdash; 3 hosts flagged</span><br>
-<span class="t-cyan">[RECOVER]</span> <span class="t-white">Backup integrity verified</span><br>
-<span class="t-green">[+]</span> <span class="t-white">IR report generated &mdash; PDF + JSON</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; NIST IR aligned</span><span class="impact-badge">&#9889; Automated evidence chain</span><span class="impact-badge">&#9889; PDF reporting</span></div></div>
-          </div></div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- PANEL 3: CLOUD & INFRASTRUCTURE -->
-  <div class="project-panel" style="z-index:12;background:#07060f;">
-    <div class="panel-inner">
-      <div class="panel-header">
-        <div class="panel-phase-label reveal">Cloud &amp; Infrastructure</div>
-        <h2 class="panel-title reveal">Misconfigure. Detect. Harden.</h2>
-        <p class="panel-desc reveal">Cloud misconfiguration scanning, honeypots, threat intel automation. Finding what attackers find before they do.</p>
-      </div>
-      <div class="panel-cards">
-
-        <div class="cs-card reveal">
-          <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; AWS</span></div>
-            <div class="cs-title">AWScan &mdash; AWS Misconfig Scanner</div>
-            <div class="cs-desc">Automated detection of IAM privilege escalation paths, public S3 buckets, open security groups, missing CloudTrail logging, and VPC misconfigurations.</div>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Boto3</span><span class="tech-tag">AWS</span><span class="tech-tag">IAM</span><span class="tech-tag">CLI</span></div>
-          </div>
-          <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/awscan" target="_blank" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
-          </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Scanner Output</div>
-              <div class="proof-terminal">
-<span class="t-green">[*]</span> <span class="t-white">Scanning AWS account: 123456789012</span><br>
-<span class="t-red">[CRITICAL] S3 'company-backups-prod' is PUBLIC</span><br>
-<span class="t-white">&nbsp;&nbsp;Objects: 847 | Size: 2.3GB</span><br>
-<span class="t-red">[HIGH] IAM Role 'dev-role' has iam:* permissions</span><br>
-<span class="t-red">[HIGH] SG sg-0abc123 port 22 open to 0.0.0.0/0</span><br>
-<span class="t-cyan">[INFO]</span> <span class="t-white">3 critical findings. Report saved.</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Finds public S3 buckets</span><span class="impact-badge">&#9889; Maps IAM escalation</span><span class="impact-badge">&#9889; Flags exposed ports</span></div></div>
-          </div></div>
-        </div>
-
-        <div class="cs-card reveal" style="transition-delay:0.1s;">
-          <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; n8n</span></div>
-            <div class="cs-title">Honeypot + Threat Intel Reporter</div>
-            <div class="cs-desc">Deployable honeypot capturing attacker TTPs. Fake SSH and HTTP listeners log every interaction, enrich IPs via AbuseIPDB, and auto-generate reports via n8n.</div>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Linux</span><span class="tech-tag">n8n</span><span class="tech-tag">AbuseIPDB</span></div>
-          </div>
-          <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/honeypot" target="_blank" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
-          </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Live Output</div>
-              <div class="proof-terminal">
-<span class="t-green">[*]</span> <span class="t-white">Honeypot active on ports 22, 80, 443</span><br>
-<span class="t-cyan">[HIT]</span> <span class="t-white">185.220.101.45 SSH login attempt</span><br>
-<span class="t-red">[!]</span> <span class="t-white">AbuseIPDB: 97% &mdash; Tor exit node</span><br>
-<span class="t-green">[n8n]</span> <span class="t-white">Report &rarr; Slack notification sent</span><br>
-<span class="t-cyan">[+]</span> <span class="t-white">24h: 847 attempts, 23 unique IPs</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Passive attacker intel</span><span class="impact-badge">&#9889; TTP capture</span><span class="impact-badge">&#9889; Automated reporting</span></div></div>
-          </div></div>
-        </div>
-
-        <div class="cs-card reveal" style="transition-delay:0.2s;">
-          <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; n8n</span></div>
-            <div class="cs-title">Threat Intel Platform</div>
-            <div class="cs-desc">Automated threat intelligence lifecycle. Ingests IOCs from multiple feeds, correlates against local logs, deduplicates, scores by severity, and pushes alerts via n8n workflows.</div>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">n8n</span><span class="tech-tag">STIX</span><span class="tech-tag">AbuseIPDB</span><span class="tech-tag">IOC</span></div>
-          </div>
-          <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/threat-intel" target="_blank" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
-          </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Pipeline Output</div>
-              <div class="proof-terminal">
-<span class="t-green">[*]</span> <span class="t-white">Ingesting 3 feeds &mdash; 1,247 IOCs</span><br>
-<span class="t-cyan">[+]</span> <span class="t-white">Deduped to 834 unique indicators</span><br>
-<span class="t-red">[!] 12 IOCs matched local firewall logs</span><br>
-<span class="t-red">[!] 185.220.101.45 &mdash; Tor exit, score: 97%</span><br>
-<span class="t-green">[n8n]</span> <span class="t-white">Slack alert + report dispatched</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Multi-feed ingestion</span><span class="impact-badge">&#9889; Local log correlation</span><span class="impact-badge">&#9889; Automated alerting</span></div></div>
-          </div></div>
-        </div>
-
-        <div class="cs-card reveal" style="transition-delay:0.3s;">
-          <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python &middot; Docker</span></div>
-            <div class="cs-title">Container Scanner</div>
-            <div class="cs-desc">Docker and Kubernetes security scanner. Audits container configs for privileged mode, exposed sockets, missing resource limits, and K8s RBAC misconfigurations.</div>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Docker</span><span class="tech-tag">Kubernetes</span><span class="tech-tag">RBAC</span><span class="tech-tag">YAML</span></div>
-          </div>
-          <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/container-scanner" target="_blank" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
-          </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Scan Output</div>
-              <div class="proof-terminal">
-<span class="t-green">[*]</span> <span class="t-white">Scanning 8 containers + 12 K8s manifests</span><br>
-<span class="t-red">[CRITICAL] nginx:latest &mdash; running as root</span><br>
-<span class="t-red">[HIGH] Docker socket mounted in app container</span><br>
-<span class="t-red">[HIGH] K8s ClusterRoleBinding to cluster-admin</span><br>
-<span class="t-cyan">[INFO]</span> <span class="t-white">5 critical findings. Report saved.</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Docker + K8s coverage</span><span class="impact-badge">&#9889; RBAC misconfiguration</span><span class="impact-badge">&#9889; Container escape risks</span></div></div>
-          </div></div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<div class="divider"></div>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div style="max-width:1400px;margin:0 auto;">
-    <div class="section-label reveal">// Capabilities</div>
-    <h2 class="section-title reveal">How I Operate</h2>
-    <p class="reveal" style="color:#6677aa;margin-top:0.8rem;font-size:0.9rem;max-width:500px;">Click any module to expand. Not what I know &mdash; how I apply it.</p>
-
-    <div class="cap-grid">
-
-      <!-- OFFENSIVE -->
-      <div class="cap-module" onclick="toggleCap(this)">
-        <div class="cap-header">
-          <div class="cap-left">
-            <div class="cap-icon">&#9876;</div>
-            <div>
-              <div class="cap-name">Offensive Security</div>
-              <div class="cap-level">Strong</div>
-            </div>
-          </div>
-          <div class="cap-chevron">&#9660;</div>
-        </div>
-        <div class="cap-body">
-          <div class="cap-inner">
-            <div class="cap-section">
-              <div class="cap-section-title">What I Can Do</div>
-              <ul class="cap-list">
-                <li>Passive + active subdomain enumeration</li>
-                <li>HTTP probing, tech fingerprinting, banner grabbing</li>
-                <li>Web app testing &mdash; SQLi, XSS, IDOR, SSRF, command injection</li>
-                <li>Network pentesting and port scanning</li>
-                <li>Malware creation, analysis, and EDR evasion</li>
-                <li>OSINT profiling and social engineering recon</li>
-              </ul>
-            </div>
-            <div class="cap-section">
-              <div class="cap-section-title">How I Think</div>
-              <div class="cap-thinking">Identify attack surface &rarr; enumerate subdomains and open ports &rarr; fingerprint services &rarr; probe for vulnerabilities &rarr; document with severity and remediation. Always ask: what would an attacker do with this?</div>
-            </div>
-            <div class="cap-section">
-              <div class="cap-section-title">Tools</div>
-              <div class="cap-tools-wrap">
-                <span class="cap-tool">Nmap</span><span class="cap-tool">Metasploit</span><span class="cap-tool">Burp Suite</span>
-                <span class="cap-tool">Msfvenom</span><span class="cap-tool">Gobuster</span><span class="cap-tool">Nikto</span>
-                <span class="cap-tool">Shodan</span><span class="cap-tool">theHarvester</span><span class="cap-tool">r3con</span>
-              </div>
-            </div>
-            <div class="cap-section">
-              <div class="cap-section-title">Sample Output</div>
-              <div class="cap-terminal">
-<span style="color:#00ff88">[+]</span> Target: company.com | 8 subdomains<br>
-<span style="color:#00ff88">[+]</span> dev.company.com &rarr; Apache 2.4.7 Ubuntu<br>
-<span style="color:#ff2d55">[!]</span> Port 22 open &mdash; OpenSSH_6.6.1p1 (outdated)<br>
-<span style="color:#ff2d55">[!]</span> No HTTPS on dev &mdash; credentials exposed
-              </div>
-            </div>
-            <div class="cap-section">
-              <div class="cap-section-title">What I Look For</div>
-              <div class="cap-thinking">Forgotten dev subdomains &rarr; SSH versions revealing OS age &rarr; Headers leaking framework versions &rarr; Login forms without rate limiting &rarr; Default credentials on admin panels</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- DEFENSIVE -->
-      <div class="cap-module cap-red" onclick="toggleCap(this)">
-        <div class="cap-header">
-          <div class="cap-left">
-            <div class="cap-icon">&#128737;</div>
-            <div>
-              <div class="cap-name">Defensive Security</div>
-              <div class="cap-level">Active</div>
-            </div>
-          </div>
-          <div class="cap-chevron">&#9660;</div>
-        </div>
-        <div class="cap-body">
-          <div class="cap-inner">
-            <div class="cap-section">
-              <div class="cap-section-title">What I Can Do</div>
-              <ul class="cap-list">
-                <li>Windows event log parsing and threat hunting</li>
-                <li>Endpoint detection with Velociraptor + Sysmon</li>
-                <li>Malware analysis &mdash; static and dynamic</li>
-                <li>Incident response &mdash; identify, contain, eradicate, recover</li>
-                <li>GRC frameworks &mdash; risk identification and control mapping</li>
-                <li>Blue team operations and detection rule writing</li>
-              </ul>
-            </div>
-            <div class="cap-section">
-              <div class="cap-section-title">How I Think</div>
-              <div class="cap-thinking">What did the attacker touch? Where did they move? What did they leave behind? I follow the artifacts &mdash; event IDs, registry keys, prefetch files, network connections &mdash; to reconstruct the timeline.</div>
-            </div>
-            <div class="cap-section">
-              <div class="cap-section-title">Tools</div>
-              <div class="cap-tools-wrap">
-                <span class="cap-tool">Velociraptor</span><span class="cap-tool">Sysmon</span><span class="cap-tool">Volatility</span>
-                <span class="cap-tool">CyberChef</span><span class="cap-tool">Wireshark</span><span class="cap-tool">EVTX Parser</span>
-              </div>
-            </div>
-            <div class="cap-section">
-              <div class="cap-section-title">Detection Example</div>
-              <div class="cap-terminal">
-<span style="color:#ff2d55">[!]</span> Event 4625 x47 in 2min &rarr; Brute force<br>
-<span style="color:#ff2d55">[!]</span> Event 4688: cmd.exe &rarr; mimikatz.exe<br>
-<span style="color:#ff2d55">[!]</span> Event 4624 NTLM WORKSTATION &rarr; DC01<br>
-<span style="color:#00ff88">[+]</span> Timeline reconstructed. IOCs extracted.
-              </div>
-            </div>
-            <div class="cap-section">
-              <div class="cap-section-title">What I Look For</div>
-              <div class="cap-thinking">Suspicious outbound traffic &rarr; DNS tunneling &middot; Multiple failed logins &rarr; brute force &middot; Unusual parent-child process chains &rarr; credential dumping &middot; NTLM auth workstation to DC &rarr; lateral movement</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- PROGRAMMING -->
-      <div class="cap-module cap-cyan" onclick="toggleCap(this)">
-        <div class="cap-header">
-          <div class="cap-left">
-            <div class="cap-icon">&#9000;</div>
-            <div>
-              <div class="cap-name">Programming &amp; Automation</div>
-              <div class="cap-level">Active</div>
-            </div>
-          </div>
-          <div class="cap-chevron">&#9660;</div>
-        </div>
-        <div class="cap-body">
-          <div class="cap-inner">
-            <div class="cap-section">
-              <div class="cap-section-title">What I Can Do</div>
-              <ul class="cap-list">
-                <li>Build security tools from scratch in Python</li>
-                <li>Bash scripting for Linux automation and enumeration</li>
-                <li>PowerShell for Windows administration and log parsing</li>
-                <li>n8n workflow automation for security pipelines</li>
-                <li>Web development &mdash; HTML, CSS, JavaScript</li>
-                <li>API integration &mdash; Shodan, VirusTotal, AbuseIPDB</li>
-              </ul>
-            </div>
-            <div class="cap-section">
-              <div class="cap-section-title">How I Think</div>
-              <div class="cap-thinking">If I'm doing a task manually more than twice, I script it. Security without automation doesn't scale. Every tool I build solves a real problem I faced during testing or analysis.</div>
-            </div>
-            <div class="cap-section">
-              <div class="cap-section-title">Languages &amp; Tools</div>
-              <div class="cap-tools-wrap">
-                <span class="cap-tool">Python</span><span class="cap-tool">Bash</span><span class="cap-tool">PowerShell</span>
-                <span class="cap-tool">JavaScript</span><span class="cap-tool">HTML/CSS</span><span class="cap-tool">n8n</span>
-                <span class="cap-tool">Scapy</span><span class="cap-tool">Boto3</span><span class="cap-tool">Rich</span>
-              </div>
-            </div>
-            <div class="cap-section">
-              <div class="cap-section-title">Code Sample</div>
-              <div class="cap-terminal">
-<span style="color:#445566"># Banner grabbing &mdash; r3con portscan module</span><br>
-<span style="color:#00d4ff">def</span> <span style="color:#c8d0e0">grab_banner</span>(ip, port, timeout=2):<br>
-&nbsp;&nbsp;s = socket.socket()<br>
-&nbsp;&nbsp;s.settimeout(timeout)<br>
-&nbsp;&nbsp;s.connect((ip, port))<br>
-&nbsp;&nbsp;banner = s.recv(1024).decode(<span style="color:#00ff88">"utf-8"</span>, errors=<span style="color:#00ff88">"ignore"</span>)<br>
-&nbsp;&nbsp;<span style="color:#00d4ff">return</span> banner.splitlines()[0][:200]
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SYSTEMS -->
-      <div class="cap-module cap-purple" onclick="toggleCap(this)">
-        <div class="cap-header">
-          <div class="cap-left">
-            <div class="cap-icon">&#9881;</div>
-            <div>
-              <div class="cap-name">Systems &amp; Infrastructure</div>
-              <div class="cap-level">Developing</div>
-            </div>
-          </div>
-          <div class="cap-chevron">&#9660;</div>
-        </div>
-        <div class="cap-body">
-          <div class="cap-inner">
-            <div class="cap-section">
-              <div class="cap-section-title">What I Can Do</div>
-              <ul class="cap-list">
-                <li>Linux administration &mdash; filesystem, permissions, processes, networking</li>
-                <li>Windows + Active Directory &mdash; enumeration, privilege escalation</li>
-                <li>AWS, Azure, GCP security &mdash; IAM, VPC, flaws.cloud labs</li>
-                <li>Lab deployment &mdash; Kali, Windows VMs, Velociraptor server/client</li>
-                <li>Network configuration &mdash; subnets, routing, firewall rules</li>
-              </ul>
-            </div>
-            <div class="cap-section">
-              <div class="cap-section-title">How I Think</div>
-              <div class="cap-thinking">Every system has a trust model. My job is to find where that trust is assumed but not enforced &mdash; over-permissive IAM roles, default credentials, missing network segmentation, unpatched services.</div>
-            </div>
-            <div class="cap-section">
-              <div class="cap-section-title">Platforms &amp; Tools</div>
-              <div class="cap-tools-wrap">
-                <span class="cap-tool">Kali Linux</span><span class="cap-tool">Windows Server</span><span class="cap-tool">AWS</span>
-                <span class="cap-tool">Azure</span><span class="cap-tool">GCP</span><span class="cap-tool">Active Directory</span>
-                <span class="cap-tool">Velociraptor</span><span class="cap-tool">Sysmon</span><span class="cap-tool">VirtualBox</span>
-              </div>
-            </div>
-            <div class="cap-section">
-              <div class="cap-section-title">What I Look For</div>
-              <div class="cap-thinking">IAM wildcard permissions &rarr; public cloud storage &rarr; default VPC configs &rarr; security groups open to 0.0.0.0/0 &rarr; unencrypted data at rest &rarr; missing MFA on privileged accounts</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-<div class="divider"></div>
-
-<!-- TIMELINE -->
-<section id="timeline">
-  <div style="max-width:1400px;margin:0 auto;">
-    <div class="section-label reveal">// Journey</div>
-    <h2 class="section-title reveal">The Progression</h2>
-    <div class="timeline-container">
-      <div class="timeline-line"></div>
-
-      <div class="timeline-item">
-        <div class="timeline-year">2023</div>
-        <div class="timeline-content">
-          <div class="timeline-event">Started Self-Directed Learning</div>
-          <div class="timeline-detail">Cybrary, Cisco Networking Academy, OverTheWire (Bandit), TryHackMe, HackTheBox — no roadmap, just curiosity and stubbornness. First exposure to Linux, networking fundamentals, and basic exploitation.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-year">2024</div>
-        <div class="timeline-content">
-          <div class="timeline-event">First Certifications</div>
-          <div class="timeline-detail">Completed Google Cybersecurity Professional Certificate · ALX Africa Professional Foundations · ALX Africa Cybersecurity. Foundation locked in.</div>
-          <div class="cert-badges">
-            <a href="https://savanna.alxafrica.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBemVRTkE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--12649d5f07c50403155dd148ea32129fe9db5183/89-professional-foundations-certificate-leo-mugambi.png" target="_blank" class="cert-badge">
-              <span class="cert-icon"><i class="ti ti-trophy" aria-hidden="true"></i></span>
-              <span class="cert-info">
-                <span class="cert-name">Professional Foundations</span>
-                <span class="cert-issuer">ALX Africa</span>
-              </span>
-              <span class="cert-arrow">↗</span>
-            </a>
-            <a href="https://savanna.alxafrica.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNUZ0Tmc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--ef93cb7fd78ea4dc0c38c007557c34b0ffeaa85d/159-cybersecurity-certificate-leo-mugambi.png" target="_blank" class="cert-badge">
-              <span class="cert-icon"><i class="ti ti-shield" aria-hidden="true"></i></span>
-              <span class="cert-info">
-                <span class="cert-name">Cybersecurity</span>
-                <span class="cert-issuer">ALX Africa</span>
-              </span>
-              <span class="cert-arrow">↗</span>
-            </a>
-            <a href="#" class="cert-badge">
-              <span class="cert-icon"><i class="ti ti-lock" aria-hidden="true"></i></span>
-              <span class="cert-info">
-                <span class="cert-name">Cybersecurity Certificate</span>
-                <span class="cert-issuer">Google</span>
-              </span>
-              <span class="cert-arrow">↗</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-year">2025</div>
-        <div class="timeline-content">
-          <div class="timeline-event">AfricaHackon Full Curriculum</div>
-          <div class="timeline-detail">Cybersec Primer · Linux · Recon/OSINT · Networking · Windows/AD · Wireless Pentesting · Python/Bash · Web & API Security (OWASP Top 10) · Mobile Security · Cloud Security (AWS, IAM, VPC, flaws.cloud) · Malware Creation & Analysis · Kernel Rootkits · GRC · IR & Threat Hunting · Blue Team Essentials.</div>
-          <div class="cert-badges">
-            <a href="https://www.credly.com/badges/e2d41928-3f92-4eef-80a8-5d345c4ca63f" class="cert-badge cert-badge-gold">
-              <span class="cert-icon"><i class="ti ti-sword" aria-hidden="true"></i></span>
-              <span class="cert-info">
-                <span class="cert-name">AfricaHackon Certified</span>
-                <span class="cert-issuer">AfricaHackon · 2025</span>
-              </span>
-              <span class="cert-arrow">↗</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-year">2026</div>
-        <div class="timeline-content">
-          <div class="timeline-event">AfricaHackon Certified · Portfolio Sprint</div>
-          <div class="timeline-detail">Passed the AfricaHackon practical examination. Entered portfolio sprint phase — daily GitHub projects, CV build, personal branding. One project per day until the stack speaks for itself.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item timeline-current">
-        <div class="timeline-year">2025→</div>
-        <div class="timeline-content" style="border-color:rgba(0,255,136,0.2);">
-          <div class="timeline-event" style="color:var(--green);">Security+ → eJPT → CPTS → OSCP</div>
-          <div class="timeline-detail">Cert roadmap locked and loading. CPTS (HackTheBox) is the current primary target. OSCP is the milestone. Building a company to fight cybercrime is the destination.</div>
-        </div>
-      </div>
-
+    <div style="margin-top:2.5rem;text-align:center;" class="reveal">
+      <a href="skills.html" class="btn btn-ghost">Explore all skills →</a>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- BLOG -->
-<section id="blog">
-  <div style="max-width:1400px;margin:0 auto;">
-    <div class="section-label reveal">// Blog</div>
-    <h2 class="section-title reveal">Writing & Writeups</h2>
-    <p class="reveal" style="color:#6677aa;margin-top:0.8rem;font-size:0.9rem;max-width:500px;">Breaking down concepts, documenting labs, and sharing what I learn.</p>
+<!-- BLOG PREVIEW -->
+<section id="writing">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow"><span class="eyebrow-num">04</span> Writing</span>
+        <h2 class="section-title">Notes from the <em>lab</em></h2>
+      </div>
+      <p class="sh-note">Breaking down concepts, documenting labs, and sharing what I learn while it's still fresh.</p>
+    </div>
 
     <div class="blog-grid">
-
-      <a href="https://r3tro-n3o.medium.com/i-wanted-to-know-what-an-attacker-leaves-behind-so-i-built-a-threat-hunting-lab-baaabfb724c3" target="_blank" class="blog-card reveal">
+      <a href="https://r3tro-n3o.medium.com/i-wanted-to-know-what-an-attacker-leaves-behind-so-i-built-a-threat-hunting-lab-baaabfb724c3" target="_blank" rel="noopener" class="blog-card reveal">
         <span class="blog-tag">Documented</span>
-        <div class="blog-title">How I Set Up a Velociraptor + Sysmon DFIR Lab from Scratch</div>
-        <div class="blog-excerpt">A full walkthrough of deploying Velociraptor as a DFIR server on Kali Linux with a Windows 10 client, what worked, what didn't, and what I learned about endpoint visibility.</div>
-        <div class="blog-meta">
-          <span>DFIR · Lab Setup</span>
-          <span class="blog-read-more">Read on Medium ↗</span>
-        </div>
+        <h3 class="blog-title">How I Set Up a Velociraptor + Sysmon DFIR Lab from Scratch</h3>
+        <p class="blog-excerpt">A full walkthrough of deploying Velociraptor as a DFIR server on Kali Linux with a Windows 10 client — what worked, what didn't, and what I learned about endpoint visibility.</p>
+        <div class="blog-meta"><span>DFIR · Lab Setup</span><span class="blog-read-more">Read on Medium ↗</span></div>
       </a>
 
-      <a href="https://medium.com/@r3tro-n3o" target="_blank" class="blog-card reveal" style="transition-delay:0.1s;">
-        <span class="blog-tag">Coming Soon</span>
-        <div class="blog-title">OWASP Top 10 — Breaking My Own Web App</div>
-        <div class="blog-excerpt">I built an intentionally vulnerable Flask app and attacked every vulnerability myself. Here's what SQLi, XSS, and IDOR actually look like in a real codebase — and how to fix them.</div>
-        <div class="blog-meta">
-          <span>Web Security · OWASP</span>
-          <span class="blog-read-more">Read on Medium ↗</span>
-        </div>
+      <a href="blog.html" class="blog-card reveal" style="transition-delay:0.1s;">
+        <span class="blog-tag soon">Coming Soon</span>
+        <h3 class="blog-title">OWASP Top 10 — Breaking My Own Web App</h3>
+        <p class="blog-excerpt">I built an intentionally vulnerable Flask app and attacked every vulnerability myself. What SQLi, XSS, and IDOR actually look like in a real codebase — and how to fix them.</p>
+        <div class="blog-meta"><span>Web Security · OWASP</span><span class="blog-read-more">Details →</span></div>
       </a>
 
-      <a href="https://medium.com/@r3tro-n3o" target="_blank" class="blog-card reveal" style="transition-delay:0.2s;">
-        <span class="blog-tag">Coming Soon</span>
-        <div class="blog-title">AWS Misconfigurations That Get Companies Breached</div>
-        <div class="blog-excerpt">IAM privilege escalation, public S3 buckets, open security groups — I built a scanner to find these. Here's what I found most commonly exposed and why attackers love cloud environments.</div>
-        <div class="blog-meta">
-          <span>Cloud Security · AWS</span>
-          <span class="blog-read-more">Read on Medium ↗</span>
-        </div>
-      </a>
-
-    </div>
-
-    <div class="blog-cta-wrap reveal" style="transition-delay:0.3s;">
-      <a href="https://medium.com/@r3tro-n3o" target="_blank" class="btn-outline">
-        View All Posts on Medium ↗
+      <a href="blog.html" class="blog-card reveal" style="transition-delay:0.2s;">
+        <span class="blog-tag soon">Coming Soon</span>
+        <h3 class="blog-title">AWS Misconfigurations That Get Companies Breached</h3>
+        <p class="blog-excerpt">IAM privilege escalation, public S3 buckets, open security groups — I built a scanner to find these. What's most commonly exposed, and why attackers love cloud environments.</p>
+        <div class="blog-meta"><span>Cloud Security · AWS</span><span class="blog-read-more">Details →</span></div>
       </a>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-inner">
-    <div class="section-label reveal">// Contact</div>
-    <h2 class="section-title reveal">Let's Talk Security.</h2>
-    <p class="contact-sub reveal">Open to internships, freelance security work, bug bounty teams, CTF collabs, and anyone building something interesting in the security space.</p>
-
-    <div class="contact-form reveal">
-      <div class="form-row">
-        <div class="form-group"><input type="text" id="cf-name" placeholder="Name" required></div>
-        <div class="form-group"><input type="email" id="cf-email" placeholder="Email" required></div>
+<!-- CTA -->
+<section>
+  <div class="wrap">
+    <div class="cta-band glass reveal">
+      <div>
+        <h2 class="cta-title">Got something worth <em>breaking</em>?</h2>
+        <p class="cta-sub">Open to internships, freelance security work, bug bounty teams, CTF collabs, and anyone building something interesting in the security space.</p>
       </div>
-      <div class="form-group"><input type="text" id="cf-subject" placeholder="Subject — What's this about?"></div>
-      <div class="form-group"><textarea id="cf-message" rows="5" placeholder="Your message..." required></textarea></div>
-      <button class="btn-primary" id="cf-submit" style="width:100%;text-align:center;border:none;" onclick="handleSubmit(event)">
-        Send Message
-      </button>
-      <div id="cf-status" style="display:none;margin-top:0.8rem;text-align:center;font-family:'JetBrains Mono',monospace;font-size:0.72rem;"></div>
-    </div>
-
-    <div class="social-links reveal" style="transition-delay:0.2s;">
-      <a href="https://github.com/r3tro-n3o" target="_blank" class="social-link">GitHub</a>
-      <a href="https://www.linkedin.com/in/leo-mugambi" target="_blank" class="social-link">LinkedIn</a>
-      <a href="mailto:iamleomiguel@gmail.com" class="social-link">Email</a>
-      <a href="https://tryhackme.com/p/r3tro.n3o" target="_blank" class="social-link">TryHackMe</a>
-      <a href="https://app.hackthebox.com/profile/r3tron3o" target="_blank" class="social-link">HackTheBox</a>
+      <div class="cta-actions">
+        <a href="contact.html" class="btn btn-primary">Start a conversation</a>
+        <a href="journey.html" class="btn btn-ghost">My journey</a>
+      </div>
     </div>
   </div>
 </section>
+
+</main>
 
 <!-- FOOTER -->
-<footer>
-  <div class="footer-text">
-    <span>r3tro_n3o</span> · Leo Mugambi · © 2026 · Built with intent. Deployed with purpose.
-  </div>
-  <div class="footer-text" style="margin-top:0.5rem;font-size:0.6rem;color:#223344;">
-    Try the Konami code. You know what to do.
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="brand">r3tro_n3o<span class="caret">_</span></a>
+        <p>Leo Mugambi — cybersecurity practitioner building offensive security tooling from Africa. Long game: NOX, a company that makes cybercrime harder.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="skills.html">Skills</a>
+      </div>
+      <div class="footer-col">
+        <h4>More</h4>
+        <a href="journey.html">Journey</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://github.com/r3tro-n3o" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <div class="footer-col footer-status">
+        <h4>Status</h4>
+        <div class="status-line"><span class="dot"></span> Open to internships &amp; freelance</div>
+        <div class="status-note">
+          CPTS prep — active<br>
+          DFIR lab — running<br>
+          iamleomiguel@gmail.com
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span><b>r3tro_n3o</b> · Leo Mugambi · © 2026 · Built with intent. Deployed with purpose.</span>
+      <span>Try the Konami code. You know what to do.</span>
+    </div>
   </div>
 </footer>
 
-<script>
-// ── CURSOR ──────────────────────────────────────────────
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursor-ring');
-let mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-function animCursor() {
-  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
-  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-  requestAnimationFrame(animCursor);
-}
-animCursor();
-document.querySelectorAll('a,button,[data-hover]').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    cursor.style.width = '6px'; cursor.style.height = '6px';
-    ring.style.width = '52px'; ring.style.height = '52px';
-    ring.style.borderColor = 'rgba(0,255,136,0.6)';
-  });
-  el.addEventListener('mouseleave', () => {
-    cursor.style.width = '12px'; cursor.style.height = '12px';
-    ring.style.width = '36px'; ring.style.height = '36px';
-    ring.style.borderColor = 'rgba(0,255,136,0.4)';
-  });
-});
-
-// ── CANVAS BACKGROUND ───────────────────────────────────
-const canvas = document.getElementById('bg-canvas');
-const ctx = canvas.getContext('2d');
-let W, H, particles = [], lines = [];
-
-function resize() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener('resize', resize);
-
-// Grid
-function drawGrid() {
-  const step = 60;
-  ctx.strokeStyle = 'rgba(0,255,136,0.025)';
-  ctx.lineWidth = 0.5;
-  for (let x = 0; x < W; x += step) {
-    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
-  }
-  for (let y = 0; y < H; y += step) {
-    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
-  }
-}
-
-// Particles
-for (let i = 0; i < 60; i++) {
-  particles.push({
-    x: Math.random() * 1920, y: Math.random() * 1080,
-    r: Math.random() * 1.5 + 0.3,
-    vx: (Math.random() - 0.5) * 0.3,
-    vy: (Math.random() - 0.5) * 0.3,
-    alpha: Math.random() * 0.5 + 0.1
-  });
-}
-
-function animBg() {
-  ctx.clearRect(0, 0, W, H);
-  drawGrid();
-  particles.forEach(p => {
-    p.x += p.vx; p.y += p.vy;
-    if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
-    if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(0,255,136,${p.alpha})`;
-    ctx.fill();
-  });
-  // Connecting lines between nearby particles
-  for (let i = 0; i < particles.length; i++) {
-    for (let j = i+1; j < particles.length; j++) {
-      const dx = particles[i].x - particles[j].x;
-      const dy = particles[i].y - particles[j].y;
-      const dist = Math.sqrt(dx*dx + dy*dy);
-      if (dist < 120) {
-        ctx.beginPath();
-        ctx.moveTo(particles[i].x, particles[i].y);
-        ctx.lineTo(particles[j].x, particles[j].y);
-        ctx.strokeStyle = `rgba(0,255,136,${0.04 * (1 - dist/120)})`;
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-      }
-    }
-  }
-  requestAnimationFrame(animBg);
-}
-animBg();
-
-// ── TYPEWRITER ──────────────────────────────────────────
-const sequences = [
-  { cmd: 'whoami', out: '<span class="success">r3tro_n3o — Leo Mugambi</span>' },
-  { cmd: 'cat mission.txt', out: '<span style="color:#6677aa;">build. break. learn. repeat.</span>' },
-  { cmd: 'nmap -sV target.local', out: '<span class="success">22/tcp open ssh · 80/tcp open http · 443/tcp open https</span>' },
-  { cmd: 'status --current', out: '<span class="success">OPERATIONAL — Portfolio sprint active</span>' },
-];
-let seqIdx = 0, charIdx = 0, typing = true, phase = 'type';
-const typedEl = document.getElementById('typed-text');
-const outputEl = document.getElementById('terminal-output');
-
-function typeLoop() {
-  const seq = sequences[seqIdx];
-  if (phase === 'type') {
-    if (charIdx <= seq.cmd.length) {
-      typedEl.textContent = seq.cmd.slice(0, charIdx);
-      charIdx++;
-      setTimeout(typeLoop, charIdx === seq.cmd.length ? 600 : 65);
-    } else {
-      outputEl.innerHTML = `<div class="terminal-line">${seq.out}</div>`;
-      phase = 'pause';
-      setTimeout(typeLoop, 2200);
-    }
-  } else {
-    outputEl.innerHTML = '';
-    typedEl.textContent = '';
-    charIdx = 0;
-    seqIdx = (seqIdx + 1) % sequences.length;
-    phase = 'type';
-    setTimeout(typeLoop, 400);
-  }
-}
-typeLoop();
-
-// ── NAVBAR SCROLL ───────────────────────────────────────
-window.addEventListener('scroll', () => {
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
-});
-
-// ── MOBILE MENU ─────────────────────────────────────────
-function toggleMenu() {
-  document.getElementById('mobile-menu').classList.toggle('open');
-}
-
-// ── SCROLL REVEAL ───────────────────────────────────────
-const revealObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); }
-  });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-
-// Timeline
-const tlObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) e.target.classList.add('visible');
-  });
-}, { threshold: 0.2 });
-document.querySelectorAll('.timeline-item').forEach(el => tlObs.observe(el));
-
-// ── SKILL BARS ──────────────────────────────────────────
-const barObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
-        bar.style.width = bar.dataset.width + '%';
-      });
-    }
-  });
-}, { threshold: 0.3 });
-document.querySelectorAll('.skill-category').forEach(el => barObs.observe(el));
-
-// ── LIVE TIME ───────────────────────────────────────────
-function updateTime() {
-  const el = document.getElementById('ops-time');
-  if (el) el.textContent = new Date().toISOString().replace('T', ' ').slice(0, 19) + ' UTC';
-}
-updateTime();
-setInterval(updateTime, 1000);
-
-// ── CONTACT FORM — Web3Forms ────────────────────────────
-async function handleSubmit(e) {
-  e.preventDefault();
-  const btn = document.getElementById('cf-submit');
-  const status = document.getElementById('cf-status');
-  const name = document.getElementById('cf-name').value.trim();
-  const email = document.getElementById('cf-email').value.trim();
-  const subject = document.getElementById('cf-subject').value.trim();
-  const message = document.getElementById('cf-message').value.trim();
-
-  if (!name || !email || !message) {
-    status.style.display = 'block';
-    status.style.color = 'var(--red)';
-    status.textContent = '[!] Please fill in name, email, and message.';
-    return;
-  }
-
-  btn.textContent = '[ Sending... ]';
-  btn.disabled = true;
-  status.style.display = 'none';
-
-  try {
-    const response = await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        access_key: '14711d5c-8f68-4ee9-af14-50a80a6c73fa',
-        name: name,
-        email: email,
-        subject: subject || "Portfolio Contact from " + name,
-        message: message,
-        from_name: "Leo Mugambi Portfolio",
-      })
-    });
-
-    const result = await response.json();
-
-    if (result.success) {
-      btn.textContent = '[ Message Sent ✓ ]';
-      btn.style.background = 'rgba(0,255,136,0.15)';
-      btn.style.color = 'var(--green)';
-      btn.style.border = '1px solid rgba(0,255,136,0.3)';
-      status.style.display = 'block';
-      status.style.color = 'var(--green)';
-      status.textContent = '[+] Message received. I will get back to you soon.';
-      // Clear form
-      document.getElementById('cf-name').value = '';
-      document.getElementById('cf-email').value = '';
-      document.getElementById('cf-subject').value = '';
-      document.getElementById('cf-message').value = '';
-      setTimeout(() => {
-        btn.textContent = 'Send Message';
-        btn.style.background = '';
-        btn.style.color = '';
-        btn.style.border = '';
-        btn.disabled = false;
-      }, 4000);
-    } else {
-      throw new Error(result.message || 'Submission failed');
-    }
-  } catch (err) {
-    btn.textContent = 'Send Message';
-    btn.disabled = false;
-    status.style.display = 'block';
-    status.style.color = 'var(--red)';
-    status.textContent = '[!] Something went wrong. Email me directly: iamleomiguel@gmail.com';
-  }
-}
-
-// ── STAT COUNTER ANIMATION ──────────────────────────────
-const statObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    e.target.querySelectorAll('.stat-num[data-target]').forEach(el => {
-      const target = el.dataset.target;
-      const suffix = el.dataset.suffix || '';
-      if (target === 'inf') {
-        el.style.animation = 'pulse-dot 1.5s ease-in-out 3';
-        return;
-      }
-      const end = parseInt(target);
-      const duration = 1400;
-      const step = 30;
-      const increment = end / (duration / step);
-      let current = 0;
-      el.textContent = '0' + suffix;
-      const timer = setInterval(() => {
-        current += increment;
-        if (current >= end) {
-          current = end;
-          clearInterval(timer);
-        }
-        el.textContent = Math.floor(current) + suffix;
-      }, step);
-    });
-    statObs.unobserve(e.target);
-  });
-}, { threshold: 0.5 });
-document.querySelectorAll('.stat-cards').forEach(el => statObs.observe(el));
-
-// ── ROLE ROTATOR ────────────────────────────────────────
-const roleItems = document.querySelectorAll('.role-item');
-let currentRole = 0;
-function rotateRole() {
-  const current = roleItems[currentRole];
-  current.classList.remove('active');
-  current.classList.add('exit');
-  setTimeout(() => { current.classList.remove('exit'); }, 500);
-  currentRole = (currentRole + 1) % roleItems.length;
-  const next = roleItems[currentRole];
-  next.style.transform = 'translateY(100%)';
-  next.style.opacity = '0';
-  next.classList.add('active');
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      next.style.transform = '';
-      next.style.opacity = '';
-    });
-  });
-}
-setInterval(rotateRole, 2400);
-
-// ── KONAMI EASTER EGG ───────────────────────────────────
-const konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-let ki = 0;
-document.addEventListener('keydown', e => {
-  if (e.key === konami[ki]) {
-    ki++;
-    if (ki === konami.length) {
-      ki = 0;
-      // Matrix rain effect
-      const overlay = document.createElement('div');
-      overlay.style.cssText = 'position:fixed;inset:0;z-index:9990;background:#05050a;font-family:JetBrains Mono,monospace;font-size:13px;overflow:hidden;';
-      const msg = document.createElement('div');
-      msg.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:9991;';
-      msg.innerHTML = '<div style="color:#00ff88;font-size:2rem;font-weight:800;letter-spacing:0.1em;">ACCESS GRANTED</div><div style="color:#445566;font-size:0.8rem;margin-top:0.5rem;font-family:JetBrains Mono,monospace;">You found it. r3tro_n3o approves.</div>';
-      overlay.appendChild(msg);
-      document.body.appendChild(overlay);
-      // Simple matrix rain
-      const cols = Math.floor(window.innerWidth / 14);
-      const drops = Array(cols).fill(1);
-      const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ01ABCDEF';
-      const mc = document.createElement('canvas');
-      mc.width = window.innerWidth; mc.height = window.innerHeight;
-      mc.style.cssText = 'position:absolute;top:0;left:0;opacity:0.4;';
-      overlay.insertBefore(mc, msg);
-      const mctx = mc.getContext('2d');
-      const rain = setInterval(() => {
-        mctx.fillStyle = 'rgba(5,5,10,0.05)';
-        mctx.fillRect(0,0,mc.width,mc.height);
-        mctx.fillStyle = '#00ff88';
-        mctx.font = '13px JetBrains Mono';
-        drops.forEach((y,i) => {
-          mctx.fillText(chars[Math.floor(Math.random()*chars.length)], i*14, y*14);
-          if (y*14 > mc.height && Math.random() > 0.975) drops[i] = 0;
-          drops[i]++;
-        });
-      }, 40);
-      setTimeout(() => { clearInterval(rain); overlay.remove(); }, 4000);
-    }
-  } else ki = 0;
-});
-
-
-// ── STACKED PANEL SCROLL ─────────────────────────────────
-(function() {
-  const wrapper = document.getElementById('projects-wrapper');
-  if (!wrapper) return;
-
-  const panels = Array.from(wrapper.querySelectorAll('.project-panel'));
-  const isMobile = () => window.innerWidth <= 768;
-
-  function setWrapperHeight() {
-    if (isMobile()) { wrapper.style.height = 'auto'; return; }
-    const openPanel = document.querySelector('.project-panel.proof-open');
-    if (openPanel) {
-      // Extra room = open panel's scroll content beyond 100vh
-      const extra = Math.max(0, openPanel.scrollHeight - window.innerHeight);
-      wrapper.style.height = 'calc(' + (panels.length * 100) + 'vh + ' + (extra + 300) + 'px)';
-    } else {
-      wrapper.style.height = (panels.length * 100) + 'vh';
-    }
-  }
-  setWrapperHeight();
-  window.addEventListener('resize', setWrapperHeight);
-
-  function updatePanels() {
-    if (isMobile()) { panels.forEach(p => p.classList.remove('pp-inactive')); return; }
-    // Don't change panel stack while any proof is open
-    if (document.querySelector('.cs-proof.open')) return;
-
-    const wrapperTop = wrapper.getBoundingClientRect().top;
-    const viewH = window.innerHeight;
-    const scrolled = -wrapperTop;
-    const panelScrollH = viewH;
-
-    panels.forEach((panel, i) => {
-      const panelActivatesAt = i * panelScrollH;
-      if (scrolled >= panelActivatesAt) {
-        panels.forEach((p, j) => { if (j < i) p.classList.add('pp-inactive'); });
-        panel.classList.remove('pp-inactive');
-      } else {
-        if (i > 0) panel.classList.remove('pp-inactive');
-      }
-    });
-
-    if (scrolled <= 0) panels.forEach(p => p.classList.remove('pp-inactive'));
-  }
-
-  window.addEventListener('scroll', updatePanels, { passive: true });
-  updatePanels();
-
-  // Expose so toggleProof can trigger height recalc
-  window._recalcPanels = function() { setWrapperHeight(); };
-})();
-
-// ── CASE STUDY MODAL ─────────────────────────────────────
-function toggleProof(btn) {
-  const card  = btn.closest('.cs-card');
-  const proof = card.querySelector('.cs-proof');
-  const isOpen = btn.classList.contains('open');
-
-  // Reset all expand buttons
-  document.querySelectorAll('.cs-expand-btn.open').forEach(b => b.classList.remove('open'));
-
-  if (isOpen) { closeModal(); return; }
-
-  btn.classList.add('open');
-
-  // Grab content from the card
-  const meta   = card.querySelector('.cs-meta').innerHTML;
-  const title  = card.querySelector('.cs-title').innerHTML;
-  const desc   = card.querySelector('.cs-desc').innerHTML;
-  const tags   = card.querySelector('.cs-tags') ? card.querySelector('.cs-tags').innerHTML : '';
-  const proof_inner = proof.querySelector('.cs-proof-inner').innerHTML;
-
-  // Populate modal
-  document.getElementById('modal-meta').innerHTML  = meta;
-  document.getElementById('modal-title').innerHTML = title;
-  document.getElementById('modal-desc').innerHTML  = desc;
-  document.getElementById('modal-tags').innerHTML  = tags;
-  document.getElementById('modal-proof').innerHTML =
-    '<div class="cs-proof-inner">' + proof_inner + '</div>';
-
-  // Open modal
-  const modal = document.getElementById('cs-modal');
-  modal.classList.add('open');
-  modal.scrollTop = 0;
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-  document.getElementById('cs-modal').classList.remove('open');
-  document.body.style.overflow = '';
-  document.querySelectorAll('.cs-expand-btn.open').forEach(b => b.classList.remove('open'));
-}
-
-function handleModalClick(e) {
-  // Close if clicking the dark overlay (not the box)
-  if (e.target === document.getElementById('cs-modal')) closeModal();
-}
-
-// Close on Escape key
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeModal();
-});
-
-// ── CAPABILITY MODULE TOGGLE ─────────────────────────────
-function toggleCap(module) {
-  const body = module.querySelector('.cap-body');
-  const isOpen = module.classList.contains('cap-active');
-  document.querySelectorAll('.cap-module.cap-active').forEach(m => {
-    m.classList.remove('cap-active');
-    m.querySelector('.cap-body').classList.remove('cap-open');
-  });
-  if (!isOpen) {
-    module.classList.add('cap-active');
-    body.classList.add('cap-open');
-  }
-}
-
-// ── HERO RESPONSIVE ─────────────────────────────────────
-function checkMobile() {
-  const heroGrid = document.querySelector('#hero > div');
-  if (heroGrid) {
-    if (window.innerWidth < 768) {
-      heroGrid.style.gridTemplateColumns = '1fr';
-      heroGrid.style.textAlign = 'center';
-    } else {
-      heroGrid.style.gridTemplateColumns = '1fr 1fr';
-      heroGrid.style.textAlign = '';
-    }
-  }
-}
-checkMobile();
-window.addEventListener('resize', checkMobile);
-</script>
-
-<!-- CASE STUDY MODAL -->
-<div id="cs-modal" class="cs-modal-overlay" onclick="handleModalClick(event)">
-  <div class="cs-modal-box">
-    <div class="cs-modal-close"><button onclick="closeModal()">✕ Close</button></div>
-    <div class="cs-modal-card-top">
-      <div id="modal-meta" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;"></div>
-      <div id="modal-title" class="cs-modal-title"></div>
-      <div id="modal-desc" class="cs-modal-desc"></div>
-      <div id="modal-tags" class="cs-tags"></div>
-    </div>
-    <div id="modal-proof" class="cs-modal-proof"></div>
-  </div>
-</div>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
