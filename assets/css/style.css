@@ -1326,7 +1326,10 @@ section.tinted { background: var(--tint-bg); }
   .nav-links { display: none; }
   .nav-bar .theme-toggle { margin-left: auto; }
   .hamburger { display: block; margin-left: 0.6rem; }
-  .hero-grid, .page-head-grid, .about-grid, .contact-layout, .section-head, .cta-band { grid-template-columns: 1fr; }
+  .hero-grid, .page-head-grid, .about-grid, .contact-layout, .section-head, .cta-band { grid-template-columns: minmax(0, 1fr); }
+  /* the other collapsing grids need the same shrink permission or tight
+     phone widths overflow their tracks by the min-content delta */
+  .page-head-grid > *, .about-grid > *, .contact-layout > *, .section-head > *, .cta-band > * { min-width: 0; }
   /* phones: single-col hero must not be blown out by the terminal's
      min-content width (bare 1fr keeps min-size:auto and lets it poke
      ~30px past the viewport) */
