@@ -183,8 +183,8 @@ html[data-theme="light"] .dot-grid { opacity: 0.2; }
 .bento { display: grid; gap: 1.2rem; grid-template-columns: repeat(6, minmax(0, 1fr)); }
 .bento .cs-card { min-width: 0; }
 
-/* shipped tools: 3 across (2 cols each) */
-.bento-tools .cs-card { grid-column: span 2; }
+/* shipped tools: 2 across (3 cols each) — 4 real repos fill a 2×2 grid */
+.bento-tools .cs-card { grid-column: span 3; }
 
 /* lab: full-width horizontal panel */
 .bento-lab .cs-card { grid-column: span 6; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 1.5rem; padding: 1.6rem 1.7rem; }
@@ -405,13 +405,6 @@ html[data-theme="light"] .dot-grid { opacity: 0.2; }
 }
 .story-quote em { font-style: italic; color: var(--amber-ink); }
 
-/* count-up chips: instantly readable facts instead of paragraphs */
-.fact-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9.5rem), 1fr));
-  gap: 0.8rem;
-  margin: 0 0 1.6rem;
-}
 
 /* ============================================================
    LIGHT MODE — depth twin
@@ -470,13 +463,55 @@ html[data-theme="light"] .divider::after {
 }
 
 /* ============================================================
-   phones: story stat chips sit 3-up in one row. The base
-   auto-fit grid only fits 2 columns below ~517px viewports,
-   leaving the third card (2026) orphaned alone on its own row
+   toolbelt + roadmap — readability pass
+   The 28-chip toolbelt read like an unstructured wall on phones
+   and the arrow-pills roadmap wrapped badly; both sections get a
+   compact grid/stepper treatment without losing any content.
    ============================================================ */
-@media (max-width: 720px) {
-  .fact-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.55rem; }
-  .fact-row .stat-card { padding: 1.05rem 0.5rem; }
-  .fact-row .stat-num { font-size: clamp(1.2rem, 5.5vw, 1.7rem); }
-  .fact-row .stat-label { letter-spacing: 0.1em; }
+
+/* laptop+: two aligned columns instead of four stacked walls */
+@media (min-width: 1001px) {
+  .tool-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.8rem 3rem; }
+}
+
+@media (max-width: 640px) {
+  /* phones: chips sit in two tidy aligned columns — a scannable
+     list instead of ragged wrapped pills */
+  .skill-tags {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.35rem 0.5rem;
+    align-items: start;
+  }
+  .skill-tag {
+    width: 100%;
+    font-size: 0.62rem;
+    padding: 0.45rem 0.6rem;
+  }
+  .tool-groups { gap: 1.1rem; }
+  .tool-group-title { margin-bottom: 0.55rem; }
+
+  /* roadmap: hide the wrapping arrows, keep each cert as a full-width
+     pill — done/current states still carry the direction */
+  .roadmap {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.45rem;
+  }
+  .roadmap-arrow { display: none; }
+  .roadmap-step {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* ops panel: key | value | badge each claim their own column so a
+     long value wraps inside the middle column instead of orphaning
+     its [KEY] on its own line */
+  .ops-line {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: 0.3rem 0.5rem;
+  }
+  .ops-key { min-width: 0; }
 }

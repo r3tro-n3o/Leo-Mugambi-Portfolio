@@ -40,7 +40,7 @@
   })();
 </script>
 <link rel="stylesheet" href="assets/css/style.css?v=11">
-<link rel="stylesheet" href="assets/css/depth.css?v=10">
+<link rel="stylesheet" href="assets/css/depth.css?v=11">
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -99,7 +99,7 @@
         <span class="eyebrow"><span class="eyebrow-num">01</span> Field Work</span>
         <h1 class="page-title" style="margin-top:1rem;">Things I built to <em>break things</em></h1>
       </div>
-      <p class="page-lede">Three tools and a lab, all <strong>real and on GitHub or Medium</strong>. Everything under Concepts is designed but not built yet — no code, no repo, no output.</p>
+      <p class="page-lede">Four repos and a lab, all <strong>real and on GitHub or Medium</strong>. Everything under Concepts is designed but not built yet — no code, no repo, no output.</p>
     </div>
   </div>
 </section>
@@ -168,6 +168,22 @@
 <span class="t-ok"># CRITICAL / HIGH / MEDIUM</span></div>
           <div class="cs-links">
             <a href="https://github.com/r3tro-n3o/cloudlens" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
+          </div>
+        </article>
+
+        <article class="cs-card reveal" style="transition-delay:0.3s;">
+          <div class="cs-card-header">
+            <div class="cs-meta"><span class="ops-badge badge-active">Shipped</span><span class="cs-lang">Wireshark · Lab</span></div>
+            <h3 class="cs-title">network-labs — Packet Surgery Journal</h3>
+            <p class="cs-desc">Hands-on networking labs in my own home lab: every lab produces a sanitized packet capture, a short write-up (what I expected / what actually happened on the wire / why / how I'd detect or fix it) and a small script where it fits. Day 1: the full TCP lifecycle on loopback, dissected in Wireshark.</p>
+            <div class="cs-tags"><span class="tech-tag">Wireshark</span><span class="tech-tag">tshark</span><span class="tech-tag">TCP/IP</span></div>
+          </div>
+          <div class="cs-term" aria-hidden="true"><span class="t-dot">┌──(</span><span class="t-str">r3tro_n3o</span><span class="t-dot">㉿kali)</span><span class="t-out">-[~]</span>
+<span class="t-out">└─$ </span><span class="t-cmd">tshark -r day1-handshake-filtered.pcapng</span> <span class="t-flag">-O tcp</span>
+<span class="t-out"># SYN → SYN/ACK → ACK → FIN/ACK teardown</span>
+<span class="t-out"># write-up:</span> <span class="t-ok">expected · seen · why · detect</span></div>
+          <div class="cs-links">
+            <a href="https://github.com/r3tro-n3o/network-labs" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
           </div>
         </article>
 
