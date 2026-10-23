@@ -1352,6 +1352,10 @@ section.tinted { background: var(--tint-bg); }
      blew its track to 174px and got the grid's right column clipped */
   .stat-cards { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .stat-cards > * { min-width: 0; }
+  /* text values (FOCUS) in the display font overflow the ~96px card
+     content box at phone sizes — scale nums down beside their cards */
+  .stat-cards .stat-num { font-size: clamp(1.45rem, 5.8vw, 2.1rem); }
+  .stat-cards .stat-card { padding: 1.15rem 0.8rem; }
   .ops-badge { margin-left: 0; }
   .ops-key { min-width: 92px; font-size: 0.62rem; }
   .ops-val { font-size: 0.68rem; }
