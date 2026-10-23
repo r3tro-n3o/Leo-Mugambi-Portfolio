@@ -201,7 +201,7 @@ html[data-theme="light"] .dot-grid { opacity: 0.2; }
 @media (max-width: 980px) {
   .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .bento-tools .cs-card { grid-column: span 1; }
-  .bento-lab .cs-card { grid-column: span 2; grid-template-columns: 1fr; }
+  .bento-lab .cs-card { grid-column: span 2; grid-template-columns: minmax(0, 1fr); }
   .bento-concepts .cs-card { grid-column: span 2; }
 }
 
@@ -374,7 +374,7 @@ html[data-theme="light"] .dot-grid { opacity: 0.2; }
 @media (max-width: 720px) {
   /* phones: bento collapses to a single column — 147px cards
      at 390px widths are too cramped to read */
-  .bento { grid-template-columns: 1fr; }
+  .bento { grid-template-columns: minmax(0, 1fr); }
   .bento > * { grid-column: 1 / -1 !important; }
 
   .cap-card { padding: 1.3rem 1.15rem 1.15rem; }
