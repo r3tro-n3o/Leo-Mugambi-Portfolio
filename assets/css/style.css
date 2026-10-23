@@ -121,13 +121,50 @@ body::before {
 
 main, .site-footer, .nav-shell { position: relative; z-index: 3; }
 
+/* ── accessibility ────────────────────────────────────── */
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3.5rem;
+  z-index: 10000;
+  padding: 0.7rem 1.1rem;
+  border-radius: var(--radius-sm, 0.5rem);
+  background: var(--amber-ink);
+  color: #16181d;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+.skip-link:focus { top: 1rem; }
+main:focus { outline: none; }
+
+/* visible keyboard focus ring, brand-tinted */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[href]:focus-visible {
+  outline: 2px solid var(--amber-ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* copy-email feedback */
+.copy-email-btn { cursor: pointer; }
+.copy-email-btn.copied { color: var(--teal-ink); }
+
 /* ── custom cursor ─────────────────────────────────────── */
 
 #cursor, #cursor-ring { display: none; }
 @media (hover: hover) and (pointer: fine) {
-  #cursor, #cursor-ring { display: block; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); border-radius: 50%; }
+  #cursor, #cursor-ring { display: block; position: fixed; left: 0; top: 0; pointer-events: none; z-index: 9999; border-radius: 50%; will-change: transform; opacity: 0; transition: opacity 0.2s, width 0.2s, height 0.2s; }
+  body.cursor-live #cursor, body.cursor-live #cursor-ring { opacity: 1; }
   #cursor { width: 9px; height: 9px; background: var(--amber-ink); box-shadow: 0 0 12px rgba(255, 180, 84, 0.7); transition: width 0.2s, height 0.2s; }
-  #cursor-ring { width: 34px; height: 34px; border: 1px solid var(--ring-color); transition: transform 0.15s ease-out, width 0.2s, height 0.2s, border-color 0.2s; }
+  #cursor-ring { width: 34px; height: 34px; border: 1px solid var(--ring-color); transition: width 0.2s, height 0.2s, border-color 0.2s; }
   body.cursor-hot #cursor { width: 5px; height: 5px; }
   body.cursor-hot #cursor-ring { width: 50px; height: 50px; border-color: var(--ring-hot); }
 }
@@ -1290,6 +1327,12 @@ section.tinted { background: var(--tint-bg); }
   .nav-bar .theme-toggle { margin-left: auto; }
   .hamburger { display: block; margin-left: 0.6rem; }
   .hero-grid, .page-head-grid, .about-grid, .contact-layout, .section-head, .cta-band { grid-template-columns: 1fr; }
+  /* phones: single-col hero must not be blown out by the terminal's
+     min-content width (bare 1fr keeps min-size:auto and lets it poke
+     ~30px past the viewport) */
+  .hero-grid { grid-template-columns: minmax(0, 1fr); }
+  .hero-grid > * { min-width: 0; }
+  .terminal { max-width: 100%; }
   .section-head { gap: 1.2rem; }
   .sh-note { justify-self: start; }
   .hero { min-height: auto; padding-top: 8rem; }

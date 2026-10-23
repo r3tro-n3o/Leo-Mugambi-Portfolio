@@ -3,11 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="About Leo Mugambi (r3tro_n3o) — the story, the mission, and the tools behind a cybersecurity practitioner building from Africa.">
+<meta name="description" content="About Leo Mugambi (r3tro_n3o) — the story so far, the toolbelt, certifications, and the roadmap to CPTS and OSCP.">
 <meta property="og:title" content="About | Leo Mugambi — r3tro_n3o">
 <meta property="og:description" content="Systems fail in interesting ways. The story behind a cybersecurity practitioner building from Africa.">
 <meta property="og:type" content="website">
+<link rel="canonical" href="https://leomugambi.pages.dev/about.html">
+<meta property="og:url" content="https://leomugambi.pages.dev/about.html">
+<meta property="og:image" content="https://leomugambi.pages.dev/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="r3tro_n3o — terminal-style card for Leo Mugambi, cybersecurity practitioner">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Leo Mugambi | r3tro_n3o">
+<meta name="twitter:description" content="Cybersecurity practitioner. Offensive security in progress. Building from Africa.">
+
 <title>About — Leo Mugambi | r3tro_n3o</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<meta name="theme-color" content="#0d0e12">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
@@ -25,9 +39,11 @@
     }
   })();
 </script>
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css?v=8">
+<link rel="stylesheet" href="assets/css/depth.css?v=8">
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
 <div class="aurora" aria-hidden="true">
   <span class="blob b1"></span>
@@ -35,6 +51,8 @@
   <span class="blob b3"></span>
 </div>
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div class="dot-grid" aria-hidden="true"></div>
+<div class="pointer-halo" aria-hidden="true"></div>
 
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
@@ -46,8 +64,6 @@
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html" class="active">About</a></li>
       <li><a href="projects.html">Projects</a></li>
-      <li><a href="skills.html">Skills</a></li>
-      <li><a href="journey.html">Journey</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -66,15 +82,13 @@
   <a href="index.html" class="mm-link" onclick="toggleMenu()">Home</a>
   <a href="about.html" class="mm-link active" onclick="toggleMenu()">About</a>
   <a href="projects.html" class="mm-link" onclick="toggleMenu()">Projects</a>
-  <a href="skills.html" class="mm-link" onclick="toggleMenu()">Skills</a>
-  <a href="journey.html" class="mm-link" onclick="toggleMenu()">Journey</a>
   <a href="blog.html" class="mm-link" onclick="toggleMenu()">Blog</a>
   <a href="contact.html" class="mm-link" onclick="toggleMenu()">Contact</a>
   <button class="theme-toggle" type="button" aria-label="Toggle color theme"><i class="ti ti-sun theme-icon-sun" aria-hidden="true"></i><i class="ti ti-moon theme-icon-moon" aria-hidden="true"></i></button>
   <div class="mm-meta">Building from Africa · Eyes on the global stage</div>
 </div>
 
-<main>
+<main id="main-content" tabindex="-1">
 
 <!-- PAGE HEADER -->
 <section class="page-head">
@@ -96,35 +110,37 @@
     <div class="about-grid">
       <div class="reveal">
         <div class="prose">
-          <p class="intro">Every system is built on assumptions, and security begins where those assumptions stop being true. Most of my best learning moments start with one question: what happens if this is used in a way it was never meant to be?</p>
+          <p class="story-quote">"What happens if this is used in a way it was <em>never meant</em> to be?"</p>
 
-          <p>I'm Leo, some corners of the internet know me as <strong>r3tro_n3o</strong>. I didn't start with a mission, I started curious. I wanted to know how digital systems actually break, what happens when you push something past what it was built to handle. That curiosity turned into obsession fast, and the more I learned, the more I noticed how exposed things are around me. Scams, SIM-swaps, fraud — most people here have no idea how it works and even less recourse when it happens. Understanding the mechanics stopped being a hobby and started feeling necessary.</p>
+          <p>I'm Leo — some corners of the internet know me as <strong>r3tro_n3o</strong>. In 2023, scams and SIM-swap fraud were hitting people around me and nobody could explain how they worked. So I taught myself: Cybrary, OverTheWire, TryHackMe — then <strong>AfricaHackon's full curriculum</strong> and two <strong>ALX programs</strong> to fill the gaps.</p>
 
-          <p>I started self-taught, working through Cybrary, OverTheWire, and TryHackMe with no real roadmap. Then came <strong>AfricaHackon's full curriculum</strong>: Linux, recon, Active Directory, wireless, web and API security, cloud, malware, DFIR, blue team. The whole stack, hands-on.</p>
+          <p>Now I'm deep in <strong>CPTS prep</strong>, headed for <strong>cloud security</strong>, AWS-first. The long game is <strong>NOX</strong> — a company that makes cybercrime harder, not easier.</p>
 
-          <p>Right now I'm deep in <strong>CPTS prep</strong>, and <strong>cloud security</strong> is where I'm actually headed. AWS is where my real hands-on time lives (IAM, VPC, S3, EC2), and I'm building up Azure knowledge on top of that since it's more common in the environments I'll actually be working in. <strong>Offensive security</strong> is the muscle underneath all of it — you can't audit or defend what you don't know how to break.</p>
-
-          <p>The long game is <strong>NOX</strong>, a company built to make cybercrime harder, not easier. The short game is getting good enough that saying "I do security" stops being an aspiration and starts being just true.</p>
+          <div class="fact-row">
+            <div class="stat-card"><div class="stat-num">2023</div><div class="stat-label">Started, self-taught</div></div>
+            <div class="stat-card"><div class="stat-num">2025</div><div class="stat-label">AfricaHackon curriculum</div></div>
+            <div class="stat-card"><div class="stat-num">2026</div><div class="stat-label">First tools shipped</div></div>
+          </div>
         </div>
       </div>
 
       <aside class="reveal" style="transition-delay:0.15s;">
         <div class="stat-cards">
           <div class="stat-card">
-            <div class="stat-num" data-target="5" data-suffix="+">0</div>
+            <div class="stat-num" data-target="4" data-suffix="">0</div>
             <div class="stat-label">Certifications</div>
           </div>
           <div class="stat-card">
-            <div class="stat-num" data-target="12" data-suffix="+">0</div>
-            <div class="stat-label">Projects</div>
+            <div class="stat-num" data-target="3" data-suffix="">0</div>
+            <div class="stat-label">Tools shipped</div>
           </div>
           <div class="stat-card">
-            <div class="stat-num" data-target="2" data-suffix="yr">0</div>
-            <div class="stat-label">Deep Study</div>
+            <div class="stat-num" data-target="1" data-suffix="">0</div>
+            <div class="stat-label">DFIR lab</div>
           </div>
           <div class="stat-card">
-            <div class="stat-num">∞</div>
-            <div class="stat-label">Curiosity</div>
+            <div class="stat-num">CPTS</div>
+            <div class="stat-label">Studying now</div>
           </div>
         </div>
 
@@ -144,53 +160,119 @@
 
 <div class="divider"></div>
 
-<!-- PRINCIPLES -->
-<section class="tinted">
+<!-- CAPABILITIES (was Skills page) -->
+<section id="capabilities" style="padding-top:0;">
   <div class="wrap">
     <div class="section-head reveal">
       <div>
-        <span class="eyebrow"><span class="eyebrow-num">02</span> Operating Principles</span>
-        <h2 class="section-title">What I actually <em>believe</em></h2>
+        <span class="eyebrow"><span class="eyebrow-num">02</span> Capabilities</span>
+        <h2 class="section-title">How I <em>operate</em></h2>
       </div>
-      <p class="sh-note">Three rules that survived every lab, every failed exploit, and every 3am log dive.</p>
+      <p class="sh-note">Four lanes. Each card shows what I can do <em>right now</em> — no hidden sections.</p>
     </div>
 
-    <div class="principles">
-      <div class="principle reveal">
-        <span class="p-num">01</span>
-        <h3>Break it yourself first</h3>
-        <p>You don't know a system until you've tried to take it apart. I'd rather find the hole in a lab than read about it in a post-incident report.</p>
-      </div>
-      <div class="principle reveal" style="transition-delay:0.1s;">
-        <span class="p-num">02</span>
-        <h3>Automate the boring part</h3>
-        <p>Manual recon across five terminal windows teaches you nothing the second time. If I do a task twice, it becomes a script — that's where r3con and NetWatch came from.</p>
-      </div>
-      <div class="principle reveal" style="transition-delay:0.2s;">
-        <span class="p-num">03</span>
-        <h3>Write down what you find</h3>
-        <p>An undocumented finding is a rumour. Every project here ships with real output, real severity, and the actual fix — because that's what makes it useful to anyone else.</p>
-      </div>
+    <div class="cap-grid">
+
+      <!-- 01 OFFENSIVE -->
+      <article class="cap-card cap-card--amber reveal">
+        <div class="cap-card-num" aria-hidden="true">01</div>
+        <header class="cap-card-head">
+          <span class="cap-card-icon"><i class="ti ti-sword" aria-hidden="true"></i></span>
+          <div>
+            <h3 class="cap-card-name">Offensive Security</h3>
+            <span class="cap-card-sub">recon · web · network</span>
+          </div>
+        </header>
+        <p class="cap-card-line">Enumeration to exploitation: subdomains, open ports, fingerprinted services, web bugs (SQLi, XSS, IDOR, cmd injection), malware triage.</p>
+        <div class="cap-card-look">
+          <span class="cap-card-look-label"><i class="ti ti-target" aria-hidden="true"></i> What I look for</span>
+          <span>Forgotten dev subdomains · leaky headers · login forms with no rate limit · default creds</span>
+        </div>
+        <div class="cap-card-tools">
+          <span class="tech-tag">Nmap</span><span class="tech-tag">Metasploit</span><span class="tech-tag">Burp Suite</span><span class="tech-tag">Shodan</span><span class="tech-tag">r3con</span>
+        </div>
+      </article>
+
+      <!-- 02 DEFENSIVE -->
+      <article class="cap-card cap-card--rose reveal" style="transition-delay:0.08s;">
+        <div class="cap-card-num" aria-hidden="true">02</div>
+        <header class="cap-card-head">
+          <span class="cap-card-icon"><i class="ti ti-shield-check" aria-hidden="true"></i></span>
+          <div>
+            <h3 class="cap-card-name">Defensive Security</h3>
+            <span class="cap-card-sub">hunting · DFIR · blue team</span>
+          </div>
+        </header>
+        <p class="cap-card-line">Follow the artifacts: event IDs, registry keys, prefetch. Rebuilding the attacker's timeline with Velociraptor hunts and detection rules.</p>
+        <div class="cap-card-look">
+          <span class="cap-card-look-label"><i class="ti ti-target" aria-hidden="true"></i> What I look for</span>
+          <span>Brute-force patterns · odd parent-child process chains · DNS tunneling · lateral movement</span>
+        </div>
+        <div class="cap-card-tools">
+          <span class="tech-tag">Velociraptor</span><span class="tech-tag">Sysmon</span><span class="tech-tag">Wireshark</span><span class="tech-tag">CyberChef</span>
+        </div>
+      </article>
+
+      <!-- 03 PROGRAMMING -->
+      <article class="cap-card cap-card--teal reveal" style="transition-delay:0.16s;">
+        <div class="cap-card-num" aria-hidden="true">03</div>
+        <header class="cap-card-head">
+          <span class="cap-card-icon"><i class="ti ti-code" aria-hidden="true"></i></span>
+          <div>
+            <h3 class="cap-card-name">Programming &amp; Automation</h3>
+            <span class="cap-card-sub">python · bash · workflows</span>
+          </div>
+        </header>
+        <p class="cap-card-line">If I do it manually twice, I script it. Three tools shipped solve real problems I hit testing or hunting — and they're on GitHub.</p>
+        <div class="cap-card-look">
+          <span class="cap-card-look-label"><i class="ti ti-target" aria-hidden="true"></i> Proof</span>
+          <span>r3con (recon) · NetWatch (IDS) · CloudLens (AWS attack paths) — all shipped and public</span>
+        </div>
+        <div class="cap-card-tools">
+          <span class="tech-tag">Python</span><span class="tech-tag">Bash</span><span class="tech-tag">Scapy</span><span class="tech-tag">n8n</span>
+        </div>
+      </article>
+
+      <!-- 04 SYSTEMS -->
+      <article class="cap-card cap-card--violet reveal" style="transition-delay:0.24s;">
+        <div class="cap-card-num" aria-hidden="true">04</div>
+        <header class="cap-card-head">
+          <span class="cap-card-icon"><i class="ti ti-server-2" aria-hidden="true"></i></span>
+          <div>
+            <h3 class="cap-card-name">Systems &amp; Cloud</h3>
+            <span class="cap-card-sub">linux · AD · AWS</span>
+          </div>
+        </header>
+        <p class="cap-card-line">Find where trust is assumed but not enforced — over-permissive IAM, missing segmentation, unpatched services, default VPCs.</p>
+        <div class="cap-card-look">
+          <span class="cap-card-look-label"><i class="ti ti-target" aria-hidden="true"></i> What I look for</span>
+          <span>IAM wildcards · public storage · 0.0.0.0/0 security groups · missing MFA on privileged accounts</span>
+        </div>
+        <div class="cap-card-tools">
+          <span class="tech-tag">Kali Linux</span><span class="tech-tag">AWS</span><span class="tech-tag">Azure (learning)</span><span class="tech-tag">Active Directory</span>
+        </div>
+      </article>
+
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- TOOLS -->
-<section id="tools">
+<!-- TOOLBELT (was SKILLS page) -->
+<section id="skillset" class="tinted">
   <div class="wrap">
     <div class="section-head reveal">
       <div>
         <span class="eyebrow"><span class="eyebrow-num">03</span> Toolbelt</span>
-        <h2 class="section-title">Tools &amp; <em>technologies</em></h2>
+        <h2 class="section-title">What I <em>use</em></h2>
       </div>
-      <p class="sh-note">The stack I reach for daily — grouped the way I actually use them, not the way cert exams group them.</p>
+      <p class="sh-note">Tools I've used in labs and projects — grouped by what they do, not what a syllabus said.</p>
     </div>
 
     <div class="tool-groups">
       <div class="reveal">
-        <div class="tool-group-title">Languages &amp; Scripting</div>
+        <div class="tool-group-title">Code</div>
         <div class="skill-tags">
           <span class="skill-tag tag-code"><i class="ti ti-brand-python"></i> Python</span>
           <span class="skill-tag tag-code"><i class="ti ti-terminal-2"></i> Bash</span>
@@ -201,13 +283,13 @@
       </div>
 
       <div class="reveal">
-        <div class="tool-group-title">Offensive Tools</div>
+        <div class="tool-group-title">Offense</div>
         <div class="skill-tags">
           <span class="skill-tag tag-offense"><i class="ti ti-radar"></i> Nmap</span>
           <span class="skill-tag tag-offense"><i class="ti ti-crosshair"></i> Metasploit</span>
           <span class="skill-tag tag-offense"><i class="ti ti-bug"></i> Burp Suite</span>
-          <span class="skill-tag tag-offense"><i class="ti ti-wave-sine"></i> Wireshark</span>
           <span class="skill-tag tag-offense"><i class="ti ti-bomb"></i> Msfvenom</span>
+          <span class="skill-tag tag-offense"><i class="ti ti-wave-sine"></i> Wireshark</span>
           <span class="skill-tag tag-offense"><i class="ti ti-search"></i> Gobuster</span>
           <span class="skill-tag tag-offense"><i class="ti ti-bug-off"></i> Nikto</span>
           <span class="skill-tag tag-offense"><i class="ti ti-lock-open"></i> John the Ripper</span>
@@ -216,45 +298,181 @@
       </div>
 
       <div class="reveal">
-        <div class="tool-group-title">Defensive &amp; Analysis</div>
+        <div class="tool-group-title">Defense</div>
         <div class="skill-tags">
           <span class="skill-tag tag-defense"><i class="ti ti-shield-check"></i> Velociraptor</span>
           <span class="skill-tag tag-defense"><i class="ti ti-eye"></i> Sysmon</span>
           <span class="skill-tag tag-defense"><i class="ti ti-microscope"></i> Volatility</span>
           <span class="skill-tag tag-defense"><i class="ti ti-flask"></i> CyberChef</span>
-          <span class="skill-tag tag-defense"><i class="ti ti-zoom-scan"></i> DFIR</span>
-          <span class="skill-tag tag-defense"><i class="ti ti-alert-triangle"></i> EDR Evasion</span>
+          <span class="skill-tag tag-defense"><i class="ti ti-zoom-scan"></i> DFIR tooling</span>
+          <span class="skill-tag tag-defense"><i class="ti ti-alert-triangle"></i> Detection rules</span>
         </div>
       </div>
 
       <div class="reveal">
-        <div class="tool-group-title">Cloud &amp; Automation</div>
+        <div class="tool-group-title">Systems and cloud</div>
         <div class="skill-tags">
-          <span class="skill-tag tag-cloud"><i class="ti ti-cloud"></i> AWS</span>
-          <span class="skill-tag tag-cloud"><i class="ti ti-cloud-computing"></i> Azure</span>
-          <span class="skill-tag tag-cloud"><i class="ti ti-world"></i> GCP</span>
+          <span class="skill-tag tag-cloud"><i class="ti ti-cloud"></i> AWS (IAM, VPC, S3, EC2)</span>
+          <span class="skill-tag tag-cloud"><i class="ti ti-cloud-computing"></i> Azure (learning)</span>
           <span class="skill-tag tag-cloud"><i class="ti ti-key"></i> IAM</span>
           <span class="skill-tag tag-cloud"><i class="ti ti-network"></i> VPC</span>
           <span class="skill-tag tag-cloud"><i class="ti ti-settings-automation"></i> n8n</span>
           <span class="skill-tag tag-cloud"><i class="ti ti-server"></i> Active Directory</span>
           <span class="skill-tag tag-cloud"><i class="ti ti-brand-debian"></i> Linux</span>
+          <span class="skill-tag tag-cloud"><i class="ti ti-shield-lock"></i> Windows</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<div class="divider"></div>
+
+<!-- JOURNEY (was journey page) -->
+<section id="journey">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow"><span class="eyebrow-num">04</span> Journey</span>
+        <h2 class="section-title">The <em>timeline</em></h2>
+      </div>
+      <p class="page-lede">Labs first, then structured courses to fill the gaps.</p>
+    </div>
+
+    <div class="timeline-container">
+      <div class="timeline-line"></div>
+
+      <div class="timeline-item">
+        <div class="timeline-year">2023</div>
+        <div class="timeline-content">
+          <div class="timeline-event">Started learning</div>
+          <div class="timeline-detail">Cybrary, Cisco Networking Academy, OverTheWire, TryHackMe and HackTheBox. Linux, networking, first exploits.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-year">2024</div>
+        <div class="timeline-content">
+          <div class="timeline-event">First certificates</div>
+          <div class="timeline-detail">Google Cybersecurity Certificate, ALX Africa Professional Foundations, ALX Africa Cybersecurity.</div>
+          <div class="cert-badges">
+            <a href="https://savanna.alxafrica.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBemVRTkE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--12649d5f07c50403155dd148ea32129fe9db5183/89-professional-foundations-certificate-leo-mugambi.png" target="_blank" rel="noopener" class="cert-badge">
+              <span class="cert-icon"><i class="ti ti-trophy"></i></span>
+              <span class="cert-info">
+                <span class="cert-name">Professional Foundations</span>
+                <span class="cert-issuer">ALX Africa</span>
+              </span>
+              <span class="cert-arrow">↗</span>
+            </a>
+            <a href="https://savanna.alxafrica.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNUZ0Tmc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--ef93cb7fd78ea4dc0c38c007557c34b0ffeaa85d/159-cybersecurity-certificate-leo-mugambi.png" target="_blank" rel="noopener" class="cert-badge">
+              <span class="cert-icon"><i class="ti ti-shield"></i></span>
+              <span class="cert-info">
+                <span class="cert-name">Cybersecurity</span>
+                <span class="cert-issuer">ALX Africa</span>
+              </span>
+              <span class="cert-arrow">↗</span>
+            </a>
+            <div class="cert-badge">
+              <span class="cert-icon"><i class="ti ti-lock"></i></span>
+              <span class="cert-info">
+                <span class="cert-name">Cybersecurity Certificate</span>
+                <span class="cert-issuer">Google</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-year">2025</div>
+        <div class="timeline-content">
+          <div class="timeline-event">AfricaHackon curriculum</div>
+          <div class="timeline-detail">Linux, recon, networking, Windows and AD, wireless, Python and Bash, web and API security, cloud (AWS, IAM, VPC), malware analysis, incident response and blue team.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-year">2026</div>
+        <div class="timeline-content">
+          <div class="timeline-event">AfricaHackon certified — started shipping tools</div>
+          <div class="timeline-detail">Finished the program and shipped r3con, NetWatch and CloudLens, plus the DFIR lab.</div>
+          <div class="cert-badges">
+            <a href="https://www.credly.com/badges/e2d41928-3f92-4eef-80a8-5d345c4ca63f" target="_blank" rel="noopener" class="cert-badge cert-badge-gold">
+              <span class="cert-icon"><i class="ti ti-sword"></i></span>
+              <span class="cert-info">
+                <span class="cert-name">AfricaHackon Certified</span>
+                <span class="cert-issuer">AfricaHackon</span>
+              </span>
+              <span class="cert-arrow">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item timeline-current">
+        <div class="timeline-year">NOW</div>
+        <div class="timeline-content">
+          <div class="timeline-event" style="color:var(--teal-ink);">Studying for CPTS</div>
+          <div class="timeline-detail">HackTheBox's Certified Penetration Testing Specialist is the current target.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ROADMAP -->
+<section class="tinted">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow"><span class="eyebrow-num">05</span> Roadmap</span>
+        <h2 class="section-title">What's <em>next</em></h2>
+      </div>
+    </div>
+
+    <div class="roadmap reveal">
+      <span class="roadmap-step done">Google Cybersecurity ✓</span>
+      <span class="roadmap-arrow">→</span>
+      <span class="roadmap-step done">AfricaHackon ✓</span>
+      <span class="roadmap-arrow">→</span>
+      <span class="roadmap-step">Security+</span>
+      <span class="roadmap-arrow">→</span>
+      <span class="roadmap-step">eJPT</span>
+      <span class="roadmap-arrow">→</span>
+      <span class="roadmap-step now">CPTS (current)</span>
+      <span class="roadmap-arrow">→</span>
+      <span class="roadmap-step">OSCP</span>
+    </div>
+
+    <div class="ops-panel glass reveal" style="margin-top:3rem;">
+      <div class="ops-header">
+        <span class="ops-dot"></span>
+        In progress
+        <span class="ops-clock" id="ops-time"></span>
+      </div>
+      <div class="ops-grid">
+        <div class="ops-line"><span class="ops-key">[TARGET]</span><span class="ops-val">HackTheBox CPTS</span><span class="ops-badge badge-progress">Studying</span></div>
+        <div class="ops-line"><span class="ops-key">[AFTER]</span><span class="ops-val">OSCP</span><span class="ops-badge badge-planned">Planned</span></div>
+        <div class="ops-line"><span class="ops-key">[LAB]</span><span class="ops-val">Velociraptor + Sysmon DFIR lab</span><span class="ops-badge badge-active">Running</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
-<section style="padding-top:0;">
+<section>
   <div class="wrap">
     <div class="cta-band glass reveal">
       <div>
-        <h2 class="cta-title">The story continues on the <em>timeline</em></h2>
-        <p class="cta-sub">Certifications, labs, curriculum, and the roadmap that gets me from here to OSCP — and eventually to NOX.</p>
+        <h2 class="cta-title">Now the <em>work</em></h2>
+        <p class="cta-sub">Everything above shows up in the projects.</p>
       </div>
       <div class="cta-actions">
-        <a href="journey.html" class="btn btn-primary">See the journey</a>
-        <a href="projects.html" class="btn btn-ghost">See the work</a>
+        <a href="projects.html" class="btn btn-primary">Projects</a>
+        <a href="contact.html" class="btn btn-ghost">Contact</a>
       </div>
     </div>
   </div>
@@ -267,25 +485,25 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="brand">r3tro_n3o<span class="caret">_</span></a>
-        <p>Leo Mugambi — cybersecurity practitioner building offensive security tooling from Africa. Long game: NOX, a company that makes cybercrime harder.</p>
+        <p>Leo Mugambi — cybersecurity practitioner building security tooling from Africa. Long game: NOX, a company that makes cybercrime harder.</p>
       </div>
       <div class="footer-col">
         <h4>Pages</h4>
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="projects.html">Projects</a>
-        <a href="skills.html">Skills</a>
-      </div>
-      <div class="footer-col">
-        <h4>More</h4>
-        <a href="journey.html">Journey</a>
         <a href="blog.html">Blog</a>
         <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Elsewhere</h4>
         <a href="https://github.com/r3tro-n3o" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://medium.com/@r3tro-n3o" target="_blank" rel="noopener">Medium</a>
+        <a href="https://www.linkedin.com/in/leo-mugambi" target="_blank" rel="noopener">LinkedIn</a>
       </div>
       <div class="footer-col footer-status">
         <h4>Status</h4>
-        <div class="status-line"><span class="dot"></span> Open to internships &amp; freelance</div>
+        <div class="status-line"><span class="dot"></span> Open to internships &amp; junior roles</div>
         <div class="status-note">
           CPTS prep — active<br>
           DFIR lab — running<br>
@@ -300,6 +518,7 @@
   </div>
 </footer>
 
-<script src="assets/js/main.js"></script>
+<script src="assets/js/main.js?v=8"></script>
+<script src="assets/js/depth.js" defer></script>
 </body>
 </html>

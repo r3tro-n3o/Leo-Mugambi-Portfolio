@@ -8,7 +8,39 @@
 <meta property="og:title" content="Leo Mugambi | r3tro_n3o — Offensive Security">
 <meta property="og:description" content="Cybersecurity practitioner. Offensive security in progress. Building from Africa.">
 <meta property="og:type" content="website">
+<link rel="canonical" href="https://leomugambi.pages.dev/">
+<meta property="og:url" content="https://leomugambi.pages.dev/">
+<meta property="og:image" content="https://leomugambi.pages.dev/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="r3tro_n3o — terminal-style card for Leo Mugambi, cybersecurity practitioner">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Leo Mugambi | r3tro_n3o">
+<meta name="twitter:description" content="Cybersecurity practitioner. Offensive security in progress. Building from Africa.">
+
 <title>Leo Mugambi | r3tro_n3o — Offensive Security</title>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Leo Mugambi",
+  "alternateName": "r3tro_n3o",
+  "url": "https://leomugambi.pages.dev/",
+  "jobTitle": "Cybersecurity practitioner (internships and junior roles)",
+  "email": "mailto:iamleomiguel@gmail.com",
+  "description": "Cybersecurity practitioner building offense and defense tooling from Africa: r3con (OSINT recon), n3twatch (network IDS), cloudlens (AWS attack-path analysis), plus a DFIR lab. CPTS in progress.",
+  "sameAs": [
+    "https://github.com/r3tro-n3o",
+    "https://medium.com/@r3tro-n3o",
+    "https://www.linkedin.com/in/leo-mugambi"
+  ],
+  "knowsAbout": ["offensive security", "DFIR", "network monitoring", "cloud security", "Python", "threat hunting"]
+}
+</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<meta name="theme-color" content="#0d0e12">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
@@ -26,9 +58,11 @@
     }
   })();
 </script>
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css?v=8">
+<link rel="stylesheet" href="assets/css/depth.css?v=8">
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
 <div class="aurora" aria-hidden="true">
   <span class="blob b1"></span>
@@ -36,6 +70,8 @@
   <span class="blob b3"></span>
 </div>
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div class="dot-grid" aria-hidden="true"></div>
+<div class="pointer-halo" aria-hidden="true"></div>
 
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
@@ -48,8 +84,6 @@
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="projects.html">Projects</a></li>
-      <li><a href="skills.html">Skills</a></li>
-      <li><a href="journey.html">Journey</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -69,15 +103,13 @@
   <a href="index.html" class="mm-link active" onclick="toggleMenu()">Home</a>
   <a href="about.html" class="mm-link" onclick="toggleMenu()">About</a>
   <a href="projects.html" class="mm-link" onclick="toggleMenu()">Projects</a>
-  <a href="skills.html" class="mm-link" onclick="toggleMenu()">Skills</a>
-  <a href="journey.html" class="mm-link" onclick="toggleMenu()">Journey</a>
   <a href="blog.html" class="mm-link" onclick="toggleMenu()">Blog</a>
   <a href="contact.html" class="mm-link" onclick="toggleMenu()">Contact</a>
   <button class="theme-toggle" type="button" aria-label="Toggle color theme"><i class="ti ti-sun theme-icon-sun" aria-hidden="true"></i><i class="ti ti-moon theme-icon-moon" aria-hidden="true"></i></button>
   <div class="mm-meta">Building from Africa · Eyes on the global stage</div>
 </div>
 
-<main>
+<main id="main-content" tabindex="-1">
 
 <!-- HERO -->
 <section class="hero" id="hero">
@@ -114,8 +146,8 @@
         </div>
 
         <div class="hero-meta">
-          <span><b>//</b> 12 projects shipped</span>
-          <span><b>//</b> 5 certifications</span>
+          <span><b>//</b> 3 tools shipped</span>
+          <span><b>//</b> 4 certifications</span>
           <span><b>//</b> CPTS in progress</span>
         </div>
       </div>
@@ -143,8 +175,8 @@
 <!-- TICKER -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span><i>+</i>Nmap</span><span><i>+</i>Metasploit</span><span><i>+</i>Burp Suite</span><span><i>+</i>Wireshark</span><span><i>+</i>Velociraptor</span><span><i>+</i>Sysmon</span><span><i>+</i>Scapy</span><span><i>+</i>Volatility</span><span><i>+</i>Boto3</span><span><i>+</i>Active Directory</span><span><i>+</i>AWS</span><span><i>+</i>Linux</span><span><i>+</i>Python</span><span><i>+</i>n8n</span>
-    <span><i>+</i>Nmap</span><span><i>+</i>Metasploit</span><span><i>+</i>Burp Suite</span><span><i>+</i>Wireshark</span><span><i>+</i>Velociraptor</span><span><i>+</i>Sysmon</span><span><i>+</i>Scapy</span><span><i>+</i>Volatility</span><span><i>+</i>Boto3</span><span><i>+</i>Active Directory</span><span><i>+</i>AWS</span><span><i>+</i>Linux</span><span><i>+</i>Python</span><span><i>+</i>n8n</span>
+    <span><i>+</i>Nmap</span><span><i>+</i>Metasploit</span><span><i>+</i>Burp Suite</span><span><i>+</i>Wireshark</span><span><i>+</i>Velociraptor</span><span><i>+</i>Sysmon</span><span><i>+</i>Scapy</span><span><i>+</i>Python</span><span><i>+</i>Git</span><span><i>+</i>Active Directory</span><span><i>+</i>AWS</span><span><i>+</i>Linux</span><span><i>+</i>PCAP</span><span><i>+</i>VQL</span>
+    <span><i>+</i>Nmap</span><span><i>+</i>Metasploit</span><span><i>+</i>Burp Suite</span><span><i>+</i>Wireshark</span><span><i>+</i>Velociraptor</span><span><i>+</i>Sysmon</span><span><i>+</i>Scapy</span><span><i>+</i>Python</span><span><i>+</i>Git</span><span><i>+</i>Active Directory</span><span><i>+</i>AWS</span><span><i>+</i>Linux</span><span><i>+</i>PCAP</span><span><i>+</i>VQL</span>
   </div>
 </div>
 
@@ -169,8 +201,8 @@
         <div class="ops-line"><span class="ops-key">[STUDYING]</span><span class="ops-val">CPTS — HackTheBox Certified Penetration Testing Specialist</span><span class="ops-badge badge-active">Active</span></div>
         <div class="ops-line"><span class="ops-key">[TOOLS]</span><span class="ops-val">Nmap · Metasploit · Burp Suite · Wireshark · Msfvenom · Velociraptor · Sysmon</span></div>
         <div class="ops-line"><span class="ops-key">[LAB]</span><span class="ops-val">Velociraptor + Sysmon DFIR Lab — Kali server / Windows 10 client</span><span class="ops-badge badge-active">Running</span></div>
-        <div class="ops-line"><span class="ops-key">[FOCUS]</span><span class="ops-val">Offensive Security · Threat Hunting · Red Team Ops · Malware Analysis</span></div>
-        <div class="ops-line"><span class="ops-key">[CERTS]</span><span class="ops-val">Google Cybersecurity · AfricaHackon · ALX Africa Professional Foundations</span></div>
+        <div class="ops-line"><span class="ops-key">[FOCUS]</span><span class="ops-val">Offensive Security · Threat Hunting · Malware Analysis</span></div>
+        <div class="ops-line"><span class="ops-key">[CERTS]</span><span class="ops-val">Google Cybersecurity · ALX Professional Foundations · ALX Cybersecurity · AfricaHackon</span></div>
         <div class="ops-line"><span class="ops-key">[ROADMAP]</span><span class="ops-val">Security+ → eJPT → CPTS → OSCP</span><span class="ops-badge badge-progress">In Progress</span></div>
         <div class="ops-line"><span class="ops-key">[LOCATION]</span><span class="ops-val">Building from Africa. Eyes on the global stage.</span></div>
       </div>
@@ -188,96 +220,69 @@
         <span class="eyebrow"><span class="eyebrow-num">02</span> Selected Work</span>
         <h2 class="section-title">Tools built to <em>break things</em></h2>
       </div>
-      <p class="sh-note">Three of twelve. Recon automation, network detection, and cloud misconfiguration scanning — <strong>each one solved a problem I actually hit</strong>.</p>
+      <p class="sh-note">Three tools, all on GitHub. <strong>Each one solved a problem I actually hit</strong>.</p>
     </div>
 
     <div class="work-grid">
 
       <article class="cs-card reveal">
         <div class="cs-card-header">
-          <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python · CLI</span></div>
+          <div class="cs-meta"><span class="ops-badge badge-active">Shipped</span><span class="cs-lang">Python · CLI</span></div>
           <h3 class="cs-title">r3con — OSINT Recon Tool</h3>
-          <p class="cs-desc">Multi-phase recon pipeline: passive subdomain enumeration, HTTP probing, rule-based tech fingerprinting, banner grabbing, Shodan enrichment, dual JSON+TXT reports with risk flags.</p>
-          <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Shodan API</span><span class="tech-tag">dnspython</span><span class="tech-tag">Rich</span></div>
+          <p class="cs-desc">Multi-phase recon pipeline: passive subdomain enumeration, HTTP probing, rule-based tech fingerprinting, DNS and WHOIS, banner grabbing, Shodan enrichment — then one structured report (JSON + TXT) with risk flags.</p>
+          <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Shodan API</span><span class="tech-tag">Dnspython</span></div>
         </div>
-        <div class="cs-links">
+        <div class="cs-term" aria-hidden="true"><span class="t-dot">┌──(</span><span class="t-str">r3tro_n3o</span><span class="t-dot">㉿kali)</span><span class="t-out">-[~]</span>
+<span class="t-out">└─$ </span><span class="t-cmd">python r3con.py</span> <span class="t-flag">-d</span> <span class="t-str">&lt;target.com&gt;</span>
+<span class="t-out">  --threads 20</span>
+<span class="t-out"># passive enum → probes → fingerprint → Shodan</span>
+<span class="t-out"># report:</span> <span class="t-ok">JSON + TXT</span></div>
+          <div class="cs-links">
           <a href="https://github.com/r3tro-n3o/r3con" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
-          <a href="projects.html#offensive" class="project-link link-demo">Case study →</a>
+          <a href="projects.html" class="project-link link-demo">All projects →</a>
         </div>
       </article>
 
       <article class="cs-card reveal" style="transition-delay:0.1s;">
         <div class="cs-card-header">
-          <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python · Scapy</span></div>
+          <div class="cs-meta"><span class="ops-badge badge-active">Shipped</span><span class="cs-lang">Python · Scapy</span></div>
           <h3 class="cs-title">NetWatch — Network IDS</h3>
-          <p class="cs-desc">Real-time network intrusion detection built on Scapy. Detects ARP spoofing, port scans, SYN floods, and DNS anomalies. Flags MITM attempts and reconstructs TCP streams.</p>
-          <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Scapy</span><span class="tech-tag">TCP/IP</span><span class="tech-tag">IDS</span></div>
+          <p class="cs-desc">Captures live traffic (or replays PCAPs), parses packets by protocol and runs a detection engine for five rule sets: SYN scans, port scans, ARP spoofing, DNS anomalies, and ICMP floods. Prints alerts in real time and writes a JSON + TXT report.</p>
+          <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Scapy</span><span class="tech-tag">IDS</span></div>
         </div>
-        <div class="cs-links">
+        <div class="cs-term" aria-hidden="true"><span class="t-dot">┌──(</span><span class="t-str">r3tro_n3o</span><span class="t-dot">㉿kali)</span><span class="t-out">-[~]</span>
+<span class="t-out">└─$ </span><span class="t-cmd">sudo python netwatch.py</span> <span class="t-flag">--live</span>
+<span class="t-out">  --iface eth0</span>
+<span class="t-out"># SYN · ARP spoof · ICMP · DNS · port scan</span>
+<span class="t-out"># alerts:</span> <span class="t-ok">real time</span><span class="t-out"> ·</span> <span class="t-ok">JSON + TXT</span></div>
+          <div class="cs-links">
           <a href="https://github.com/r3tro-n3o/n3twatch" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
-          <a href="projects.html#offensive" class="project-link link-demo">Case study →</a>
+          <a href="projects.html" class="project-link link-demo">Details →</a>
         </div>
       </article>
 
       <article class="cs-card reveal" style="transition-delay:0.2s;">
         <div class="cs-card-header">
-          <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python · AWS</span></div>
-          <h3 class="cs-title">AWScan — AWS Misconfig Scanner</h3>
-          <p class="cs-desc">Automated detection of IAM privilege escalation paths, public S3 buckets, open security groups, missing CloudTrail logging, and VPC misconfigurations.</p>
-          <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Boto3</span><span class="tech-tag">AWS</span><span class="tech-tag">IAM</span></div>
+          <div class="cs-meta"><span class="ops-badge badge-active">Shipped</span><span class="cs-lang">Python · AWS</span></div>
+          <h3 class="cs-title">CloudLens — Cloud Attack-Path Analyzer</h3>
+          <p class="cs-desc">Local-first analyzer for an AWS environment: models identities, roles and resources as a graph and finds the paths an attacker could actually chain from an identity to a sensitive resource. Runs on local JSON files — no cloud spend.</p>
+          <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">AWS IAM</span><span class="tech-tag">Attack graphs</span></div>
         </div>
-        <div class="cs-links">
-          <a href="https://github.com/r3tro-n3o/awscan" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
-          <a href="projects.html#cloud" class="project-link link-demo">Case study →</a>
+        <div class="cs-term" aria-hidden="true"><span class="t-dot">┌──(</span><span class="t-str">r3tro_n3o</span><span class="t-dot">㉿kali)</span><span class="t-out">-[~]</span>
+<span class="t-out">└─$ </span><span class="t-cmd">python3 cloudlens/cli.py scan</span>
+<span class="t-str">  examples/bank-sim.json</span>
+<span class="t-out"># identities → roles → resources</span>
+<span class="t-ok"># CRITICAL / HIGH / MEDIUM</span></div>
+          <div class="cs-links">
+          <a href="https://github.com/r3tro-n3o/cloudlens" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
+          <a href="projects.html" class="project-link link-demo">Details →</a>
         </div>
       </article>
 
     </div>
 
     <div style="margin-top:2.5rem;text-align:center;" class="reveal">
-      <a href="projects.html" class="btn btn-ghost">All 12 projects →</a>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- CAPABILITIES SNAPSHOT -->
-<section id="capabilities" class="tinted">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div>
-        <span class="eyebrow"><span class="eyebrow-num">03</span> Capabilities</span>
-        <h2 class="section-title">How I <em>operate</em></h2>
-      </div>
-      <p class="sh-note">Not what I know — how I apply it. Four modes, one habit: enumerate first, document everything.</p>
-    </div>
-
-    <div class="principles">
-      <div class="principle reveal">
-        <span class="p-num">01 — STRONG</span>
-        <h3>Offensive Security</h3>
-        <p>Subdomain enumeration, web app testing, network pentesting, malware analysis and EDR evasion. I ask one question: what would an attacker do with this?</p>
-      </div>
-      <div class="principle reveal" style="transition-delay:0.08s;">
-        <span class="p-num">02 — ACTIVE</span>
-        <h3>Defensive Security</h3>
-        <p>Windows event log hunting, endpoint detection with Velociraptor + Sysmon, malware analysis, incident response. I follow the artifacts to rebuild the timeline.</p>
-      </div>
-      <div class="principle reveal" style="transition-delay:0.16s;">
-        <span class="p-num">03 — ACTIVE</span>
-        <h3>Programming &amp; Automation</h3>
-        <p>Python security tools from scratch, Bash and PowerShell automation, n8n pipelines, API integrations. If I do it manually twice, I script it.</p>
-      </div>
-      <div class="principle reveal" style="transition-delay:0.24s;">
-        <span class="p-num">04 — DEVELOPING</span>
-        <h3>Systems &amp; Cloud</h3>
-        <p>Linux and Active Directory internals, AWS/Azure/GCP security, lab deployment. Every system has a trust model — I find where it's assumed but not enforced.</p>
-      </div>
-    </div>
-
-    <div style="margin-top:2.5rem;text-align:center;" class="reveal">
-      <a href="skills.html" class="btn btn-ghost">Explore all skills →</a>
+      <a href="projects.html" class="btn btn-ghost">All projects →</a>
     </div>
   </div>
 </section>
@@ -285,11 +290,11 @@
 <div class="divider"></div>
 
 <!-- BLOG PREVIEW -->
-<section id="writing">
+<section id="writing" class="tinted">
   <div class="wrap">
     <div class="section-head reveal">
       <div>
-        <span class="eyebrow"><span class="eyebrow-num">04</span> Writing</span>
+        <span class="eyebrow"><span class="eyebrow-num">03</span> Writing</span>
         <h2 class="section-title">Notes from the <em>lab</em></h2>
       </div>
       <p class="sh-note">Breaking down concepts, documenting labs, and sharing what I learn while it's still fresh.</p>
@@ -305,16 +310,16 @@
 
       <a href="blog.html" class="blog-card reveal" style="transition-delay:0.1s;">
         <span class="blog-tag soon">Coming Soon</span>
-        <h3 class="blog-title">OWASP Top 10 — Breaking My Own Web App</h3>
-        <p class="blog-excerpt">I built an intentionally vulnerable Flask app and attacked every vulnerability myself. What SQLi, XSS, and IDOR actually look like in a real codebase — and how to fix them.</p>
-        <div class="blog-meta"><span>Web Security · OWASP</span><span class="blog-read-more">Details →</span></div>
+        <h3 class="blog-title">CloudLens: finding attack paths in an AWS account</h3>
+        <p class="blog-excerpt">How I model identities, roles and resources as a graph, and how chaining findings reveals what no single misconfiguration shows on its own.</p>
+        <div class="blog-meta"><span>Cloud Security · AWS</span><span class="blog-read-more">Details →</span></div>
       </a>
 
       <a href="blog.html" class="blog-card reveal" style="transition-delay:0.2s;">
         <span class="blog-tag soon">Coming Soon</span>
-        <h3 class="blog-title">AWS Misconfigurations That Get Companies Breached</h3>
-        <p class="blog-excerpt">IAM privilege escalation, public S3 buckets, open security groups — I built a scanner to find these. What's most commonly exposed, and why attackers love cloud environments.</p>
-        <div class="blog-meta"><span>Cloud Security · AWS</span><span class="blog-read-more">Details →</span></div>
+        <h3 class="blog-title">ARP Spoofing on My Own Network — Building NetWatch</h3>
+        <p class="blog-excerpt">What a man-in-the-middle looks like from both sides, and how the Scapy-based detection rules in NetWatch catch it. Packet captures included.</p>
+        <div class="blog-meta"><span>Network Security · Scapy</span><span class="blog-read-more">Details →</span></div>
       </a>
     </div>
   </div>
@@ -326,11 +331,11 @@
     <div class="cta-band glass reveal">
       <div>
         <h2 class="cta-title">Got something worth <em>breaking</em>?</h2>
-        <p class="cta-sub">Open to internships, freelance security work, bug bounty teams, CTF collabs, and anyone building something interesting in the security space.</p>
+        <p class="cta-sub">Open to internships and junior security roles — and to anyone building something worth breaking.</p>
       </div>
       <div class="cta-actions">
         <a href="contact.html" class="btn btn-primary">Start a conversation</a>
-        <a href="journey.html" class="btn btn-ghost">My journey</a>
+        <a href="about.html#journey" class="btn btn-ghost">My journey</a>
       </div>
     </div>
   </div>
@@ -344,25 +349,25 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="brand">r3tro_n3o<span class="caret">_</span></a>
-        <p>Leo Mugambi — cybersecurity practitioner building offensive security tooling from Africa. Long game: NOX, a company that makes cybercrime harder.</p>
+        <p>Leo Mugambi — cybersecurity practitioner building security tooling from Africa. Long game: NOX, a company that makes cybercrime harder.</p>
       </div>
       <div class="footer-col">
         <h4>Pages</h4>
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="projects.html">Projects</a>
-        <a href="skills.html">Skills</a>
-      </div>
-      <div class="footer-col">
-        <h4>More</h4>
-        <a href="journey.html">Journey</a>
         <a href="blog.html">Blog</a>
         <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Elsewhere</h4>
         <a href="https://github.com/r3tro-n3o" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://medium.com/@r3tro-n3o" target="_blank" rel="noopener">Medium</a>
+        <a href="https://www.linkedin.com/in/leo-mugambi" target="_blank" rel="noopener">LinkedIn</a>
       </div>
       <div class="footer-col footer-status">
         <h4>Status</h4>
-        <div class="status-line"><span class="dot"></span> Open to internships &amp; freelance</div>
+        <div class="status-line"><span class="dot"></span> Open to internships &amp; junior roles</div>
         <div class="status-note">
           CPTS prep — active<br>
           DFIR lab — running<br>
@@ -377,6 +382,7 @@
   </div>
 </footer>
 
-<script src="assets/js/main.js"></script>
+<script src="assets/js/main.js?v=8"></script>
+<script src="assets/js/depth.js" defer></script>
 </body>
 </html>

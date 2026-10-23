@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
+<meta name="description" content="404 — command not found. This page of leo's filesystem doesn't exist. Head back to the projects or the homepage.">
+<link rel="canonical" href="https://leomugambi.pages.dev/404.html">
+<meta property="og:title" content="404 — command not found | r3tro_n3o">
+<meta property="og:description" content="cat: page.txt: No such file or directory — head home instead.">
+<meta property="og:type" content="website">
+<title>404 — Command Not Found | Leo Mugambi | r3tro_n3o</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<meta name="color-scheme" content="dark light">
+<script>
+  // same no-flash theme init the other pages use (saved choice + system fallback)
+  (function () {
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+</script>
+<link rel="stylesheet" href="assets/css/style.css?v=8">
+<link rel="stylesheet" href="assets/css/depth.css?v=8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<meta name="theme-color" content="#0d0e12">
+<style>
+  .nf-wrap { min-height: 74vh; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding-top: 6rem; padding-bottom: 4rem; }
+  .nf-ghost {
+    font-family: var(--mono);
+    font-size: clamp(5rem, 18vw, 11rem);
+    font-weight: 700;
+    line-height: 0.85;
+    color: transparent;
+    -webkit-text-stroke: 2px color-mix(in srgb, var(--amber-ink) 55%, transparent);
+    user-select: none;
+  }
+  .nf-title { font-family: var(--mono); font-size: 0.85rem; letter-spacing: 0.14em; color: var(--amber-ink); margin: 1.6rem 0 1.2rem; }
+  .nf-term {
+    max-width: 560px;
+    background: var(--term-bg);
+    border: 1px solid var(--stroke-strong);
+    border-radius: var(--radius, 0.9rem);
+    padding: 1.1rem 1.4rem 1.4rem;
+    font-family: var(--mono); font-size: 0.8rem; line-height: 1.85;
+    color: var(--ink-dim);
+  }
+  .nf-term .cmd { color: var(--ink); }
+  .nf-term .err { color: var(--rose-ink, #cc2743); }
+  .nf-term .ok { color: var(--teal-ink); }
+  .nf-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<div class="aurora" aria-hidden="true">
+  <span class="blob b1"></span>
+  <span class="blob b2"></span>
+  <span class="blob b3"></span>
+</div>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div class="dot-grid" aria-hidden="true"></div>
+<div class="pointer-halo" aria-hidden="true"></div>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<header class="nav-shell" id="navbar">
+  <nav class="nav-bar glass" aria-label="Main navigation">
+    <a href="index.html" class="brand">r3tro_n3o<span class="caret">_</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" type="button" aria-label="Toggle color theme"><i class="ti ti-sun theme-icon-sun" aria-hidden="true"></i><i class="ti ti-moon theme-icon-moon" aria-hidden="true"></i></button>
+    <a href="contact.html" class="btn btn-primary btn-sm nav-cta">Hire me</a>
+  </nav>
+</header>
+
+<main id="main-content" tabindex="-1">
+  <div class="nf-wrap wrap">
+    <div class="nf-ghost" aria-hidden="true">404</div>
+    <p class="nf-title">┌──(r3tro_n3o㉿kali)-[~]</p>
+    <div class="nf-term" role="note">
+      <div><span class="cmd">└─$ cat <span style="color:var(--amber-ink);">/page-you-wanted.txt</span></span></div>
+      <div class="err">cat: /page-you-wanted.txt: No such file or directory</div>
+      <div><span class="cmd">└─$ </span><span class="ok">find — start from somewhere I know.</span></div>
+    </div>
+    <div class="nf-actions">
+      <a class="btn btn-primary" href="/">Home</a>
+      <a class="btn btn-ghost" href="projects.html">View Projects</a>
+      <a class="btn btn-ghost" href="contact.html">Get In Touch</a>
+    </div>
+  </div>
+</main>
+
+<script src="assets/js/main.js?v=8"></script>
+<script src="assets/js/depth.js?v=8"></script>
+</body>
+</html>

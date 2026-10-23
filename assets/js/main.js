@@ -10,16 +10,20 @@
   const ring = document.getElementById('cursor-ring');
   if (!dot || !ring) return;
 
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  let mx = 0, my = 0, rx = 0, ry = 0, seen = false;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; seen = true; });
 
+  // compositor-only positioning: transform writes skip layout,
+  // so the cursor never triggers a style/layout/paint pass per
+  // frame (left/top writes did — that was the lag + glitches).
   (function anim() {
-    dot.style.left = mx + 'px';
-    dot.style.top = my + 'px';
-    rx += (mx - rx) * 0.14;
-    ry += (my - ry) * 0.14;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
+    if (seen) {
+      document.body.classList.add('cursor-live');
+      dot.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0) translate(-50%,-50%)';
+      rx += (mx - rx) * 0.14;
+      ry += (my - ry) * 0.14;
+      ring.style.transform = 'translate3d(' + rx + 'px,' + ry + 'px,0) translate(-50%,-50%)';
+    }
     requestAnimationFrame(anim);
   })();
 
@@ -31,6 +35,40 @@
   });
   bind();
   window.__rebindCursor = bind;
+})();
+
+/* ── copy email button (Contact page) ──────────────────── */
+(function initCopyEmail() {
+  const btn = document.getElementById('copy-email-btn');
+  if (!btn) return;
+  const label = document.getElementById('copy-email-label');
+  const EMAIL = 'iamleomiguel@gmail.com';
+  const original = label.textContent;
+  let timer = null;
+  btn.addEventListener('click', async () => {
+    let ok = false;
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      ok = true;
+    } catch (e) {
+      // clipboard API unavailable (http / older browser): fallback
+      const ta = document.createElement('textarea');
+      ta.value = EMAIL;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      ok = document.execCommand('copy');
+      ta.remove();
+    }
+    btn.classList.toggle('copied', ok);
+    label.textContent = ok ? '✓ copied' : 'press Ctrl+C';
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      btn.classList.remove('copied');
+      label.textContent = original;
+    }, 2200);
+  });
 })();
 
 /* ── animated background: soft drifting particles ──────── */

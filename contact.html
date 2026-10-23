@@ -7,7 +7,21 @@
 <meta property="og:title" content="Contact | Leo Mugambi — r3tro_n3o">
 <meta property="og:description" content="Open to internships, freelance security work, bug bounty teams, CTF collabs, and anyone building something interesting in security.">
 <meta property="og:type" content="website">
+<link rel="canonical" href="https://leomugambi.pages.dev/contact.html">
+<meta property="og:url" content="https://leomugambi.pages.dev/contact.html">
+<meta property="og:image" content="https://leomugambi.pages.dev/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="r3tro_n3o — terminal-style card for Leo Mugambi, cybersecurity practitioner">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Leo Mugambi | r3tro_n3o">
+<meta name="twitter:description" content="Cybersecurity practitioner. Offensive security in progress. Building from Africa.">
+
 <title>Contact — Leo Mugambi | r3tro_n3o</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<meta name="theme-color" content="#0d0e12">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
@@ -25,9 +39,11 @@
     }
   })();
 </script>
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css?v=8">
+<link rel="stylesheet" href="assets/css/depth.css?v=8">
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
 <div class="aurora" aria-hidden="true">
   <span class="blob b1"></span>
@@ -35,6 +51,8 @@
   <span class="blob b3"></span>
 </div>
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div class="dot-grid" aria-hidden="true"></div>
+<div class="pointer-halo" aria-hidden="true"></div>
 
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
@@ -46,8 +64,6 @@
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="projects.html">Projects</a></li>
-      <li><a href="skills.html">Skills</a></li>
-      <li><a href="journey.html">Journey</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="contact.html" class="active">Contact</a></li>
     </ul>
@@ -66,15 +82,13 @@
   <a href="index.html" class="mm-link" onclick="toggleMenu()">Home</a>
   <a href="about.html" class="mm-link" onclick="toggleMenu()">About</a>
   <a href="projects.html" class="mm-link" onclick="toggleMenu()">Projects</a>
-  <a href="skills.html" class="mm-link" onclick="toggleMenu()">Skills</a>
-  <a href="journey.html" class="mm-link" onclick="toggleMenu()">Journey</a>
   <a href="blog.html" class="mm-link" onclick="toggleMenu()">Blog</a>
   <a href="contact.html" class="mm-link active" onclick="toggleMenu()">Contact</a>
   <button class="theme-toggle" type="button" aria-label="Toggle color theme"><i class="ti ti-sun theme-icon-sun" aria-hidden="true"></i><i class="ti ti-moon theme-icon-moon" aria-hidden="true"></i></button>
   <div class="mm-meta">Building from Africa · Eyes on the global stage</div>
 </div>
 
-<main>
+<main id="main-content" tabindex="-1">
 
 <!-- PAGE HEADER -->
 <section class="page-head">
@@ -89,6 +103,8 @@
     </div>
   </div>
 </section>
+
+<div class="divider"></div>
 
 <!-- CONTACT -->
 <section style="padding-top:0;">
@@ -147,6 +163,7 @@
         <a href="https://github.com/r3tro-n3o" target="_blank" rel="noopener" class="social-link"><i class="ti ti-brand-github"></i> GitHub</a>
         <a href="https://www.linkedin.com/in/leo-mugambi" target="_blank" rel="noopener" class="social-link"><i class="ti ti-brand-linkedin"></i> LinkedIn</a>
         <a href="mailto:iamleomiguel@gmail.com" class="social-link"><i class="ti ti-mail"></i> Email</a>
+        <button type="button" id="copy-email-btn" class="social-link copy-email-btn" aria-label="Copy email address to clipboard"><i class="ti ti-copy" aria-hidden="true"></i> <span id="copy-email-label">Copy email</span></button>
         <a href="https://tryhackme.com/p/r3tro.n3o" target="_blank" rel="noopener" class="social-link"><i class="ti ti-target"></i> TryHackMe</a>
         <a href="https://app.hackthebox.com/profile/r3tron3o" target="_blank" rel="noopener" class="social-link"><i class="ti ti-box"></i> HackTheBox</a>
         <a href="https://medium.com/@r3tro-n3o" target="_blank" rel="noopener" class="social-link"><i class="ti ti-notebook"></i> Medium</a>
@@ -161,7 +178,7 @@
     <div class="cta-band glass reveal">
       <div>
         <h2 class="cta-title">Not ready to talk? Look at the <em>evidence</em> first.</h2>
-        <p class="cta-sub">Twelve projects with real output, or the story of how I got here. Either one tells you what you need to know.</p>
+        <p class="cta-sub">Three tools and a DFIR lab on GitHub and Medium, or the story of how I got here. Either one tells you what you need to know.</p>
       </div>
       <div class="cta-actions">
         <a href="projects.html" class="btn btn-primary">See projects</a>
@@ -170,6 +187,8 @@
     </div>
   </div>
 </section>
+
+<div class="divider"></div>
 
 </main>
 
@@ -185,11 +204,9 @@
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="projects.html">Projects</a>
-        <a href="skills.html">Skills</a>
       </div>
       <div class="footer-col">
-        <h4>More</h4>
-        <a href="journey.html">Journey</a>
+        <h4>Elsewhere</h4>
         <a href="blog.html">Blog</a>
         <a href="contact.html">Contact</a>
         <a href="https://github.com/r3tro-n3o" target="_blank" rel="noopener">GitHub</a>
@@ -211,6 +228,7 @@
   </div>
 </footer>
 
-<script src="assets/js/main.js"></script>
+<script src="assets/js/main.js?v=8"></script>
+<script src="assets/js/depth.js" defer></script>
 </body>
 </html>

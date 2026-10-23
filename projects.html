@@ -3,11 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="12 cybersecurity projects by Leo Mugambi (r3tro_n3o) — recon tooling, network IDS, DFIR automation, cloud misconfiguration scanners, and honeypots.">
+<meta name="description" content="Security projects by Leo Mugambi (r3tro_n3o) — the three tools on GitHub, the DFIR lab, and the concepts on the roadmap.">
 <meta property="og:title" content="Projects | Leo Mugambi — r3tro_n3o">
-<meta property="og:description" content="Offensive tools, defensive forensics, and cloud security projects with real output and case studies.">
+<meta property="og:description" content="Three shipped tools, one DFIR lab, and the roadmap — clearly separated, honestly labelled.">
 <meta property="og:type" content="website">
+<link rel="canonical" href="https://leomugambi.pages.dev/projects.html">
+<meta property="og:url" content="https://leomugambi.pages.dev/projects.html">
+<meta property="og:image" content="https://leomugambi.pages.dev/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="r3tro_n3o — terminal-style card for Leo Mugambi, cybersecurity practitioner">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Leo Mugambi | r3tro_n3o">
+<meta name="twitter:description" content="Cybersecurity practitioner. Offensive security in progress. Building from Africa.">
+
 <title>Projects — Leo Mugambi | r3tro_n3o</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<meta name="theme-color" content="#0d0e12">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
@@ -25,9 +39,11 @@
     }
   })();
 </script>
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css?v=8">
+<link rel="stylesheet" href="assets/css/depth.css?v=8">
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
 <div class="aurora" aria-hidden="true">
   <span class="blob b1"></span>
@@ -35,6 +51,8 @@
   <span class="blob b3"></span>
 </div>
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div class="dot-grid" aria-hidden="true"></div>
+<div class="pointer-halo" aria-hidden="true"></div>
 
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
@@ -46,8 +64,6 @@
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="projects.html" class="active">Projects</a></li>
-      <li><a href="skills.html">Skills</a></li>
-      <li><a href="journey.html">Journey</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -66,15 +82,13 @@
   <a href="index.html" class="mm-link" onclick="toggleMenu()">Home</a>
   <a href="about.html" class="mm-link" onclick="toggleMenu()">About</a>
   <a href="projects.html" class="mm-link active" onclick="toggleMenu()">Projects</a>
-  <a href="skills.html" class="mm-link" onclick="toggleMenu()">Skills</a>
-  <a href="journey.html" class="mm-link" onclick="toggleMenu()">Journey</a>
   <a href="blog.html" class="mm-link" onclick="toggleMenu()">Blog</a>
   <a href="contact.html" class="mm-link" onclick="toggleMenu()">Contact</a>
   <button class="theme-toggle" type="button" aria-label="Toggle color theme"><i class="ti ti-sun theme-icon-sun" aria-hidden="true"></i><i class="ti ti-moon theme-icon-moon" aria-hidden="true"></i></button>
   <div class="mm-meta">Building from Africa · Eyes on the global stage</div>
 </div>
 
-<main>
+<main id="main-content" tabindex="-1">
 
 <!-- PAGE HEADER -->
 <section class="page-head">
@@ -85,361 +99,178 @@
         <span class="eyebrow"><span class="eyebrow-num">01</span> Field Work</span>
         <h1 class="page-title" style="margin-top:1rem;">Things I built to <em>break things</em></h1>
       </div>
-      <p class="page-lede">Twelve tools across offense, defense, and cloud. Every card opens a case study with <strong>the real output</strong> — not a description of what it should do.</p>
+      <p class="page-lede">Three tools and a lab, all <strong>real and on GitHub or Medium</strong>. Everything under Concepts is designed but not built yet — no code, no repo, no output.</p>
     </div>
   </div>
 </section>
+
+<div class="divider"></div>
 
 <!-- PROJECTS -->
 <section style="padding-top:1rem;">
   <div class="wrap">
 
-    <div class="filter-bar reveal">
-      <button class="filter-btn active" data-filter="all">All (12)</button>
-      <button class="filter-btn" data-filter="offensive">Offensive</button>
-      <button class="filter-btn" data-filter="defensive">Defensive &amp; Forensics</button>
-      <button class="filter-btn" data-filter="cloud">Cloud &amp; Infrastructure</button>
-    </div>
-
-    <!-- OFFENSIVE -->
-    <div class="cat-block" id="offensive" data-cat="offensive">
+    <!-- 01 TOOLS — shipped -->
+    <div class="cat-block" id="tools">
       <div class="cat-head reveal">
         <span class="cat-index">01</span>
-        <h2 class="cat-name">Offensive Tools</h2>
-        <p class="cat-desc">Attack. Probe. Break. — Recon automation, network analysis, wireless auditing, exploitation tooling.</p>
+        <h2 class="cat-name">Tools — shipped</h2>
+        <p class="cat-desc">On GitHub. Clone them, read the code, question the output.</p>
       </div>
-      <div class="work-grid">
+
+      <div class="work-grid bento bento-tools">
 
         <article class="cs-card reveal">
           <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python · CLI</span></div>
+            <div class="cs-meta"><span class="ops-badge badge-active">Shipped</span><span class="cs-lang">Python · CLI</span></div>
             <h3 class="cs-title">r3con — OSINT Recon Tool</h3>
-            <p class="cs-desc">Multi-phase recon pipeline: passive subdomain enumeration, HTTP probing, rule-based tech fingerprinting, banner grabbing, Shodan enrichment, dual JSON+TXT reports with risk flags.</p>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Shodan API</span><span class="tech-tag">dnspython</span><span class="tech-tag">Rich</span><span class="tech-tag">WHOIS</span></div>
+            <p class="cs-desc">Multi-phase recon pipeline: passive subdomain enumeration (crt.sh, HackerTarget, RapidDNS), HTTP probing, rule-based tech fingerprinting, DNS and WHOIS, banner grabbing, Shodan enrichment — then one structured report (JSON + TXT) with risk flags.</p>
+            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Shodan API</span><span class="tech-tag">Dnspython</span></div>
           </div>
+          <div class="cs-term" aria-hidden="true"><span class="t-dot">┌──(</span><span class="t-str">r3tro_n3o</span><span class="t-dot">㉿kali)</span><span class="t-out">-[~]</span>
+<span class="t-out">└─$ </span><span class="t-cmd">python r3con.py</span> <span class="t-flag">-d</span> <span class="t-str">&lt;target.com&gt;</span>
+<span class="t-out">  --threads 20</span>
+<span class="t-out"># passive enum → probes → fingerprint → Shodan</span>
+<span class="t-out"># report:</span> <span class="t-ok">JSON + TXT</span></div>
           <div class="cs-links">
             <a href="https://github.com/r3tro-n3o/r3con" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
           </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Problem</div><div class="proof-text">Manual recon across multiple tools is slow and inconsistent. Fragmented results across 5 terminal windows with no unified report or risk scoring.</div></div>
-            <div class="proof-section"><div class="proof-label">Attack Scenario</div><div class="proof-text">An attacker finds forgotten subdomains via crt.sh, probes alive hosts, fingerprints Apache + WordPress versions, grabs an SSH banner revealing an outdated OpenSSH build, then checks Shodan for known CVEs — all in minutes.</div></div>
-            <div class="proof-section"><div class="proof-label">Real Output</div>
-              <div class="proof-terminal">
-<span class="t-dim">└─$ python r3con.py -d scanme.nmap.org</span><br>
-<span class="t-green">[+]</span> <span class="t-white">Found 1 subdomain | IP: 45.33.32.156</span><br>
-<span class="t-green">[+]</span> <span class="t-white">ALIVE scanme.nmap.org [200] (0.93s)</span><br>
-<span class="t-cyan">[+]</span> <span class="t-white">Tech: Apache/2.4.7 (Ubuntu)</span><br>
-<span class="t-green">[+]</span> <span class="t-white">Port 22 open [SSH] SSH-2.0-OpenSSH_6.6.1p1</span><br>
-<span class="t-red">[!]</span> <span class="t-white">No HTTPS detected — traffic in plaintext</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Reduces recon time 80%</span><span class="impact-badge">&#9889; Surfaces hidden subdomains</span><span class="impact-badge">&#9889; CVE correlation</span></div></div>
-          </div></div>
         </article>
 
-        <article class="cs-card reveal" style="transition-delay:0.08s;">
+        <article class="cs-card reveal" style="transition-delay:0.1s;">
           <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python · Scapy</span></div>
+            <div class="cs-meta"><span class="ops-badge badge-active">Shipped</span><span class="cs-lang">Python · Scapy</span></div>
             <h3 class="cs-title">NetWatch — Network IDS</h3>
-            <p class="cs-desc">Real-time network intrusion detection built on Scapy. Detects ARP spoofing, port scans, SYN floods, and DNS anomalies. Flags MITM attempts and reconstructs TCP streams.</p>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Scapy</span><span class="tech-tag">TCP/IP</span><span class="tech-tag">IDS</span></div>
+            <p class="cs-desc">Captures live traffic (or replays PCAPs), parses packets by protocol and runs a detection engine for five rule sets: SYN scans, port scans, ARP spoofing, DNS anomalies, and ICMP floods. Real-time alerts, plus a JSON + TXT session report on exit.</p>
+            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Scapy</span><span class="tech-tag">IDS</span></div>
           </div>
+          <div class="cs-term" aria-hidden="true"><span class="t-dot">┌──(</span><span class="t-str">r3tro_n3o</span><span class="t-dot">㉿kali)</span><span class="t-out">-[~]</span>
+<span class="t-out">└─$ </span><span class="t-cmd">sudo python netwatch.py</span> <span class="t-flag">--live</span>
+<span class="t-out">  --iface eth0</span>
+<span class="t-out"># SYN · ARP spoof · ICMP · DNS · port scan</span>
+<span class="t-out"># alerts:</span> <span class="t-ok">real time</span><span class="t-out"> ·</span> <span class="t-ok">JSON + TXT</span></div>
           <div class="cs-links">
             <a href="https://github.com/r3tro-n3o/n3twatch" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
           </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Problem</div><div class="proof-text">ARP poisoning and port scans often go undetected because most defenders don't have scripted detection running on their local networks.</div></div>
-            <div class="proof-section"><div class="proof-label">Detection Output</div>
-              <div class="proof-terminal">
-<span class="t-green">[*]</span> <span class="t-white">Capturing on eth0...</span><br>
-<span class="t-red">[!] ARP SPOOF DETECTED</span><br>
-<span class="t-white">&nbsp;&nbsp;MAC 08:00:27:aa:bb:cc claims 192.168.1.1</span><br>
-<span class="t-white">&nbsp;&nbsp;Previously: 08:00:27:11:22:33</span><br>
-<span class="t-red">[!] MITM RISK — two MACs for same IP</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Real-time ARP detection</span><span class="impact-badge">&#9889; SYN flood detection</span><span class="impact-badge">&#9889; No GUI required</span></div></div>
-          </div></div>
         </article>
 
-        <article class="cs-card reveal" style="transition-delay:0.16s;">
+        <article class="cs-card reveal" style="transition-delay:0.2s;">
           <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python · Flask</span></div>
-            <h3 class="cs-title">VulnLab — Vulnerable Web App</h3>
-            <p class="cs-desc">Custom DVWA-style target with documented SQLi, XSS, IDOR, SSRF, and command injection — each with a full attack walkthrough and the actual fix applied.</p>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Flask</span><span class="tech-tag">OWASP Top 10</span><span class="tech-tag">SQLite</span></div>
+            <div class="cs-meta"><span class="ops-badge badge-active">Shipped</span><span class="cs-lang">Python · AWS</span></div>
+            <h3 class="cs-title">CloudLens — Cloud Attack-Path Analyzer</h3>
+            <p class="cs-desc">Local-first attack-path analysis for an AWS environment: models identities, roles, resources and compute as a graph and finds the paths an attacker could actually chain from an identity to a sensitive resource. Runs on local JSON files — no cloud account, no spend.</p>
+            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">AWS IAM</span><span class="tech-tag">Attack graphs</span></div>
           </div>
+          <div class="cs-term" aria-hidden="true"><span class="t-dot">┌──(</span><span class="t-str">r3tro_n3o</span><span class="t-dot">㉿kali)</span><span class="t-out">-[~]</span>
+<span class="t-out">└─$ </span><span class="t-cmd">python3 cloudlens/cli.py scan</span>
+<span class="t-str">  examples/bank-sim.json</span>
+<span class="t-out"># identities → roles → resources</span>
+<span class="t-ok"># CRITICAL / HIGH / MEDIUM</span></div>
           <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/vulnlab" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
+            <a href="https://github.com/r3tro-n3o/cloudlens" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
           </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Attack + Fix</div>
-              <div class="proof-terminal">
-<span class="t-red"># VULNERABLE</span><br>
-<span class="t-dim">query = f"SELECT * FROM users WHERE user='{username}'"</span><br>
-<span class="t-red"># Input: admin' -- &rarr; auth bypass</span><br><br>
-<span class="t-green"># FIXED</span><br>
-<span class="t-white">query = "SELECT * FROM users WHERE user=?"</span><br>
-<span class="t-white">cursor.execute(query, (username,))</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; 10+ vulnerability classes</span><span class="impact-badge">&#9889; Attack + fix per vuln</span></div></div>
-          </div></div>
-        </article>
-
-        <article class="cs-card reveal" style="transition-delay:0.24s;">
-          <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python · Scapy</span></div>
-            <h3 class="cs-title">Wireless Auditor</h3>
-            <p class="cs-desc">WiFi security auditing tool. Scans for open networks, detects WEP/WPA misconfigurations, captures handshakes, and identifies rogue APs on the local radio environment.</p>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Scapy</span><span class="tech-tag">802.11</span><span class="tech-tag">WPA</span><span class="tech-tag">RF</span></div>
-          </div>
-          <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/wireless-auditor" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
-          </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Problem</div><div class="proof-text">Most wireless auditing requires expensive tools or complex setups. This runs on any Linux box with a wireless adapter in monitor mode.</div></div>
-            <div class="proof-section"><div class="proof-label">Scan Output</div>
-              <div class="proof-terminal">
-<span class="t-green">[*]</span> <span class="t-white">Scanning on wlan0mon...</span><br>
-<span class="t-red">[!] OPEN network: "CafeGuest" — no encryption</span><br>
-<span class="t-red">[!] WEP network: "OldRouter_5G" — crackable</span><br>
-<span class="t-cyan">[+]</span> <span class="t-white">Rogue AP detected: BSSID spoofing "HomeNetwork"</span><br>
-<span class="t-green">[+]</span> <span class="t-white">WPA2 handshake captured — 3 targets</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Detects rogue APs</span><span class="impact-badge">&#9889; Flags weak encryption</span><span class="impact-badge">&#9889; Zero external deps</span></div></div>
-          </div></div>
         </article>
 
       </div>
     </div>
 
-    <!-- DEFENSIVE -->
-    <div class="cat-block" id="defensive" data-cat="defensive">
+    <!-- 02 LAB — running -->
+    <div class="cat-block" id="lab">
       <div class="cat-head reveal">
         <span class="cat-index">02</span>
-        <h2 class="cat-name">Defensive &amp; Forensics</h2>
-        <p class="cat-desc">Detect. Hunt. Respond. — Log analysis, endpoint detection, incident response, and what attackers leave behind.</p>
+        <h2 class="cat-name">Lab — running</h2>
+        <p class="cat-desc">Where the tools get tested.</p>
       </div>
-      <div class="work-grid">
+
+      <div class="work-grid bento bento-lab">
 
         <article class="cs-card reveal">
           <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python · PowerShell</span></div>
-            <h3 class="cs-title">Windows Event Log Analyzer</h3>
-            <p class="cs-desc">Parses Windows Security, System, and PowerShell logs to flag lateral movement, privilege escalation, and persistence mechanisms.</p>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">PowerShell</span><span class="tech-tag">DFIR</span><span class="tech-tag">EVTX</span></div>
+            <div class="cs-meta"><span class="ops-badge badge-active">Running</span><span class="cs-lang">DFIR</span></div>
+            <h3 class="cs-title">Velociraptor + Sysmon DFIR Lab</h3>
+            <p class="cs-desc">Velociraptor server on Kali Linux, a Windows 10 VM as the endpoint, Sysmon for telemetry. Attack simulations in, artefacts out — hunting through VQL to rebuild timelines of what the attacker left behind.</p>
+            <div class="cs-tags"><span class="tech-tag">Velociraptor</span><span class="tech-tag">Sysmon</span><span class="tech-tag">VQL</span><span class="tech-tag">KVM</span></div>
           </div>
           <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/wineventlog" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
+            <a href="https://r3tro-n3o.medium.com/i-wanted-to-know-what-an-attacker-leaves-behind-so-i-built-a-threat-hunting-lab-baaabfb724c3" target="_blank" rel="noopener" class="project-link link-demo">Write-up on Medium ↗</a>
           </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Detection Output</div>
-              <div class="proof-terminal">
-<span class="t-green">[*]</span> <span class="t-white">Parsing Security.evtx... 48,291 events</span><br>
-<span class="t-red">[!] Event 4625 x47 in 2min — BRUTE FORCE</span><br>
-<span class="t-red">[!] Event 4688: cmd.exe &rarr; mimikatz.exe</span><br>
-<span class="t-red">[!] Event 4624 NTLM: WORKSTATION &rarr; DC01</span><br>
-<span class="t-green">[+]</span> <span class="t-white">3 high-severity alerts flagged</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Surfaces brute force</span><span class="impact-badge">&#9889; Detects mimikatz</span><span class="impact-badge">&#9889; Maps lateral movement</span></div></div>
-          </div></div>
-        </article>
-
-        <article class="cs-card reveal" style="transition-delay:0.08s;">
-          <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python · LDAP</span></div>
-            <h3 class="cs-title">AD Auditor</h3>
-            <p class="cs-desc">Active Directory security auditor. Enumerates users, groups, GPOs, and ACLs to surface privilege escalation paths, stale accounts, and misconfigured permissions.</p>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">LDAP</span><span class="tech-tag">Active Directory</span><span class="tech-tag">RBAC</span></div>
-          </div>
-          <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/ad-auditor" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
-          </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Problem</div><div class="proof-text">AD misconfigurations are the #1 vector in enterprise breaches. Most orgs don't audit them until after the incident.</div></div>
-            <div class="proof-section"><div class="proof-label">Audit Output</div>
-              <div class="proof-terminal">
-<span class="t-green">[*]</span> <span class="t-white">Enumerating CORP.LOCAL...</span><br>
-<span class="t-red">[!] 3 users with AdminSDHolder — shadow admins</span><br>
-<span class="t-red">[!] 12 stale accounts (90+ days, still enabled)</span><br>
-<span class="t-red">[!] GPO "DefaultDomainPolicy" — weak password policy</span><br>
-<span class="t-cyan">[+]</span> <span class="t-white">Kerberoastable accounts: 4 found</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Finds shadow admins</span><span class="impact-badge">&#9889; Kerberoast detection</span><span class="impact-badge">&#9889; GPO auditing</span></div></div>
-          </div></div>
-        </article>
-
-        <article class="cs-card reveal" style="transition-delay:0.16s;">
-          <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python · DFIR</span></div>
-            <h3 class="cs-title">Forensics Toolkit</h3>
-            <p class="cs-desc">DFIR artifact collection and triage toolkit. Extracts prefetch files, registry hives, browser history, recently accessed files, and USB artifacts from Windows endpoints.</p>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Volatility</span><span class="tech-tag">Registry</span><span class="tech-tag">Prefetch</span></div>
-          </div>
-          <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/forensics-toolkit" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
-          </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Triage Output</div>
-              <div class="proof-terminal">
-<span class="t-green">[*]</span> <span class="t-white">Collecting artifacts from C:\...</span><br>
-<span class="t-cyan">[+]</span> <span class="t-white">Prefetch: 47 entries — mimikatz.exe found</span><br>
-<span class="t-red">[!] Registry: AutoRun key modified 2026-05-01</span><br>
-<span class="t-red">[!] USB: Unknown device mounted 3x this week</span><br>
-<span class="t-green">[+]</span> <span class="t-white">Timeline exported — 112 IOCs flagged</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Full artifact triage</span><span class="impact-badge">&#9889; Timeline reconstruction</span><span class="impact-badge">&#9889; USB forensics</span></div></div>
-          </div></div>
-        </article>
-
-        <article class="cs-card reveal" style="transition-delay:0.24s;">
-          <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python · IR</span></div>
-            <h3 class="cs-title">IR Framework</h3>
-            <p class="cs-desc">Structured incident response automation. Guides through identification, containment, eradication, and recovery phases with automated evidence collection and report generation.</p>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">NIST IR</span><span class="tech-tag">Automation</span><span class="tech-tag">Reporting</span></div>
-          </div>
-          <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/ir-framework" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
-          </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">IR Workflow</div>
-              <div class="proof-terminal">
-<span class="t-cyan">[IDENTIFY]</span> <span class="t-white">Incident type: ransomware</span><br>
-<span class="t-cyan">[CONTAIN]</span> <span class="t-white">Network isolation script — executed</span><br>
-<span class="t-cyan">[ERADICATE]</span> <span class="t-white">IOC sweep — 3 hosts flagged</span><br>
-<span class="t-cyan">[RECOVER]</span> <span class="t-white">Backup integrity verified</span><br>
-<span class="t-green">[+]</span> <span class="t-white">IR report generated — PDF + JSON</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; NIST IR aligned</span><span class="impact-badge">&#9889; Automated evidence chain</span><span class="impact-badge">&#9889; PDF reporting</span></div></div>
-          </div></div>
         </article>
 
       </div>
     </div>
 
-    <!-- CLOUD -->
-    <div class="cat-block" id="cloud" data-cat="cloud">
+    <!-- 03 CONCEPTS — designed, not built -->
+    <div class="cat-block" id="concepts">
       <div class="cat-head reveal">
         <span class="cat-index">03</span>
-        <h2 class="cat-name">Cloud &amp; Infrastructure</h2>
-        <p class="cat-desc">Misconfigure. Detect. Harden. — Cloud misconfiguration scanning, honeypots, threat intel automation.</p>
+        <h2 class="cat-name">Concepts — coming soon</h2>
+        <p class="cat-desc">Designed, not built. No code, no repo, no output. They move up to section 01 one by one.</p>
       </div>
-      <div class="work-grid">
+
+      <div class="work-grid bento bento-concepts">
 
         <article class="cs-card reveal">
           <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python · AWS</span></div>
-            <h3 class="cs-title">AWScan — AWS Misconfig Scanner</h3>
-            <p class="cs-desc">Automated detection of IAM privilege escalation paths, public S3 buckets, open security groups, missing CloudTrail logging, and VPC misconfigurations.</p>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Boto3</span><span class="tech-tag">AWS</span><span class="tech-tag">IAM</span><span class="tech-tag">CLI</span></div>
+            <div class="cs-meta"><span class="ops-badge badge-planned">Concept · Next</span><span class="cs-lang">Python</span></div>
+            <h3 class="cs-title">Windows Event Log Analyzer</h3>
+            <p class="cs-desc">Parse Security and PowerShell logs and flag brute force patterns, suspicious process creation, and lateral movement.</p>
           </div>
-          <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/awscan" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
-          </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Scanner Output</div>
-              <div class="proof-terminal">
-<span class="t-green">[*]</span> <span class="t-white">Scanning AWS account: 123456789012</span><br>
-<span class="t-red">[CRITICAL] S3 'company-backups-prod' is PUBLIC</span><br>
-<span class="t-white">&nbsp;&nbsp;Objects: 847 | Size: 2.3GB</span><br>
-<span class="t-red">[HIGH] IAM Role 'dev-role' has iam:* permissions</span><br>
-<span class="t-red">[HIGH] SG sg-0abc123 port 22 open to 0.0.0.0/0</span><br>
-<span class="t-cyan">[INFO]</span> <span class="t-white">3 critical findings. Report saved.</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Finds public S3 buckets</span><span class="impact-badge">&#9889; Maps IAM escalation</span><span class="impact-badge">&#9889; Flags exposed ports</span></div></div>
-          </div></div>
         </article>
 
         <article class="cs-card reveal" style="transition-delay:0.08s;">
           <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python · n8n</span></div>
-            <h3 class="cs-title">Honeypot + Threat Intel Reporter</h3>
-            <p class="cs-desc">Deployable honeypot capturing attacker TTPs. Fake SSH and HTTP listeners log every interaction, enrich IPs via AbuseIPDB, and auto-generate reports via n8n.</p>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Linux</span><span class="tech-tag">n8n</span><span class="tech-tag">AbuseIPDB</span></div>
+            <div class="cs-meta"><span class="ops-badge badge-planned">Concept</span><span class="cs-lang">Python · Flask</span></div>
+            <h3 class="cs-title">VulnLab — Vulnerable Web App</h3>
+            <p class="cs-desc">An intentionally vulnerable Flask app. Each OWASP bug gets an attack write-up and a fix.</p>
           </div>
-          <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/honeypot" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
-          </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Live Output</div>
-              <div class="proof-terminal">
-<span class="t-green">[*]</span> <span class="t-white">Honeypot active on ports 22, 80, 443</span><br>
-<span class="t-cyan">[HIT]</span> <span class="t-white">185.220.101.45 SSH login attempt</span><br>
-<span class="t-red">[!]</span> <span class="t-white">AbuseIPDB: 97% — Tor exit node</span><br>
-<span class="t-green">[n8n]</span> <span class="t-white">Report &rarr; Slack notification sent</span><br>
-<span class="t-cyan">[+]</span> <span class="t-white">24h: 847 attempts, 23 unique IPs</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Passive attacker intel</span><span class="impact-badge">&#9889; TTP capture</span><span class="impact-badge">&#9889; Automated reporting</span></div></div>
-          </div></div>
         </article>
 
         <article class="cs-card reveal" style="transition-delay:0.16s;">
           <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python · n8n</span></div>
-            <h3 class="cs-title">Threat Intel Platform</h3>
-            <p class="cs-desc">Automated threat intelligence lifecycle. Ingests IOCs from multiple feeds, correlates against local logs, deduplicates, scores by severity, and pushes alerts via n8n workflows.</p>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">n8n</span><span class="tech-tag">STIX</span><span class="tech-tag">AbuseIPDB</span><span class="tech-tag">IOC</span></div>
+            <div class="cs-meta"><span class="ops-badge badge-planned">Concept</span><span class="cs-lang">Python · n8n</span></div>
+            <h3 class="cs-title">Honeypot + Threat Intel Reporter</h3>
+            <p class="cs-desc">Fake SSH and HTTP listeners that log attackers, look up their IPs, and send a daily report through n8n.</p>
           </div>
-          <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/threat-intel" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
-          </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Pipeline Output</div>
-              <div class="proof-terminal">
-<span class="t-green">[*]</span> <span class="t-white">Ingesting 3 feeds — 1,247 IOCs</span><br>
-<span class="t-cyan">[+]</span> <span class="t-white">Deduped to 834 unique indicators</span><br>
-<span class="t-red">[!] 12 IOCs matched local firewall logs</span><br>
-<span class="t-red">[!] 185.220.101.45 — Tor exit, score: 97%</span><br>
-<span class="t-green">[n8n]</span> <span class="t-white">Slack alert + report dispatched</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Multi-feed ingestion</span><span class="impact-badge">&#9889; Local log correlation</span><span class="impact-badge">&#9889; Automated alerting</span></div></div>
-          </div></div>
         </article>
 
         <article class="cs-card reveal" style="transition-delay:0.24s;">
           <div class="cs-card-header">
-            <div class="cs-meta"><span class="ops-badge badge-active">Complete</span><span class="cs-lang">Python · Docker</span></div>
+            <div class="cs-meta"><span class="ops-badge badge-planned">Concept</span><span class="cs-lang">Python · LDAP</span></div>
+            <h3 class="cs-title">AD Auditor</h3>
+            <p class="cs-desc">Enumerate an Active Directory lab and flag stale accounts, weak policies, and Kerberoastable users.</p>
+          </div>
+        </article>
+
+        <article class="cs-card reveal">
+          <div class="cs-card-header">
+            <div class="cs-meta"><span class="ops-badge badge-planned">Concept</span><span class="cs-lang">Python</span></div>
+            <h3 class="cs-title">Forensics Toolkit</h3>
+            <p class="cs-desc">One place for the DFIR basics: file hashing, timeline generation, and simple artefact carving from disk images.</p>
+          </div>
+        </article>
+
+        <article class="cs-card reveal" style="transition-delay:0.08s;">
+          <div class="cs-card-header">
+            <div class="cs-meta"><span class="ops-badge badge-planned">Concept</span><span class="cs-lang">Python</span></div>
+            <h3 class="cs-title">IR Framework</h3>
+            <p class="cs-desc">Incident-response checklists and pipeline scaffolding — from first alert to containment and reporting.</p>
+          </div>
+        </article>
+
+        <article class="cs-card reveal" style="transition-delay:0.16s;">
+          <div class="cs-card-header">
+            <div class="cs-meta"><span class="ops-badge badge-planned">Concept</span><span class="cs-lang">Python · Scapy</span></div>
+            <h3 class="cs-title">Wireless Auditor</h3>
+            <p class="cs-desc">Scan for open networks, weak encryption, and rogue access points from a monitor-mode adapter.</p>
+          </div>
+        </article>
+
+        <article class="cs-card reveal" style="transition-delay:0.24s;">
+          <div class="cs-card-header">
+            <div class="cs-meta"><span class="ops-badge badge-planned">Concept</span><span class="cs-lang">Python · Docker</span></div>
             <h3 class="cs-title">Container Scanner</h3>
-            <p class="cs-desc">Docker and Kubernetes security scanner. Audits container configs for privileged mode, exposed sockets, missing resource limits, and K8s RBAC misconfigurations.</p>
-            <div class="cs-tags"><span class="tech-tag">Python</span><span class="tech-tag">Docker</span><span class="tech-tag">Kubernetes</span><span class="tech-tag">RBAC</span><span class="tech-tag">YAML</span></div>
+            <p class="cs-desc">Check Docker and Kubernetes configs for privileged containers, exposed sockets, and over-broad RBAC.</p>
           </div>
-          <div class="cs-links">
-            <a href="https://github.com/r3tro-n3o/container-scanner" target="_blank" rel="noopener" class="project-link link-github">GitHub</a>
-            <button class="cs-expand-btn" onclick="toggleProof(this)">Case Study <span class="expand-arrow">&#9660;</span></button>
-          </div>
-          <div class="cs-proof"><div class="cs-proof-inner">
-            <div class="proof-section"><div class="proof-label">Scan Output</div>
-              <div class="proof-terminal">
-<span class="t-green">[*]</span> <span class="t-white">Scanning 8 containers + 12 K8s manifests</span><br>
-<span class="t-red">[CRITICAL] nginx:latest — running as root</span><br>
-<span class="t-red">[HIGH] Docker socket mounted in app container</span><br>
-<span class="t-red">[HIGH] K8s ClusterRoleBinding to cluster-admin</span><br>
-<span class="t-cyan">[INFO]</span> <span class="t-white">5 critical findings. Report saved.</span>
-              </div>
-            </div>
-            <div class="proof-section"><div class="proof-label">Impact</div><div class="impact-wrap"><span class="impact-badge">&#9889; Docker + K8s coverage</span><span class="impact-badge">&#9889; RBAC misconfiguration</span><span class="impact-badge">&#9889; Container escape risks</span></div></div>
-          </div></div>
         </article>
 
       </div>
@@ -453,16 +284,18 @@
   <div class="wrap">
     <div class="cta-band glass reveal">
       <div>
-        <h2 class="cta-title">Want this kind of tooling on <em>your</em> side?</h2>
-        <p class="cta-sub">I take on freelance security work, custom tooling, and lab builds. Tell me what you're defending.</p>
+        <h2 class="cta-title">Want to talk about <em>any of it</em>?</h2>
+        <p class="cta-sub">Happy to walk through the code, or the reasoning behind the concepts.</p>
       </div>
       <div class="cta-actions">
         <a href="contact.html" class="btn btn-primary">Get in touch</a>
-        <a href="skills.html" class="btn btn-ghost">See my skills</a>
+        <a href="https://github.com/r3tro-n3o" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
       </div>
     </div>
   </div>
 </section>
+
+<div class="divider"></div>
 
 </main>
 
@@ -471,25 +304,25 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="brand">r3tro_n3o<span class="caret">_</span></a>
-        <p>Leo Mugambi — cybersecurity practitioner building offensive security tooling from Africa. Long game: NOX, a company that makes cybercrime harder.</p>
+        <p>Leo Mugambi — cybersecurity practitioner building security tooling from Africa. Long game: NOX, a company that makes cybercrime harder.</p>
       </div>
       <div class="footer-col">
         <h4>Pages</h4>
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="projects.html">Projects</a>
-        <a href="skills.html">Skills</a>
-      </div>
-      <div class="footer-col">
-        <h4>More</h4>
-        <a href="journey.html">Journey</a>
         <a href="blog.html">Blog</a>
         <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Elsewhere</h4>
         <a href="https://github.com/r3tro-n3o" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://medium.com/@r3tro-n3o" target="_blank" rel="noopener">Medium</a>
+        <a href="https://www.linkedin.com/in/leo-mugambi" target="_blank" rel="noopener">LinkedIn</a>
       </div>
       <div class="footer-col footer-status">
         <h4>Status</h4>
-        <div class="status-line"><span class="dot"></span> Open to internships &amp; freelance</div>
+        <div class="status-line"><span class="dot"></span> Open to internships &amp; junior roles</div>
         <div class="status-note">
           CPTS prep — active<br>
           DFIR lab — running<br>
@@ -504,20 +337,7 @@
   </div>
 </footer>
 
-<!-- CASE STUDY MODAL -->
-<div id="cs-modal" class="cs-modal-overlay" role="dialog" aria-modal="true" aria-label="Case study">
-  <div class="cs-modal-box">
-    <div class="cs-modal-close"><button onclick="closeModal()">✕ Close</button></div>
-    <div class="cs-modal-card-top">
-      <div id="modal-meta" style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;"></div>
-      <div id="modal-title" class="cs-modal-title"></div>
-      <div id="modal-desc" class="cs-modal-desc"></div>
-      <div id="modal-tags" class="cs-tags"></div>
-    </div>
-    <div id="modal-proof" class="cs-modal-proof"></div>
-  </div>
-</div>
-
-<script src="assets/js/main.js"></script>
+<script src="assets/js/main.js?v=8"></script>
+<script src="assets/js/depth.js" defer></script>
 </body>
 </html>
